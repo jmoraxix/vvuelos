@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e5ef92a688fd4af5bb9515a4f28d816b" Name="Diagram1">
+        <EntityTypeShape EntityType="DBvvuelosModel.Accion" Width="1.5" PointX="5.75" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBvvuelosModel.Aerolinea" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBvvuelosModel.Bitacora" Width="1.5" PointX="8" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBvvuelosModel.Clase" Width="1.5" PointX="5.75" PointY="7.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBvvuelosModel.Consecutivo" Width="1.5" PointX="8" PointY="10.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBvvuelosModel.EstadoVuelo" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBvvuelosModel.Pai" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBvvuelosModel.Puerta" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBvvuelosModel.Reservacion" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBvvuelosModel.Rol" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBvvuelosModel.TipoPago" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBvvuelosModel.Usuario" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBvvuelosModel.Vuelo" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="DBvvuelosModel.FK_Bitacora_AccionID" ManuallyRouted="false" />
+        <AssociationConnector Association="DBvvuelosModel.FK_Vuelo_AerolineaID" ManuallyRouted="false" />
+        <AssociationConnector Association="DBvvuelosModel.FK_Bitacora_ClaseID" ManuallyRouted="false" />
+        <AssociationConnector Association="DBvvuelosModel.FK_Bitacora_UsuarioID" ManuallyRouted="false" />
+        <AssociationConnector Association="DBvvuelosModel.FK_Consecutivo_ClaseID" ManuallyRouted="false" />
+        <AssociationConnector Association="DBvvuelosModel.FK_Vuelo_EstadoVueloID" ManuallyRouted="false" />
+        <AssociationConnector Association="DBvvuelosModel.FK_Vuelo_PaisDestinoID" ManuallyRouted="false" />
+        <AssociationConnector Association="DBvvuelosModel.FK_Vuelo_PuertaID" ManuallyRouted="false" />
+        <AssociationConnector Association="DBvvuelosModel.FK_Reservacion_TipoPagoID" ManuallyRouted="false" />
+        <AssociationConnector Association="DBvvuelosModel.FK_Reservacion_UsuarioID" ManuallyRouted="false" />
+        <AssociationConnector Association="DBvvuelosModel.FK_Reservacion_VueloID" ManuallyRouted="false" />
+        <AssociationConnector Association="DBvvuelosModel.RolUsuario" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
