@@ -3,32 +3,33 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 
 const data = [
-  { id: 1, nombre: "Admin" },
-  { id: 2, nombre: "Maintainer" }
+  { consecutivo: 1, nombre: "American Airlines" },
+  { consecutivo: 2, nombre: "Taca" },
+  { consecutivo: 3, nombre: "Avianca" }
 ];
 
-export default class RolUsuario extends Component {
+export default class Aerolinea extends Component {
 
   state = {
     data: data,
     modalInsertar: false,
     modalActualizar: false,
     form: {
-      id: "",
+      consecutivo: "",
       nombre: ""
     },
   };
 
-  nuevoRolUsuario = () => {
+  nuevaAerolinea = () => {
     return {
-      id: this.state.data.length + 1,
+      consecutivo: this.state.data.length + 1,
       nombre: ""
     };
   }
 
   mostrarModalInsertar = () => {
     this.setState({
-      form: this.nuevoRolUsuario(),
+      form: this.nuevaAerolinea(),
       modalInsertar: true,
     });
   };
@@ -48,39 +49,39 @@ export default class RolUsuario extends Component {
     this.setState({ modalActualizar: false });
   };
 
-  editar = (rolEditado) => {
+  editar = (aerolineaEditada) => {
     var contador = 0;
-    var listaRoles = this.state.data;
-    listaRoles.map((registro) => {
-      if (rolEditado.id == registro.id) {
-        listaRoles[contador].nombre = rolEditado.nombre;
+    var listaAerolineas = this.state.data;
+    listaAerolineas.map((registro) => {
+      if (aerolineaEditada.consecutivo == registro.consecutivo) {
+        listaAerolineas[contador].nombre = aerolineaEditada.nombre;
       }
       contador++;
     });
-    this.setState({ data: listaRoles, modalActualizar: false });
+    this.setState({ data: listaAerolineas, modalActualizar: false });
   };
 
-  eliminar = (rolEliminar) => {
+  eliminar = (aerolineaEliminar) => {
     var opcion = window.confirm("¿Está seguro que desea eliminar el ro?");
     if (opcion == true) {
       var contador = 0;
-      var listaRoles = this.state.data;
-      listaRoles.map((registro) => {
-        if (rolEliminar.id == registro.id) {
-          listaRoles.splice(contador, 1);
+      var listaAerolineas = this.state.data;
+      listaAerolineas.map((registro) => {
+        if (aerolineaEliminar.consecutivo == registro.consecutivo) {
+          listaAerolineas.splice(contador, 1);
         }
         contador++;
       });
-      this.setState({ data: listaRoles, modalInsertar: false });
+      this.setState({ data: listaAerolineas, modalInsertar: false });
     }
   };
 
   insertar= () => {
-    var rolNuevo = {...this.state.form};
-    rolNuevo.id = this.state.data.length+1;
-    var listaRoles = this.state.data;
-    listaRoles.push(rolNuevo);
-    this.setState({ modalInsertar: false, data: listaRoles });
+    var aerolineaNueva = {...this.state.form};
+    aerolineaNueva.consecutivo = this.state.data.length+1;
+    var listaAerolineas = this.state.data;
+    listaAerolineas.push(aerolineaNueva);
+    this.setState({ modalInsertar: false, data: listaAerolineas });
   }
 
   handleChange = (e) => {
@@ -99,22 +100,22 @@ export default class RolUsuario extends Component {
         <Container>
         <br />
          <Row>
-           <Col><h1>Roles de usuarios</h1></Col>
+           <Col><h1>Aerolineas</h1></Col>
            <Col><Button color="success" onClick={()=>this.mostrarModalInsertar()}>Crear</Button></Col>
          </Row>
           <Table>
             <thead>
               <tr>
-                <th>ID</th>
-                <th>Rol</th>
+                <th>Consecutivo</th>
+                <th>Aerolinea</th>
                 <th>Acciones</th>
               </tr>
             </thead>
 
             <tbody>
               {this.state.data.map((dato) => (
-                <tr key={dato.id}>
-                  <td>{dato.id}</td>
+                <tr key={dato.consecutivo}>
+                  <td>{dato.consecutivo}</td>
                   <td>{dato.nombre}</td>
                   <td>
                     <Button
@@ -133,20 +134,20 @@ export default class RolUsuario extends Component {
 
         <Modal isOpen={this.state.modalActualizar}>
           <ModalHeader>
-           <div><h3>Editar rol</h3></div>
+           <div><h3>Editar aerolinea</h3></div>
           </ModalHeader>
 
           <ModalBody>
             <FormGroup>
               <label>
-               Id:
+               Consecutivo:
               </label>
             
               <input
                 className="form-control"
                 readOnly
                 type="text"
-                value={this.state.form.id}
+                value={this.state.form.consecutivo}
               />
             </FormGroup>
             
@@ -184,7 +185,7 @@ export default class RolUsuario extends Component {
 
         <Modal isOpen={this.state.modalInsertar}>
           <ModalHeader>
-           <div><h3>Insertar rol</h3></div>
+           <div><h3>Insertar aerolinea</h3></div>
           </ModalHeader>
 
           <ModalBody>

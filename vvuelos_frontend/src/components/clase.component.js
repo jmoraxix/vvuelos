@@ -3,11 +3,16 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 
 const data = [
-  { id: 1, nombre: "Admin" },
-  { id: 2, nombre: "Maintainer" }
+  { id: 1, nombre: "Aeronlinea" },
+  { id: 2, nombre: "Pais" },
+  { id: 3, nombre: "Puerta" },
+  { id: 4, nombre: "Vuelo" },
+  { id: 5, nombre: "Reservacion" },
+  { id: 6, nombre: "EstadoVuelo" },
+  { id: 7, nombre: "TipoPago" }
 ];
 
-export default class RolUsuario extends Component {
+export default class TipoPago extends Component {
 
   state = {
     data: data,
@@ -19,7 +24,7 @@ export default class RolUsuario extends Component {
     },
   };
 
-  nuevoRolUsuario = () => {
+  nuevaClase = () => {
     return {
       id: this.state.data.length + 1,
       nombre: ""
@@ -28,7 +33,7 @@ export default class RolUsuario extends Component {
 
   mostrarModalInsertar = () => {
     this.setState({
-      form: this.nuevoRolUsuario(),
+      form: this.nuevaClase(),
       modalInsertar: true,
     });
   };
@@ -48,39 +53,39 @@ export default class RolUsuario extends Component {
     this.setState({ modalActualizar: false });
   };
 
-  editar = (rolEditado) => {
+  editar = (claseEditada) => {
     var contador = 0;
-    var listaRoles = this.state.data;
-    listaRoles.map((registro) => {
-      if (rolEditado.id == registro.id) {
-        listaRoles[contador].nombre = rolEditado.nombre;
+    var listaClases = this.state.data;
+    listaClases.map((registro) => {
+      if (claseEditada.id == registro.id) {
+        listaClases[contador].nombre = claseEditada.nombre;
       }
       contador++;
     });
-    this.setState({ data: listaRoles, modalActualizar: false });
+    this.setState({ data: listaClases, modalActualizar: false });
   };
 
-  eliminar = (rolEliminar) => {
+  eliminar = (claseEliminar) => {
     var opcion = window.confirm("¿Está seguro que desea eliminar el ro?");
     if (opcion == true) {
       var contador = 0;
-      var listaRoles = this.state.data;
-      listaRoles.map((registro) => {
-        if (rolEliminar.id == registro.id) {
-          listaRoles.splice(contador, 1);
+      var listaClases = this.state.data;
+      listaClases.map((registro) => {
+        if (claseEliminar.id == registro.id) {
+          listaClases.splice(contador, 1);
         }
         contador++;
       });
-      this.setState({ data: listaRoles, modalInsertar: false });
+      this.setState({ data: listaClases, modalInsertar: false });
     }
   };
 
   insertar= () => {
-    var rolNuevo = {...this.state.form};
-    rolNuevo.id = this.state.data.length+1;
-    var listaRoles = this.state.data;
-    listaRoles.push(rolNuevo);
-    this.setState({ modalInsertar: false, data: listaRoles });
+    var claseNueva = {...this.state.form};
+    claseNueva.id = this.state.data.length+1;
+    var listaClases = this.state.data;
+    listaClases.push(claseNueva);
+    this.setState({ modalInsertar: false, data: listaClases });
   }
 
   handleChange = (e) => {
@@ -99,14 +104,14 @@ export default class RolUsuario extends Component {
         <Container>
         <br />
          <Row>
-           <Col><h1>Roles de usuarios</h1></Col>
+           <Col><h1>Clases</h1></Col>
            <Col><Button color="success" onClick={()=>this.mostrarModalInsertar()}>Crear</Button></Col>
          </Row>
           <Table>
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Rol</th>
+                <th>Clase</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -133,13 +138,13 @@ export default class RolUsuario extends Component {
 
         <Modal isOpen={this.state.modalActualizar}>
           <ModalHeader>
-           <div><h3>Editar rol</h3></div>
+           <div><h3>Editar clase</h3></div>
           </ModalHeader>
 
           <ModalBody>
             <FormGroup>
               <label>
-               Id:
+               ID:
               </label>
             
               <input
@@ -184,7 +189,7 @@ export default class RolUsuario extends Component {
 
         <Modal isOpen={this.state.modalInsertar}>
           <ModalHeader>
-           <div><h3>Insertar rol</h3></div>
+           <div><h3>Insertar clase</h3></div>
           </ModalHeader>
 
           <ModalBody>

@@ -3,11 +3,12 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 
 const data = [
-  { id: 1, nombre: "Admin" },
-  { id: 2, nombre: "Maintainer" }
+  { id: 1, nombre: "Debito" },
+  { id: 2, nombre: "Credito" },
+  { id: 3, nombre: "Paypal" }
 ];
 
-export default class RolUsuario extends Component {
+export default class TipoPago extends Component {
 
   state = {
     data: data,
@@ -19,7 +20,7 @@ export default class RolUsuario extends Component {
     },
   };
 
-  nuevoRolUsuario = () => {
+  nuevoTipoPago = () => {
     return {
       id: this.state.data.length + 1,
       nombre: ""
@@ -28,7 +29,7 @@ export default class RolUsuario extends Component {
 
   mostrarModalInsertar = () => {
     this.setState({
-      form: this.nuevoRolUsuario(),
+      form: this.nuevoTipoPago(),
       modalInsertar: true,
     });
   };
@@ -48,39 +49,39 @@ export default class RolUsuario extends Component {
     this.setState({ modalActualizar: false });
   };
 
-  editar = (rolEditado) => {
+  editar = (tipoEditado) => {
     var contador = 0;
-    var listaRoles = this.state.data;
-    listaRoles.map((registro) => {
-      if (rolEditado.id == registro.id) {
-        listaRoles[contador].nombre = rolEditado.nombre;
+    var listaTipos = this.state.data;
+    listaTipos.map((registro) => {
+      if (tipoEditado.id == registro.id) {
+        listaTipos[contador].nombre = tipoEditado.nombre;
       }
       contador++;
     });
-    this.setState({ data: listaRoles, modalActualizar: false });
+    this.setState({ data: listaTipos, modalActualizar: false });
   };
 
-  eliminar = (rolEliminar) => {
+  eliminar = (tipoEliminar) => {
     var opcion = window.confirm("¿Está seguro que desea eliminar el ro?");
     if (opcion == true) {
       var contador = 0;
-      var listaRoles = this.state.data;
-      listaRoles.map((registro) => {
-        if (rolEliminar.id == registro.id) {
-          listaRoles.splice(contador, 1);
+      var listaTipos = this.state.data;
+      listaTipos.map((registro) => {
+        if (tipoEliminar.id == registro.id) {
+          listaTipos.splice(contador, 1);
         }
         contador++;
       });
-      this.setState({ data: listaRoles, modalInsertar: false });
+      this.setState({ data: listaTipos, modalInsertar: false });
     }
   };
 
   insertar= () => {
-    var rolNuevo = {...this.state.form};
-    rolNuevo.id = this.state.data.length+1;
-    var listaRoles = this.state.data;
-    listaRoles.push(rolNuevo);
-    this.setState({ modalInsertar: false, data: listaRoles });
+    var tipoNuevo = {...this.state.form};
+    tipoNuevo.id = this.state.data.length+1;
+    var listaTipos = this.state.data;
+    listaTipos.push(tipoNuevo);
+    this.setState({ modalInsertar: false, data: listaTipos });
   }
 
   handleChange = (e) => {
@@ -99,14 +100,14 @@ export default class RolUsuario extends Component {
         <Container>
         <br />
          <Row>
-           <Col><h1>Roles de usuarios</h1></Col>
+           <Col><h1>Tipos de pago</h1></Col>
            <Col><Button color="success" onClick={()=>this.mostrarModalInsertar()}>Crear</Button></Col>
          </Row>
           <Table>
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Rol</th>
+                <th>Tipo</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -133,13 +134,13 @@ export default class RolUsuario extends Component {
 
         <Modal isOpen={this.state.modalActualizar}>
           <ModalHeader>
-           <div><h3>Editar rol</h3></div>
+           <div><h3>Editar tipo de pago</h3></div>
           </ModalHeader>
 
           <ModalBody>
             <FormGroup>
               <label>
-               Id:
+               ID:
               </label>
             
               <input
@@ -184,7 +185,7 @@ export default class RolUsuario extends Component {
 
         <Modal isOpen={this.state.modalInsertar}>
           <ModalHeader>
-           <div><h3>Insertar rol</h3></div>
+           <div><h3>Insertar tipo de pago</h3></div>
           </ModalHeader>
 
           <ModalBody>
