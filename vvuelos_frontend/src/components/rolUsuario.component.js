@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import RolUsuarioDataService from "../services/rolUsuario.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 
@@ -18,6 +19,30 @@ export default class RolUsuario extends Component {
       nombre: ""
     },
   };
+
+  // componentDidMount() {
+  //   this.retrieveList();
+  // }
+
+  retrieveList() {
+    RolUsuarioDataService.getAll()
+      .then(response => {
+        this.setState({
+          data: response.data
+        });
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  refreshList() {
+    this.retrieveList();
+    this.setState({
+      currentTutorial: null
+    });
+  }
 
   nuevoRolUsuario = () => {
     return {
@@ -52,7 +77,7 @@ export default class RolUsuario extends Component {
     var contador = 0;
     var listaRoles = this.state.data;
     listaRoles.map((registro) => {
-      if (rolEditado.id == registro.id) {
+      if (rolEditado.id === registro.id) {
         listaRoles[contador].nombre = rolEditado.nombre;
       }
       contador++;
@@ -62,11 +87,11 @@ export default class RolUsuario extends Component {
 
   eliminar = (rolEliminar) => {
     var opcion = window.confirm("¿Está seguro que desea eliminar el ro?");
-    if (opcion == true) {
+    if (opcion === true) {
       var contador = 0;
       var listaRoles = this.state.data;
       listaRoles.map((registro) => {
-        if (rolEliminar.id == registro.id) {
+        if (rolEliminar.id === registro.id) {
           listaRoles.splice(contador, 1);
         }
         contador++;
