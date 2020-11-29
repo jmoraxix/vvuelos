@@ -13,5 +13,11 @@ namespace vvuelos_backend.vvuelos_frontend
         {
 
         }
+
+     
+        protected void Button2_Click1(object sender, EventArgs e)
+        {
+            Response.Redirect("MenuPrincipal.aspx");
+        }
     }
 }

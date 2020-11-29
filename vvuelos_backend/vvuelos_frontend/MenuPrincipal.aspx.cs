@@ -33,5 +33,10 @@ namespace vvuelos_backend.vvuelos_frontend
         {
 
         }
+
+        protected void Button8_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("CambiarContraseña.aspx");
+        }
     }
 }

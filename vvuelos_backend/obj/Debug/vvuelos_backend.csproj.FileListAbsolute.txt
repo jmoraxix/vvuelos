@@ -246,3 +246,6 @@ C:\Users\willi\Source\Repos\jmoraxix\vvuelos\vvuelos_backend\obj\Debug\vvuelos_b
 C:\Users\willi\Source\Repos\jmoraxix\vvuelos\vvuelos_backend\obj\Debug\vvuelos_backend.csproj.CopyComplete
 C:\Users\willi\Source\Repos\jmoraxix\vvuelos\vvuelos_backend\obj\Debug\vvuelos_backend.dll
 C:\Users\willi\Source\Repos\jmoraxix\vvuelos\vvuelos_backend\obj\Debug\vvuelos_backend.pdb
+C:\Users\willi\Source\Repos\jmoraxix\vvuelos\vvuelos_backend\bin\System.Web.Cors.dll
+C:\Users\willi\Source\Repos\jmoraxix\vvuelos\vvuelos_backend\bin\System.Web.Http.Cors.dll
+C:\Users\willi\Source\Repos\jmoraxix\vvuelos\vvuelos_backend\bin\System.Web.Http.Cors.xml

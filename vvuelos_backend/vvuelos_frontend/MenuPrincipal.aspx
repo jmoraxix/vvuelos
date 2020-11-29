@@ -5,6 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
     <title></title>
     <style type="text/css">
         .auto-style1 {
@@ -58,19 +59,19 @@
             <asp:Button ID="Button5" runat="server" Text="Usuarios" />
         </p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="Button6" runat="server" Height="23px" OnClick="Button6_Click" Text="-Crear Usuario" Width="121px" />
+        <asp:Button ID="Button6" runat="server" Height="33px" OnClick="Button6_Click" Text="-Crear Usuario" Width="132px" />
         <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="Button7" runat="server" Height="23px" Text="-Ver Usuarios" Width="131px" />
+        <asp:Button ID="Button7" runat="server" Height="31px" Text="-Ver Usuarios" Width="135px" />
         <br />
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="Button8" runat="server" Height="22px" Text="-Cambiar Contraseña" Width="162px" />
+        <asp:Button ID="Button8" runat="server" Height="34px" Text="-Cambiar Contraseña" Width="197px" OnClick="Button8_Click" />
         <p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <asp:Button ID="Button9" runat="server" OnClick="Button9_Click" Text="Administracion" Width="150px" />
         </p>
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <asp:Button ID="Button10" runat="server" Height="21px" Text="-Consecutivos" Width="121px" />
+        <asp:Button ID="Button10" runat="server" Height="32px" Text="-Consecutivos" Width="128px" />
     </form>
 </body>
 </html>
