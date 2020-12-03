@@ -133,6 +133,8 @@
     <NavigationProperty Name="Pai" Relationship="Self.FK_Vuelo_PaisDestinoID" FromRole="Vuelo" ToRole="Pais" />
     <NavigationProperty Name="Puerta" Relationship="Self.FK_Vuelo_PuertaID" FromRole="Vuelo" ToRole="Puerta" />
     <NavigationProperty Name="Reservacions" Relationship="Self.FK_Reservacion_VueloID" FromRole="Vuelo" ToRole="Reservacion" />
+    <Property Name="Precio" Type="Int32" />
+    <Property Name="Capacidad" Type="Int32" />
   </EntityType>
   <Association Name="FK_Bitacora_AccionID">
     <End Role="Accion" Type="Self.Accion" Multiplicity="1" />

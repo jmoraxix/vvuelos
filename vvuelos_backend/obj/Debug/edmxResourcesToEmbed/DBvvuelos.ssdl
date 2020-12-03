@@ -119,6 +119,8 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
     <Property Name="FechaHoraSalida" Type="datetime" Nullable="false" />
     <Property Name="PuertaID" Type="varchar" MaxLength="25" Nullable="false" />
     <Property Name="EstadoVueloID" Type="int" Nullable="false" />
+    <Property Name="Precio" Type="int" />
+    <Property Name="Capacidad" Type="int" />
   </EntityType>
   <Association Name="FK_Bitacora_AccionID">
     <End Role="Accion" Type="Self.Accion" Multiplicity="1" />

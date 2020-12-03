@@ -26,6 +26,8 @@ namespace vvuelos_backend
         public System.DateTime FechaHoraSalida { get; set; }
         public string PuertaID { get; set; }
         public int EstadoVueloID { get; set; }
+        public Nullable<int> Precio { get; set; }
+        public Nullable<int> Capacidad { get; set; }
     
         public virtual Aerolinea Aerolinea { get; set; }
         public virtual EstadoVuelo EstadoVuelo { get; set; }

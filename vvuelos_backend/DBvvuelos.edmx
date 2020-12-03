@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBvvuelosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBvvuelosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="Accion">
           <Key>
             <PropertyRef Name="Codigo" />
@@ -124,6 +124,8 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <Property Name="FechaHoraSalida" Type="datetime" Nullable="false" />
           <Property Name="PuertaID" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="EstadoVueloID" Type="int" Nullable="false" />
+          <Property Name="Precio" Type="int" />
+          <Property Name="Capacidad" Type="int" />
         </EntityType>
         <Association Name="FK_Bitacora_AccionID">
           <End Role="Accion" Type="Self.Accion" Multiplicity="1" />
@@ -354,8 +356,7 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
             <End Role="Vuelo" EntitySet="Vuelo" />
           </AssociationSet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBvvuelosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -492,6 +493,8 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <NavigationProperty Name="Pai" Relationship="Self.FK_Vuelo_PaisDestinoID" FromRole="Vuelo" ToRole="Pais" />
           <NavigationProperty Name="Puerta" Relationship="Self.FK_Vuelo_PuertaID" FromRole="Vuelo" ToRole="Puerta" />
           <NavigationProperty Name="Reservacions" Relationship="Self.FK_Reservacion_VueloID" FromRole="Vuelo" ToRole="Reservacion" />
+          <Property Name="Precio" Type="Int32" />
+          <Property Name="Capacidad" Type="Int32" />
         </EntityType>
         <Association Name="FK_Bitacora_AccionID">
           <End Role="Accion" Type="Self.Accion" Multiplicity="1" />
@@ -812,6 +815,8 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <EntitySetMapping Name="Vueloes">
             <EntityTypeMapping TypeName="DBvvuelosModel.Vuelo">
               <MappingFragment StoreEntitySet="Vuelo">
+                <ScalarProperty Name="Capacidad" ColumnName="Capacidad" />
+                <ScalarProperty Name="Precio" ColumnName="Precio" />
                 <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
                 <ScalarProperty Name="AerolineaID" ColumnName="AerolineaID" />
                 <ScalarProperty Name="PaisDestinoID" ColumnName="PaisDestinoID" />

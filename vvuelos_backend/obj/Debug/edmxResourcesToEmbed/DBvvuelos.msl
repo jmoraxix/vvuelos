@@ -115,6 +115,8 @@
     <EntitySetMapping Name="Vueloes">
       <EntityTypeMapping TypeName="DBvvuelosModel.Vuelo">
         <MappingFragment StoreEntitySet="Vuelo">
+          <ScalarProperty Name="Capacidad" ColumnName="Capacidad" />
+          <ScalarProperty Name="Precio" ColumnName="Precio" />
           <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />
           <ScalarProperty Name="AerolineaID" ColumnName="AerolineaID" />
           <ScalarProperty Name="PaisDestinoID" ColumnName="PaisDestinoID" />
