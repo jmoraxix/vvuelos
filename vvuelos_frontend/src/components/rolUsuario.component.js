@@ -3,28 +3,23 @@ import RolUsuarioDataService from "../services/rolUsuario.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 
-const data = [
-  { id: 1, nombre: "Admin" },
-  { id: 2, nombre: "Maintainer" }
-];
-
 export default class RolUsuario extends Component {
 
   state = {
-    data: data,
+    data: [],
     modalInsertar: false,
     modalActualizar: false,
     form: {
-      id: "",
-      nombre: ""
+      Codigo: "",
+      Nombre: ""
     },
   };
 
-  // componentDidMount() {
-  //   this.retrieveList();
-  // }
+  componentDidMount() {
+    this.listarObjetos();
+  }
 
-  retrieveList() {
+  listarObjetos() {
     RolUsuarioDataService.getAll()
       .then(response => {
         this.setState({
@@ -37,23 +32,49 @@ export default class RolUsuario extends Component {
       });
   }
 
-  refreshList() {
-    this.retrieveList();
-    this.setState({
-      currentTutorial: null
-    });
+  crearObjeto(data){
+    RolUsuarioDataService.create(data)
+        .then(response => {
+          console.log(response.data);
+          this.listarObjetos();
+        })
+        .catch(e => {
+          console.log(e);
+        });
   }
 
-  nuevoRolUsuario = () => {
+  actualizarObjeto(data){
+    RolUsuarioDataService.update(data.Codigo, data)
+        .then(response => {
+          console.log(response.data);
+          this.listarObjetos();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  eliminarObjeto(Codigo){
+    RolUsuarioDataService.delete(Codigo)
+        .then(response => {
+          console.log(response.data);
+          this.listarObjetos();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  nuevoForm = () => {
     return {
-      id: this.state.data.length + 1,
-      nombre: ""
+      Codigo: null,
+      Nombre: ""
     };
   }
 
   mostrarModalInsertar = () => {
     this.setState({
-      form: this.nuevoRolUsuario(),
+      form: this.nuevoForm(),
       modalInsertar: true,
     });
   };
@@ -72,41 +93,6 @@ export default class RolUsuario extends Component {
   cerrarModalActualizar = () => {
     this.setState({ modalActualizar: false });
   };
-
-  editar = (rolEditado) => {
-    var contador = 0;
-    var listaRoles = this.state.data;
-    listaRoles.map((registro) => {
-      if (rolEditado.id === registro.id) {
-        listaRoles[contador].nombre = rolEditado.nombre;
-      }
-      contador++;
-    });
-    this.setState({ data: listaRoles, modalActualizar: false });
-  };
-
-  eliminar = (rolEliminar) => {
-    var opcion = window.confirm("¿Está seguro que desea eliminar el ro?");
-    if (opcion === true) {
-      var contador = 0;
-      var listaRoles = this.state.data;
-      listaRoles.map((registro) => {
-        if (rolEliminar.id === registro.id) {
-          listaRoles.splice(contador, 1);
-        }
-        contador++;
-      });
-      this.setState({ data: listaRoles, modalInsertar: false });
-    }
-  };
-
-  insertar= () => {
-    var rolNuevo = {...this.state.form};
-    rolNuevo.id = this.state.data.length+1;
-    var listaRoles = this.state.data;
-    listaRoles.push(rolNuevo);
-    this.setState({ modalInsertar: false, data: listaRoles });
-  }
 
   handleChange = (e) => {
     this.setState({
@@ -130,7 +116,7 @@ export default class RolUsuario extends Component {
           <Table>
             <thead>
               <tr>
-                <th>ID</th>
+                <th>Codigo</th>
                 <th>Rol</th>
                 <th>Acciones</th>
               </tr>
@@ -138,9 +124,9 @@ export default class RolUsuario extends Component {
 
             <tbody>
               {this.state.data.map((dato) => (
-                <tr key={dato.id}>
-                  <td>{dato.id}</td>
-                  <td>{dato.nombre}</td>
+                <tr key={dato.Codigo}>
+                  <td>{dato.Codigo}</td>
+                  <td>{dato.Nombre}</td>
                   <td>
                     <Button
                       color="primary"
@@ -148,7 +134,7 @@ export default class RolUsuario extends Component {
                     >
                       Editar
                     </Button>{" "}
-                    <Button color="danger" onClick={()=> this.eliminar(dato)}>Eliminar</Button>
+                    <Button color="danger" onClick={()=> this.eliminarObjeto(dato.Codigo)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
@@ -164,14 +150,14 @@ export default class RolUsuario extends Component {
           <ModalBody>
             <FormGroup>
               <label>
-               Id:
+               Codigo:
               </label>
             
               <input
                 className="form-control"
                 readOnly
                 type="text"
-                value={this.state.form.id}
+                value={this.state.form.Codigo}
               />
             </FormGroup>
             
@@ -181,10 +167,10 @@ export default class RolUsuario extends Component {
               </label>
               <input
                 className="form-control"
-                name="nombre"
+                name="Nombre"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.nombre}
+                value={this.state.form.Nombre}
               />
             </FormGroup>
           </ModalBody>
@@ -192,7 +178,7 @@ export default class RolUsuario extends Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.editar(this.state.form)}
+              onClick={() => this.actualizarObjeto(this.state.form)}
             >
               Editar
             </Button>
@@ -219,10 +205,10 @@ export default class RolUsuario extends Component {
               </label>
               <input
                 className="form-control"
-                name="nombre"
+                name="Nombre"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.nombre}
+                value={this.state.form.Nombre}
               />
             </FormGroup>
           </ModalBody>
@@ -230,7 +216,7 @@ export default class RolUsuario extends Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.insertar()}
+              onClick={() => this.crearObjeto(this.state.form)}
             >
               Insertar
             </Button>

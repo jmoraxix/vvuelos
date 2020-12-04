@@ -2,23 +2,23 @@ import http from "../http-common";
 
 class RolUsuarioDataService {
   getAll() {
-    return http.get("/roles");
+    return http.get("/rols");
   }
 
   get(id) {
-    return http.get(`/roles/${id}`);
+    return http.get(`/rols/${id}`);
   }
 
   create(data) {
-    return http.post("/roles", data);
+    return http.post("/rols", data);
   }
 
   update(id, data) {
-    return http.put(`/roles/${id}`, data);
+    return http.put(`/rols/${id}`, data);
   }
 
   delete(id) {
-    return http.delete(`/roles/${id}`);
+    return http.delete(`/rols/${id}`);
   }
 }
 
