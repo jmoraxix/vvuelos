@@ -1,19 +1,12 @@
 import React, { Component } from "react";
+import ClaseDataService from "../services/clase.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
-
-const data = [
-  { id: 1, Nombre: "Aeronlinea" },
-  { id: 2, Nombre: "Pais" },
-  { id: 3, Nombre: "Puerta" },
-  { id: 4, Nombre: "Vuelo" },
-  { id: 5, Nombre: "Reservacion" }
-];
 
 export default class TipoPago extends Component {
 
   state = {
-    data: data,
+    data: [],
     modalInsertar: false,
     modalActualizar: false,
     form: {
@@ -22,9 +15,61 @@ export default class TipoPago extends Component {
     },
   };
 
-  nuevaClase = () => {
+  componentDidMount() {
+    this.listarObjetos();
+  }
+
+  listarObjetos() {
+    ClaseDataService.getAll()
+      .then(response => {
+        this.setState({
+          data: response.data
+        });
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  crearObjeto(data){
+    ClaseDataService.create(data)
+        .then(response => {
+          console.log(response.data);
+          this.listarObjetos();
+          this.cerrarModalInsertar();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  actualizarObjeto(data){
+    ClaseDataService.update(data.Codigo, data)
+        .then(response => {
+          console.log(response.data);
+          this.listarObjetos();
+          this.cerrarModalActualizar();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  eliminarObjeto(Codigo){
+    ClaseDataService.delete(Codigo)
+        .then(response => {
+          console.log(response.data);
+          this.listarObjetos();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  nuevoRol = () => {
     return {
-      id: this.state.data.length + 1,
+      Codigo: 0,
       Nombre: ""
     };
   }
@@ -51,41 +96,6 @@ export default class TipoPago extends Component {
     this.setState({ modalActualizar: false });
   };
 
-  editar = (claseEditada) => {
-    var contador = 0;
-    var listaClases = this.state.data;
-    listaClases.map((registro) => {
-      if (claseEditada.id == registro.id) {
-        listaClases[contador].Nombre = claseEditada.Nombre;
-      }
-      contador++;
-    });
-    this.setState({ data: listaClases, modalActualizar: false });
-  };
-
-  eliminar = (claseEliminar) => {
-    var opcion = window.confirm("¿Está seguro que desea eliminar el ro?");
-    if (opcion == true) {
-      var contador = 0;
-      var listaClases = this.state.data;
-      listaClases.map((registro) => {
-        if (claseEliminar.id == registro.id) {
-          listaClases.splice(contador, 1);
-        }
-        contador++;
-      });
-      this.setState({ data: listaClases, modalInsertar: false });
-    }
-  };
-
-  insertar= () => {
-    var claseNueva = {...this.state.form};
-    claseNueva.id = this.state.data.length+1;
-    var listaClases = this.state.data;
-    listaClases.push(claseNueva);
-    this.setState({ modalInsertar: false, data: listaClases });
-  }
-
   handleChange = (e) => {
     this.setState({
       form: {
@@ -108,7 +118,7 @@ export default class TipoPago extends Component {
           <Table>
             <thead>
               <tr>
-                <th>ID</th>
+                <th>Codigo</th>
                 <th>Clase</th>
                 <th>Acciones</th>
               </tr>
@@ -116,8 +126,8 @@ export default class TipoPago extends Component {
 
             <tbody>
               {this.state.data.map((dato) => (
-                <tr key={dato.id}>
-                  <td>{dato.id}</td>
+                <tr key={dato.Codigo}>
+                  <td>{dato.Codigo}</td>
                   <td>{dato.Nombre}</td>
                   <td>
                     <Button
@@ -126,7 +136,7 @@ export default class TipoPago extends Component {
                     >
                       Editar
                     </Button>{" "}
-                    <Button color="danger" onClick={()=> this.eliminar(dato)}>Eliminar</Button>
+                    <Button color="danger" onClick={()=> this.eliminarObjeto(dato.Codigo)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
@@ -142,14 +152,14 @@ export default class TipoPago extends Component {
           <ModalBody>
             <FormGroup>
               <label>
-               ID:
+               Codigo:
               </label>
             
               <input
                 className="form-control"
                 readOnly
                 type="text"
-                value={this.state.form.id}
+                value={this.state.form.Codigo}
               />
             </FormGroup>
             
@@ -170,7 +180,7 @@ export default class TipoPago extends Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.editar(this.state.form)}
+              onClick={() => this.actualizarObjeto(this.state.form)}
             >
               Editar
             </Button>
@@ -208,7 +218,7 @@ export default class TipoPago extends Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.insertar()}
+              onClick={() => this.crearObjeto(this.state.form)}
             >
               Insertar
             </Button>

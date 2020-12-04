@@ -22,4 +22,4 @@ class PuertaDataService {
   }
 }
 
-export default new AccionDataService();
+export default new PuertaDataService();

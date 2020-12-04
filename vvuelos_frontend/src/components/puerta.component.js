@@ -57,7 +57,7 @@ export default class Puerta extends Component {
   }
 
   eliminarObjeto(Consecutivo){
-    RolUsuarioDataService.delete(Consecutivo)
+    PuertaDataService.delete(Consecutivo)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
