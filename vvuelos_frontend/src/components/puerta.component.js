@@ -1,30 +1,76 @@
 import React, { Component } from "react";
+import PuertaDataService from "../services/puerta.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
-
-const data = [
-  { consecutivo: 1, nombre: "Puerta 1" },
-  { consecutivo: 2, nombre: "Puerta 2" },
-  { consecutivo: 3, nombre: "Puerta 3" },
-  { consecutivo: 4, nombre: "Puerta 4" }
-];
 
 export default class Puerta extends Component {
 
   state = {
-    data: data,
+    data: [],
     modalInsertar: false,
     modalActualizar: false,
     form: {
-      consecutivo: "",
-      nombre: ""
+      Consecutivo: "",
+      Nombre: ""
     },
   };
 
-  nuevaPuerta = () => {
+  componentDidMount() {
+    this.listarObjetos();
+  }
+
+  listarObjetos() {
+    PuertaDataService.getAll()
+      .then(response => {
+        this.setState({
+          data: response.data
+        });
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  crearObjeto(data){
+    PuertaDataService.create(data)
+        .then(response => {
+          console.log(response.data);
+          this.listarObjetos();
+          this.cerrarModalInsertar();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  actualizarObjeto(data){
+    PuertaDataService.update(data.Consecutivo, data)
+        .then(response => {
+          console.log(response.data);
+          this.listarObjetos();
+          this.cerrarModalActualizar();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  eliminarObjeto(Consecutivo){
+    RolUsuarioDataService.delete(Consecutivo)
+        .then(response => {
+          console.log(response.data);
+          this.listarObjetos();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  nuevoRol = () => {
     return {
-      consecutivo: this.state.data.length + 1,
-      nombre: ""
+      Consecutivo: "",
+      Nombre: ""
     };
   }
 
@@ -49,41 +95,6 @@ export default class Puerta extends Component {
   cerrarModalActualizar = () => {
     this.setState({ modalActualizar: false });
   };
-
-  editar = (puertaEditada) => {
-    var contador = 0;
-    var listaPuertas = this.state.data;
-    listaPuertas.map((registro) => {
-      if (puertaEditada.consecutivo == registro.consecutivo) {
-        listaPuertas[contador].nombre = puertaEditada.nombre;
-      }
-      contador++;
-    });
-    this.setState({ data: listaPuertas, modalActualizar: false });
-  };
-
-  eliminar = (puertaEliminar) => {
-    var opcion = window.confirm("¿Está seguro que desea eliminar el ro?");
-    if (opcion == true) {
-      var contador = 0;
-      var listaPuertas = this.state.data;
-      listaPuertas.map((registro) => {
-        if (puertaEliminar.consecutivo == registro.consecutivo) {
-          listaPuertas.splice(contador, 1);
-        }
-        contador++;
-      });
-      this.setState({ data: listaPuertas, modalInsertar: false });
-    }
-  };
-
-  insertar= () => {
-    var puertaNueva = {...this.state.form};
-    puertaNueva.consecutivo = this.state.data.length+1;
-    var listaPuertas = this.state.data;
-    listaPuertas.push(puertaNueva);
-    this.setState({ modalInsertar: false, data: listaPuertas });
-  }
 
   handleChange = (e) => {
     this.setState({
@@ -115,9 +126,9 @@ export default class Puerta extends Component {
 
             <tbody>
               {this.state.data.map((dato) => (
-                <tr key={dato.consecutivo}>
-                  <td>{dato.consecutivo}</td>
-                  <td>{dato.nombre}</td>
+                <tr key={dato.Consecutivo}>
+                  <td>{dato.Consecutivo}</td>
+                  <td>{dato.Nombre}</td>
                   <td>
                     <Button
                       color="primary"
@@ -125,7 +136,7 @@ export default class Puerta extends Component {
                     >
                       Editar
                     </Button>{" "}
-                    <Button color="danger" onClick={()=> this.eliminar(dato)}>Eliminar</Button>
+                    <Button color="danger" onClick={()=> this.eliminarObjeto(dato.Consecutivo)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
@@ -146,9 +157,8 @@ export default class Puerta extends Component {
             
               <input
                 className="form-control"
-                readOnly
                 type="text"
-                value={this.state.form.consecutivo}
+                value={this.state.form.Consecutivo}
               />
             </FormGroup>
             
@@ -158,10 +168,10 @@ export default class Puerta extends Component {
               </label>
               <input
                 className="form-control"
-                name="nombre"
+                name="Nombre"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.nombre}
+                value={this.state.form.Nombre}
               />
             </FormGroup>
           </ModalBody>
@@ -169,7 +179,7 @@ export default class Puerta extends Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.editar(this.state.form)}
+              onClick={() => this.actualizarObjeto(this.state.form)}
             >
               Editar
             </Button>
@@ -196,10 +206,10 @@ export default class Puerta extends Component {
               </label>
               <input
                 className="form-control"
-                name="nombre"
+                name="Nombre"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.nombre}
+                value={this.state.form.Nombre}
               />
             </FormGroup>
           </ModalBody>
@@ -207,7 +217,7 @@ export default class Puerta extends Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.insertar()}
+              onClick={() => this.crearObjeto(this.state.form)}
             >
               Insertar
             </Button>

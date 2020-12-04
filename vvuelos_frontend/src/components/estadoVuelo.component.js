@@ -1,29 +1,76 @@
 import React, { Component } from "react";
+import EstadoVueloDataService from "../services/estadoVuelo.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
-
-const data = [
-  { consecutivo: 1, nombre: "Costa Rica" },
-  { consecutivo: 2, nombre: "Panama" },
-  { consecutivo: 3, nombre: "Mexico" }
-];
 
 export default class EstadoVuelo extends Component {
 
   state = {
-    data: data,
+    data: [],
     modalInsertar: false,
     modalActualizar: false,
     form: {
-      consecutivo: "",
-      nombre: ""
+      Codigo: "",
+      Nombre: ""
     },
   };
 
-  nuevoEstadoVuelo = () => {
+  componentDidMount() {
+    this.listarObjetos();
+  }
+
+  listarObjetos() {
+    EstadoVueloDataService.getAll()
+      .then(response => {
+        this.setState({
+          data: response.data
+        });
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  crearObjeto(data){
+    EstadoVueloDataService.create(data)
+        .then(response => {
+          console.log(response.data);
+          this.listarObjetos();
+          this.cerrarModalInsertar();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  actualizarObjeto(data){
+    EstadoVueloDataService.update(data.Codigo, data)
+        .then(response => {
+          console.log(response.data);
+          this.listarObjetos();
+          this.cerrarModalActualizar();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  eliminarObjeto(Codigo){
+    EstadoVueloDataService.delete(Codigo)
+        .then(response => {
+          console.log(response.data);
+          this.listarObjetos();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  nuevoRol = () => {
     return {
-      consecutivo: this.state.data.length + 1,
-      nombre: ""
+      Codigo: 0,
+      Nombre: ""
     };
   }
 
@@ -49,41 +96,6 @@ export default class EstadoVuelo extends Component {
     this.setState({ modalActualizar: false });
   };
 
-  editar = (estadoEditado) => {
-    var contador = 0;
-    var listaEstados = this.state.data;
-    listaEstados.map((registro) => {
-      if (estadoEditado.consecutivo == registro.consecutivo) {
-        listaEstados[contador].nombre = estadoEditado.nombre;
-      }
-      contador++;
-    });
-    this.setState({ data: listaEstados, modalActualizar: false });
-  };
-
-  eliminar = (estadoEliminar) => {
-    var opcion = window.confirm("¿Está seguro que desea eliminar el ro?");
-    if (opcion == true) {
-      var contador = 0;
-      var listaEstados = this.state.data;
-      listaEstados.map((registro) => {
-        if (estadoEliminar.consecutivo == registro.consecutivo) {
-          listaEstados.splice(contador, 1);
-        }
-        contador++;
-      });
-      this.setState({ data: listaEstados, modalInsertar: false });
-    }
-  };
-
-  insertar= () => {
-    var estadoNuevo = {...this.state.form};
-    estadoNuevo.consecutivo = this.state.data.length+1;
-    var listaEstados = this.state.data;
-    listaEstados.push(estadoNuevo);
-    this.setState({ modalInsertar: false, data: listaEstados });
-  }
-
   handleChange = (e) => {
     this.setState({
       form: {
@@ -100,13 +112,13 @@ export default class EstadoVuelo extends Component {
         <Container>
         <br />
          <Row>
-           <Col><h1>Paises</h1></Col>
+           <Col><h1>Estado vuelos</h1></Col>
            <Col><Button color="success" onClick={()=>this.mostrarModalInsertar()}>Crear</Button></Col>
          </Row>
           <Table>
             <thead>
               <tr>
-                <th>Consecutivo</th>
+                <th>Codigo</th>
                 <th>Pais</th>
                 <th>Acciones</th>
               </tr>
@@ -114,9 +126,9 @@ export default class EstadoVuelo extends Component {
 
             <tbody>
               {this.state.data.map((dato) => (
-                <tr key={dato.consecutivo}>
-                  <td>{dato.consecutivo}</td>
-                  <td>{dato.nombre}</td>
+                <tr key={dato.Codigo}>
+                  <td>{dato.Codigo}</td>
+                  <td>{dato.Nombre}</td>
                   <td>
                     <Button
                       color="primary"
@@ -124,7 +136,7 @@ export default class EstadoVuelo extends Component {
                     >
                       Editar
                     </Button>{" "}
-                    <Button color="danger" onClick={()=> this.eliminar(dato)}>Eliminar</Button>
+                    <Button color="danger" onClick={()=> this.eliminarObjeto(dato.Codigo)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
@@ -140,14 +152,14 @@ export default class EstadoVuelo extends Component {
           <ModalBody>
             <FormGroup>
               <label>
-               Consecutivo:
+               Codigo:
               </label>
             
               <input
                 className="form-control"
                 readOnly
                 type="text"
-                value={this.state.form.consecutivo}
+                value={this.state.form.Codigo}
               />
             </FormGroup>
             
@@ -157,10 +169,10 @@ export default class EstadoVuelo extends Component {
               </label>
               <input
                 className="form-control"
-                name="nombre"
+                name="Nombre"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.nombre}
+                value={this.state.form.Nombre}
               />
             </FormGroup>
           </ModalBody>
@@ -168,7 +180,7 @@ export default class EstadoVuelo extends Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.editar(this.state.form)}
+              onClick={() => this.actualizarObjeto(this.state.form)}
             >
               Editar
             </Button>
@@ -195,10 +207,10 @@ export default class EstadoVuelo extends Component {
               </label>
               <input
                 className="form-control"
-                name="nombre"
+                name="Nombre"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.nombre}
+                value={this.state.form.Nombre}
               />
             </FormGroup>
           </ModalBody>
@@ -206,7 +218,7 @@ export default class EstadoVuelo extends Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.insertar()}
+              onClick={() => this.crearObjeto(this.state.form)}
             >
               Insertar
             </Button>

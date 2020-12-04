@@ -1,29 +1,76 @@
 import React, { Component } from "react";
+import PaisDataService from "../services/pais.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
-
-const data = [
-  { consecutivo: 1, nombre: "Costa Rica" },
-  { consecutivo: 2, nombre: "Panama" },
-  { consecutivo: 3, nombre: "Mexico" }
-];
 
 export default class Pais extends Component {
 
   state = {
-    data: data,
+    data: [],
     modalInsertar: false,
     modalActualizar: false,
     form: {
-      consecutivo: "",
-      nombre: ""
+      Consecutivo: "",
+      Nombre: ""
     },
   };
 
-  nuevoPais = () => {
+  componentDidMount() {
+    this.listarObjetos();
+  }
+
+  listarObjetos() {
+    PaisDataService.getAll()
+      .then(response => {
+        this.setState({
+          data: response.data
+        });
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  crearObjeto(data){
+    PaisDataService.create(data)
+        .then(response => {
+          console.log(response.data);
+          this.listarObjetos();
+          this.cerrarModalInsertar();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  actualizarObjeto(data){
+    PaisDataService.update(data.Consecutivo, data)
+        .then(response => {
+          console.log(response.data);
+          this.listarObjetos();
+          this.cerrarModalActualizar();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  eliminarObjeto(Consecutivo){
+    PaisDataService.delete(Consecutivo)
+        .then(response => {
+          console.log(response.data);
+          this.listarObjetos();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  nuevoRol = () => {
     return {
-      consecutivo: this.state.data.length + 1,
-      nombre: ""
+      Consecutivo: "",
+      Nombre: ""
     };
   }
 
@@ -48,41 +95,6 @@ export default class Pais extends Component {
   cerrarModalActualizar = () => {
     this.setState({ modalActualizar: false });
   };
-
-  editar = (paisEditado) => {
-    var contador = 0;
-    var listaPaises = this.state.data;
-    listaPaises.map((registro) => {
-      if (paisEditado.consecutivo == registro.consecutivo) {
-        listaPaises[contador].nombre = paisEditado.nombre;
-      }
-      contador++;
-    });
-    this.setState({ data: listaPaises, modalActualizar: false });
-  };
-
-  eliminar = (paisEliminar) => {
-    var opcion = window.confirm("¿Está seguro que desea eliminar el ro?");
-    if (opcion == true) {
-      var contador = 0;
-      var listaPaises = this.state.data;
-      listaPaises.map((registro) => {
-        if (paisEliminar.consecutivo == registro.consecutivo) {
-          listaPaises.splice(contador, 1);
-        }
-        contador++;
-      });
-      this.setState({ data: listaPaises, modalInsertar: false });
-    }
-  };
-
-  insertar= () => {
-    var paisNuevo = {...this.state.form};
-    paisNuevo.consecutivo = this.state.data.length+1;
-    var listaPaises = this.state.data;
-    listaPaises.push(paisNuevo);
-    this.setState({ modalInsertar: false, data: listaPaises });
-  }
 
   handleChange = (e) => {
     this.setState({
@@ -114,9 +126,9 @@ export default class Pais extends Component {
 
             <tbody>
               {this.state.data.map((dato) => (
-                <tr key={dato.consecutivo}>
-                  <td>{dato.consecutivo}</td>
-                  <td>{dato.nombre}</td>
+                <tr key={dato.Consecutivo}>
+                  <td>{dato.Consecutivo}</td>
+                  <td>{dato.Nombre}</td>
                   <td>
                     <Button
                       color="primary"
@@ -124,7 +136,7 @@ export default class Pais extends Component {
                     >
                       Editar
                     </Button>{" "}
-                    <Button color="danger" onClick={()=> this.eliminar(dato)}>Eliminar</Button>
+                    <Button color="danger" onClick={()=> this.eliminarObjeto(dato.Consecutivo)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
@@ -145,9 +157,8 @@ export default class Pais extends Component {
             
               <input
                 className="form-control"
-                readOnly
                 type="text"
-                value={this.state.form.consecutivo}
+                value={this.state.form.Consecutivo}
               />
             </FormGroup>
             
@@ -157,10 +168,10 @@ export default class Pais extends Component {
               </label>
               <input
                 className="form-control"
-                name="nombre"
+                name="Nombre"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.nombre}
+                value={this.state.form.Nombre}
               />
             </FormGroup>
           </ModalBody>
@@ -168,7 +179,7 @@ export default class Pais extends Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.editar(this.state.form)}
+              onClick={() => this.actualizarObjeto(this.state.form)}
             >
               Editar
             </Button>
@@ -195,10 +206,10 @@ export default class Pais extends Component {
               </label>
               <input
                 className="form-control"
-                name="nombre"
+                name="Nombre"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.nombre}
+                value={this.state.form.Nombre}
               />
             </FormGroup>
           </ModalBody>
@@ -206,7 +217,7 @@ export default class Pais extends Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.insertar()}
+              onClick={() => this.crearObjeto(this.state.form)}
             >
               Insertar
             </Button>

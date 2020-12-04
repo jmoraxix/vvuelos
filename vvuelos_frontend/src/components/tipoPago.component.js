@@ -1,29 +1,76 @@
 import React, { Component } from "react";
+import TipoPagoDataService from "../services/tipoPago.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
-
-const data = [
-  { id: 1, nombre: "Debito" },
-  { id: 2, nombre: "Credito" },
-  { id: 3, nombre: "Paypal" }
-];
 
 export default class TipoPago extends Component {
 
   state = {
-    data: data,
+    data: [],
     modalInsertar: false,
     modalActualizar: false,
     form: {
-      id: "",
-      nombre: ""
+      Codigo: "",
+      Nombre: ""
     },
   };
 
+  componentDidMount() {
+    this.listarObjetos();
+  }
+
+  listarObjetos() {
+    TipoPagoDataService.getAll()
+        .then(response => {
+          this.setState({
+            data: response.data
+          });
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  crearObjeto(data){
+    TipoPagoDataService.create(data)
+        .then(response => {
+          console.log(response.data);
+          this.listarObjetos();
+          this.cerrarModalInsertar();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  actualizarObjeto(data){
+    TipoPagoDataService.update(data.Codigo, data)
+        .then(response => {
+          console.log(response.data);
+          this.listarObjetos();
+          this.cerrarModalActualizar();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  eliminarObjeto(Codigo){
+    TipoPagoDataService.delete(Codigo)
+        .then(response => {
+          console.log(response.data);
+          this.listarObjetos();
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
   nuevoTipoPago = () => {
     return {
-      id: this.state.data.length + 1,
-      nombre: ""
+      Codigo: 0,
+      Nombre: ""
     };
   }
 
@@ -49,41 +96,6 @@ export default class TipoPago extends Component {
     this.setState({ modalActualizar: false });
   };
 
-  editar = (tipoEditado) => {
-    var contador = 0;
-    var listaTipos = this.state.data;
-    listaTipos.map((registro) => {
-      if (tipoEditado.id == registro.id) {
-        listaTipos[contador].nombre = tipoEditado.nombre;
-      }
-      contador++;
-    });
-    this.setState({ data: listaTipos, modalActualizar: false });
-  };
-
-  eliminar = (tipoEliminar) => {
-    var opcion = window.confirm("¿Está seguro que desea eliminar el ro?");
-    if (opcion == true) {
-      var contador = 0;
-      var listaTipos = this.state.data;
-      listaTipos.map((registro) => {
-        if (tipoEliminar.id == registro.id) {
-          listaTipos.splice(contador, 1);
-        }
-        contador++;
-      });
-      this.setState({ data: listaTipos, modalInsertar: false });
-    }
-  };
-
-  insertar= () => {
-    var tipoNuevo = {...this.state.form};
-    tipoNuevo.id = this.state.data.length+1;
-    var listaTipos = this.state.data;
-    listaTipos.push(tipoNuevo);
-    this.setState({ modalInsertar: false, data: listaTipos });
-  }
-
   handleChange = (e) => {
     this.setState({
       form: {
@@ -106,7 +118,7 @@ export default class TipoPago extends Component {
           <Table>
             <thead>
               <tr>
-                <th>ID</th>
+                <th>Codigo</th>
                 <th>Tipo</th>
                 <th>Acciones</th>
               </tr>
@@ -114,9 +126,9 @@ export default class TipoPago extends Component {
 
             <tbody>
               {this.state.data.map((dato) => (
-                <tr key={dato.id}>
-                  <td>{dato.id}</td>
-                  <td>{dato.nombre}</td>
+                <tr key={dato.Codigo}>
+                  <td>{dato.Codigo}</td>
+                  <td>{dato.Nombre}</td>
                   <td>
                     <Button
                       color="primary"
@@ -124,7 +136,7 @@ export default class TipoPago extends Component {
                     >
                       Editar
                     </Button>{" "}
-                    <Button color="danger" onClick={()=> this.eliminar(dato)}>Eliminar</Button>
+                    <Button color="danger" onClick={()=> this.eliminarObjeto(dato.Codigo)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
@@ -140,14 +152,14 @@ export default class TipoPago extends Component {
           <ModalBody>
             <FormGroup>
               <label>
-               ID:
+               Codigo:
               </label>
             
               <input
                 className="form-control"
                 readOnly
                 type="text"
-                value={this.state.form.id}
+                value={this.state.form.Codigo}
               />
             </FormGroup>
             
@@ -157,10 +169,10 @@ export default class TipoPago extends Component {
               </label>
               <input
                 className="form-control"
-                name="nombre"
+                name="Nombre"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.nombre}
+                value={this.state.form.Nombre}
               />
             </FormGroup>
           </ModalBody>
@@ -168,7 +180,7 @@ export default class TipoPago extends Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.editar(this.state.form)}
+              onClick={() => this.actualizarObjeto(this.state.form)}
             >
               Editar
             </Button>
@@ -195,10 +207,10 @@ export default class TipoPago extends Component {
               </label>
               <input
                 className="form-control"
-                name="nombre"
+                name="Nombre"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.nombre}
+                value={this.state.form.Nombre}
               />
             </FormGroup>
           </ModalBody>
@@ -206,7 +218,7 @@ export default class TipoPago extends Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.insertar()}
+              onClick={() => this.crearObjeto(this.state.form)}
             >
               Insertar
             </Button>

@@ -67,7 +67,7 @@ export default class RolUsuario extends Component {
         });
   }
 
-  nuevoForm = () => {
+  nuevoRol = () => {
     return {
       Codigo: 0,
       Nombre: ""
@@ -76,7 +76,7 @@ export default class RolUsuario extends Component {
 
   mostrarModalInsertar = () => {
     this.setState({
-      form: this.nuevoForm(),
+      form: this.nuevoRol(),
       modalInsertar: true,
     });
   };

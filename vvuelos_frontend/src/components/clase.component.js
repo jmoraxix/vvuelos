@@ -3,13 +3,11 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 
 const data = [
-  { id: 1, nombre: "Aeronlinea" },
-  { id: 2, nombre: "Pais" },
-  { id: 3, nombre: "Puerta" },
-  { id: 4, nombre: "Vuelo" },
-  { id: 5, nombre: "Reservacion" },
-  { id: 6, nombre: "EstadoVuelo" },
-  { id: 7, nombre: "TipoPago" }
+  { id: 1, Nombre: "Aeronlinea" },
+  { id: 2, Nombre: "Pais" },
+  { id: 3, Nombre: "Puerta" },
+  { id: 4, Nombre: "Vuelo" },
+  { id: 5, Nombre: "Reservacion" }
 ];
 
 export default class TipoPago extends Component {
@@ -20,14 +18,14 @@ export default class TipoPago extends Component {
     modalActualizar: false,
     form: {
       id: "",
-      nombre: ""
+      Nombre: ""
     },
   };
 
   nuevaClase = () => {
     return {
       id: this.state.data.length + 1,
-      nombre: ""
+      Nombre: ""
     };
   }
 
@@ -58,7 +56,7 @@ export default class TipoPago extends Component {
     var listaClases = this.state.data;
     listaClases.map((registro) => {
       if (claseEditada.id == registro.id) {
-        listaClases[contador].nombre = claseEditada.nombre;
+        listaClases[contador].Nombre = claseEditada.Nombre;
       }
       contador++;
     });
@@ -120,7 +118,7 @@ export default class TipoPago extends Component {
               {this.state.data.map((dato) => (
                 <tr key={dato.id}>
                   <td>{dato.id}</td>
-                  <td>{dato.nombre}</td>
+                  <td>{dato.Nombre}</td>
                   <td>
                     <Button
                       color="primary"
@@ -161,10 +159,10 @@ export default class TipoPago extends Component {
               </label>
               <input
                 className="form-control"
-                name="nombre"
+                name="Nombre"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.nombre}
+                value={this.state.form.Nombre}
               />
             </FormGroup>
           </ModalBody>
@@ -199,10 +197,10 @@ export default class TipoPago extends Component {
               </label>
               <input
                 className="form-control"
-                name="nombre"
+                name="Nombre"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.nombre}
+                value={this.state.form.Nombre}
               />
             </FormGroup>
           </ModalBody>

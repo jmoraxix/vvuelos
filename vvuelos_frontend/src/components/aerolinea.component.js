@@ -3,9 +3,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 
 const data = [
-  { consecutivo: 1, nombre: "American Airlines" },
-  { consecutivo: 2, nombre: "Taca" },
-  { consecutivo: 3, nombre: "Avianca" }
+  { Consecutivo: 1, Nombre: "American Airlines" },
+  { Consecutivo: 2, Nombre: "Taca" },
+  { Consecutivo: 3, Nombre: "Avianca" }
 ];
 
 export default class Aerolinea extends Component {
@@ -15,15 +15,15 @@ export default class Aerolinea extends Component {
     modalInsertar: false,
     modalActualizar: false,
     form: {
-      consecutivo: "",
-      nombre: ""
+      Consecutivo: "",
+      Nombre: ""
     },
   };
 
   nuevaAerolinea = () => {
     return {
-      consecutivo: this.state.data.length + 1,
-      nombre: ""
+      Consecutivo: this.state.data.length + 1,
+      Nombre: ""
     };
   }
 
@@ -53,8 +53,8 @@ export default class Aerolinea extends Component {
     var contador = 0;
     var listaAerolineas = this.state.data;
     listaAerolineas.map((registro) => {
-      if (aerolineaEditada.consecutivo == registro.consecutivo) {
-        listaAerolineas[contador].nombre = aerolineaEditada.nombre;
+      if (aerolineaEditada.Consecutivo == registro.Consecutivo) {
+        listaAerolineas[contador].Nombre = aerolineaEditada.Nombre;
       }
       contador++;
     });
@@ -67,7 +67,7 @@ export default class Aerolinea extends Component {
       var contador = 0;
       var listaAerolineas = this.state.data;
       listaAerolineas.map((registro) => {
-        if (aerolineaEliminar.consecutivo == registro.consecutivo) {
+        if (aerolineaEliminar.Consecutivo == registro.Consecutivo) {
           listaAerolineas.splice(contador, 1);
         }
         contador++;
@@ -78,7 +78,7 @@ export default class Aerolinea extends Component {
 
   insertar= () => {
     var aerolineaNueva = {...this.state.form};
-    aerolineaNueva.consecutivo = this.state.data.length+1;
+    aerolineaNueva.Consecutivo = this.state.data.length+1;
     var listaAerolineas = this.state.data;
     listaAerolineas.push(aerolineaNueva);
     this.setState({ modalInsertar: false, data: listaAerolineas });
@@ -114,9 +114,9 @@ export default class Aerolinea extends Component {
 
             <tbody>
               {this.state.data.map((dato) => (
-                <tr key={dato.consecutivo}>
-                  <td>{dato.consecutivo}</td>
-                  <td>{dato.nombre}</td>
+                <tr key={dato.Consecutivo}>
+                  <td>{dato.Consecutivo}</td>
+                  <td>{dato.Nombre}</td>
                   <td>
                     <Button
                       color="primary"
@@ -147,7 +147,7 @@ export default class Aerolinea extends Component {
                 className="form-control"
                 readOnly
                 type="text"
-                value={this.state.form.consecutivo}
+                value={this.state.form.Consecutivo}
               />
             </FormGroup>
             
@@ -157,10 +157,10 @@ export default class Aerolinea extends Component {
               </label>
               <input
                 className="form-control"
-                name="nombre"
+                name="Nombre"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.nombre}
+                value={this.state.form.Nombre}
               />
             </FormGroup>
           </ModalBody>
@@ -195,10 +195,10 @@ export default class Aerolinea extends Component {
               </label>
               <input
                 className="form-control"
-                name="nombre"
+                name="Nombre"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.nombre}
+                value={this.state.form.Nombre}
               />
             </FormGroup>
           </ModalBody>
