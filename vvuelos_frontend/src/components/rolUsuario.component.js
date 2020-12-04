@@ -37,6 +37,7 @@ export default class RolUsuario extends Component {
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
+          this.cerrarModalInsertar();
         })
         .catch(e => {
           console.log(e);
@@ -48,6 +49,7 @@ export default class RolUsuario extends Component {
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
+          this.cerrarModalActualizar();
         })
         .catch(e => {
           console.log(e);
@@ -67,7 +69,7 @@ export default class RolUsuario extends Component {
 
   nuevoForm = () => {
     return {
-      Codigo: null,
+      Codigo: 0,
       Nombre: ""
     };
   }

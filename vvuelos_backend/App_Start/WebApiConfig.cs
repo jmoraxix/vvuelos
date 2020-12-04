@@ -13,8 +13,8 @@ namespace vvuelos_backend
             // Web API configuration and services
             config.EnableCors();
             var enableCorsAttribute = new EnableCorsAttribute("*",
-                "Origin, Content-Type,Accept",
-                "GET,PUT,POST, DELETE, OPTIONS");
+                "*",
+                "*");
 
             config.EnableCors(enableCorsAttribute);
 
