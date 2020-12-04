@@ -1,16 +1,16 @@
 import React, { Component } from "react";
-import AerolineaDataService from "../services/aerolinea.service";
+import ClaseDataService from "../services/clase.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 
-export default class Aerolinea extends Component {
+export default class TipoPago extends Component {
 
   state = {
     data: [],
     modalInsertar: false,
     modalActualizar: false,
     form: {
-      Consecutivo: "",
+      id: "",
       Nombre: ""
     },
   };
@@ -20,7 +20,7 @@ export default class Aerolinea extends Component {
   }
 
   listarObjetos() {
-    AerolineaDataService.getAll()
+    ClaseDataService.getAll()
       .then(response => {
         this.setState({
           data: response.data
@@ -33,7 +33,7 @@ export default class Aerolinea extends Component {
   }
 
   crearObjeto(data){
-    AerolineaDataService.create(data)
+    ClaseDataService.create(data)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -45,7 +45,7 @@ export default class Aerolinea extends Component {
   }
 
   actualizarObjeto(data){
-    AerolineaDataService.update(data.Consecutivo, data)
+    ClaseDataService.update(data.Codigo, data)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -56,8 +56,8 @@ export default class Aerolinea extends Component {
         });
   }
 
-  eliminarObjeto(Consecutivo){
-    AerolineaDataService.delete(Consecutivo)
+  eliminarObjeto(Codigo){
+    ClaseDataService.delete(Codigo)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -69,14 +69,14 @@ export default class Aerolinea extends Component {
 
   nuevoRol = () => {
     return {
-      Consecutivo: "",
+      Codigo: 0,
       Nombre: ""
     };
   }
 
   mostrarModalInsertar = () => {
     this.setState({
-      form: this.nuevaAerolinea(),
+      form: this.nuevaClase(),
       modalInsertar: true,
     });
   };
@@ -112,22 +112,22 @@ export default class Aerolinea extends Component {
         <Container>
         <br />
          <Row>
-           <Col><h1>Aerolineas</h1></Col>
+           <Col><h1>Clases</h1></Col>
            <Col><Button color="success" onClick={()=>this.mostrarModalInsertar()}>Crear</Button></Col>
          </Row>
           <Table>
             <thead>
               <tr>
-                <th>Consecutivo</th>
-                <th>Aerolinea</th>
+                <th>Codigo</th>
+                <th>Clase</th>
                 <th>Acciones</th>
               </tr>
             </thead>
 
             <tbody>
               {this.state.data.map((dato) => (
-                <tr key={dato.Consecutivo}>
-                  <td>{dato.Consecutivo}</td>
+                <tr key={dato.Codigo}>
+                  <td>{dato.Codigo}</td>
                   <td>{dato.Nombre}</td>
                   <td>
                     <Button
@@ -136,7 +136,7 @@ export default class Aerolinea extends Component {
                     >
                       Editar
                     </Button>{" "}
-                    <Button color="danger" onClick={()=> this.eliminarObjeto(dato.Consecutivo)}>Eliminar</Button>
+                    <Button color="danger" onClick={()=> this.eliminarObjeto(dato.Codigo)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
@@ -146,19 +146,20 @@ export default class Aerolinea extends Component {
 
         <Modal isOpen={this.state.modalActualizar}>
           <ModalHeader>
-           <div><h3>Editar aerolinea</h3></div>
+           <div><h3>Editar clase</h3></div>
           </ModalHeader>
 
           <ModalBody>
             <FormGroup>
               <label>
-               Consecutivo:
+               Codigo:
               </label>
             
               <input
                 className="form-control"
+                readOnly
                 type="text"
-                value={this.state.form.Consecutivo}
+                value={this.state.form.Codigo}
               />
             </FormGroup>
             
@@ -196,7 +197,7 @@ export default class Aerolinea extends Component {
 
         <Modal isOpen={this.state.modalInsertar}>
           <ModalHeader>
-           <div><h3>Insertar aerolinea</h3></div>
+           <div><h3>Insertar clase</h3></div>
           </ModalHeader>
 
           <ModalBody>

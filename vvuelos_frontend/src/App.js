@@ -4,9 +4,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/App.css";
 
 import Home from "./components/home.component";
-// import AddTutorial from "./components/tutorial/add-tutorial.component";
-// import Tutorial from "./components/tutorial.component";
-// import TutorialsList from "./components/tutorials-list.component";
 // import Usuario from "./components/usuario.component";
 import RolUsuario from "./components/rolUsuario.component";
 import Aerolinea from "./components/aerolinea.component";
@@ -15,6 +12,8 @@ import Puerta from "./components/puerta.component";
 import EstadoVuelo from "./components/estadoVuelo.component";
 import TipoPago from "./components/tipoPago.component";
 import Clase from "./components/clase.component";
+import Accion from "./components/accion.component";
+import Consecutivo from "./components/consecutivo.component";
 
 class App extends Component {
   render() {
@@ -107,8 +106,8 @@ class App extends Component {
             <Route exact path="/tiposPago" component={TipoPago} />
             <Route exact path="/bitacora" component={TipoPago} />
             <Route exact path="/clase" component={Clase} />
-            <Route exact path="/accion" component={TipoPago} />
-            <Route exact path="/consecutivo" component={TipoPago} />
+            <Route exact path="/accion" component={Accion} />
+            <Route exact path="/consecutivo" component={Consecutivo} />
           </Switch>
         </div>
       </div>
