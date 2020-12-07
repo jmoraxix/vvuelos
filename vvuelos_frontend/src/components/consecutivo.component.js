@@ -1,12 +1,14 @@
 import React, { Component } from "react";
+import ConsecutivoDataService from "../services/consecutivo.service";
 import ClaseDataService from "../services/clase.service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
+import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter, Label, Input} from 'reactstrap';
 
 export default class TipoPago extends Component {
 
   state = {
     data: [],
+    listaClases: [],
     modalInsertar: false,
     modalActualizar: false,
     form: {
@@ -17,23 +19,37 @@ export default class TipoPago extends Component {
 
   componentDidMount() {
     this.listarObjetos();
+    this.listarClases();
   }
 
   listarObjetos() {
-    ClaseDataService.getAll()
-      .then(response => {
-        this.setState({
-          data: response.data
+    ConsecutivoDataService.getAll()
+        .then(response => {
+          this.setState({
+            data: response.data
+          });
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
         });
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
+  }
+
+  listarClases() {
+    ClaseDataService.getAll()
+        .then(response => {
+          this.setState({
+            listaClases: response.data
+          });
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
   }
 
   crearObjeto(data){
-    ClaseDataService.create(data)
+    ConsecutivoDataService.create(data)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -45,7 +61,7 @@ export default class TipoPago extends Component {
   }
 
   actualizarObjeto(data){
-    ClaseDataService.update(data.Codigo, data)
+    ConsecutivoDataService.update(data.Codigo, data)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -57,7 +73,7 @@ export default class TipoPago extends Component {
   }
 
   eliminarObjeto(Codigo){
-    ClaseDataService.delete(Codigo)
+    ConsecutivoDataService.delete(Codigo)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -67,16 +83,21 @@ export default class TipoPago extends Component {
         });
   }
 
-  nuevoRol = () => {
+  nuevoConsecutivo = () => {
     return {
       Codigo: 0,
-      Nombre: ""
+      Clase: 0,
+      TienePrefijo: false,
+      Prefijo: "",
+      TieneRango: false,
+      RangoInicial: 0,
+      RangoFinal: 0
     };
   }
 
   mostrarModalInsertar = () => {
     this.setState({
-      form: this.nuevaClase(),
+      form: this.nuevoConsecutivo(),
       modalInsertar: true,
     });
   };
@@ -112,7 +133,7 @@ export default class TipoPago extends Component {
         <Container>
         <br />
          <Row>
-           <Col><h1>Clases</h1></Col>
+           <Col><h1>Consecutivo</h1></Col>
            <Col><Button color="success" onClick={()=>this.mostrarModalInsertar()}>Crear</Button></Col>
          </Row>
           <Table>
@@ -120,7 +141,11 @@ export default class TipoPago extends Component {
               <tr>
                 <th>Codigo</th>
                 <th>Clase</th>
-                <th>Acciones</th>
+                <th>Tiene prefijo</th>
+                <th>Prefijo</th>
+                <th>Tiene rango</th>
+                <th>Rango inicial</th>
+                <th>Rango final</th>
               </tr>
             </thead>
 
@@ -146,7 +171,7 @@ export default class TipoPago extends Component {
 
         <Modal isOpen={this.state.modalActualizar}>
           <ModalHeader>
-           <div><h3>Editar clase</h3></div>
+           <div><h3>Editar consecutivo</h3></div>
           </ModalHeader>
 
           <ModalBody>
@@ -162,17 +187,82 @@ export default class TipoPago extends Component {
                 value={this.state.form.Codigo}
               />
             </FormGroup>
-            
+
             <FormGroup>
               <label>
-                Nombre: 
+                Clase:
               </label>
               <input
-                className="form-control"
-                name="Nombre"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.form.Nombre}
+                  className="form-control"
+                  name="Clase"
+                  type="text"
+                  onChange={this.handleChange}
+                  value={this.state.form.Clase}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Tiene prefijo:
+              </label>
+              <input
+                  className="form-control"
+                  name="Nombre"
+                  type="text"
+                  onChange={this.handleChange}
+                  value={this.state.form.TienePrefijo}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Prefijo:
+              </label>
+              <input
+                  className="form-control"
+                  name="Nombre"
+                  type="text"
+                  onChange={this.handleChange}
+                  value={this.state.form.Prefijo}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Nombre:
+              </label>
+              <input
+                  className="form-control"
+                  name="Nombre"
+                  type="text"
+                  onChange={this.handleChange}
+                  value={this.state.form.Nombre}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Nombre:
+              </label>
+              <input
+                  className="form-control"
+                  name="Nombre"
+                  type="text"
+                  onChange={this.handleChange}
+                  value={this.state.form.Nombre}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Nombre:
+              </label>
+              <input
+                  className="form-control"
+                  name="Nombre"
+                  type="text"
+                  onChange={this.handleChange}
+                  value={this.state.form.Nombre}
               />
             </FormGroup>
           </ModalBody>
@@ -197,13 +287,13 @@ export default class TipoPago extends Component {
 
         <Modal isOpen={this.state.modalInsertar}>
           <ModalHeader>
-           <div><h3>Insertar clase</h3></div>
+           <div><h3>Insertar consecutivo</h3></div>
           </ModalHeader>
 
           <ModalBody>
             <FormGroup>
               <label>
-                Nombre: 
+                Clase:
               </label>
               <input
                 className="form-control"
@@ -212,6 +302,17 @@ export default class TipoPago extends Component {
                 onChange={this.handleChange}
                 value={this.state.form.Nombre}
               />
+            </FormGroup>
+
+            <FormGroup>
+              <Label for="Clase">Clase</Label>
+              <Input type="select" name="Clase" id="Clase">
+                <option>1</option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+              </Input>
             </FormGroup>
           </ModalBody>
 
