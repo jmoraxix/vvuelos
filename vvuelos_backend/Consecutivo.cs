@@ -21,6 +21,7 @@ namespace vvuelos_backend
         public bool TieneRango { get; set; }
         public int RangoInicial { get; set; }
         public int RangoFinal { get; set; }
+        public int Actual { get; set; }
     
         public virtual Clase Clase { get; set; }
     }

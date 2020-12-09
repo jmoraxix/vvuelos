@@ -39,6 +39,7 @@
     <EntitySetMapping Name="Consecutivoes">
       <EntityTypeMapping TypeName="DBvvuelosModel.Consecutivo">
         <MappingFragment StoreEntitySet="Consecutivo">
+          <ScalarProperty Name="Actual" ColumnName="Actual" />
           <ScalarProperty Name="Codigo" ColumnName="Codigo" />
           <ScalarProperty Name="ClaseID" ColumnName="ClaseID" />
           <ScalarProperty Name="TienePrefijo" ColumnName="TienePrefijo" />

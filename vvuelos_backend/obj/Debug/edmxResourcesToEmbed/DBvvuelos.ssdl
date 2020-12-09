@@ -42,6 +42,7 @@
     <Property Name="TieneRango" Type="bit" Nullable="false" />
     <Property Name="RangoInicial" Type="int" Nullable="false" />
     <Property Name="RangoFinal" Type="int" Nullable="false" />
+    <Property Name="Actual" Type="int" Nullable="false" />
   </EntityType>
   <EntityType Name="EstadoVuelo">
     <Key>

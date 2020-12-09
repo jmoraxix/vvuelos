@@ -303,6 +303,7 @@
     <Compile Include="Controllers\AerolineasController.cs" />
     <Compile Include="Controllers\BitacorasController.cs" />
     <Compile Include="Controllers\ClasesController.cs" />
+    <Compile Include="Controllers\ConsecutivosController.cs" />
     <Compile Include="Controllers\EstadoVuelosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PaisController.cs" />

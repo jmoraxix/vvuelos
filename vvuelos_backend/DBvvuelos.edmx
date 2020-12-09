@@ -47,6 +47,7 @@
           <Property Name="TieneRango" Type="bit" Nullable="false" />
           <Property Name="RangoInicial" Type="int" Nullable="false" />
           <Property Name="RangoFinal" Type="int" Nullable="false" />
+          <Property Name="Actual" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="EstadoVuelo">
           <Key>
@@ -410,6 +411,7 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <Property Name="RangoInicial" Type="Int32" Nullable="false" />
           <Property Name="RangoFinal" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Clase" Relationship="Self.FK_Consecutivo_ClaseID" FromRole="Consecutivo" ToRole="Clase" />
+          <Property Name="Actual" Type="Int32" Nullable="false" />
         </EntityType>
         <EntityType Name="EstadoVuelo">
           <Key>
@@ -739,6 +741,7 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <EntitySetMapping Name="Consecutivoes">
             <EntityTypeMapping TypeName="DBvvuelosModel.Consecutivo">
               <MappingFragment StoreEntitySet="Consecutivo">
+                <ScalarProperty Name="Actual" ColumnName="Actual" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="ClaseID" ColumnName="ClaseID" />
                 <ScalarProperty Name="TienePrefijo" ColumnName="TienePrefijo" />

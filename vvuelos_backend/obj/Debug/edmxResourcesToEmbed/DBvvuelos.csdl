@@ -50,6 +50,7 @@
     <Property Name="RangoInicial" Type="Int32" Nullable="false" />
     <Property Name="RangoFinal" Type="Int32" Nullable="false" />
     <NavigationProperty Name="Clase" Relationship="Self.FK_Consecutivo_ClaseID" FromRole="Consecutivo" ToRole="Clase" />
+    <Property Name="Actual" Type="Int32" Nullable="false" />
   </EntityType>
   <EntityType Name="EstadoVuelo">
     <Key>
