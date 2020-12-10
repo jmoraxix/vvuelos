@@ -13,7 +13,7 @@ using vvuelos_backend;
 using System.Web.Http.Cors;
 namespace vvuelos_backend.Controllers
 {
-    [EnableCors(origins: "http://localhost:3001", headers: "*", methods: "*")]
+    [EnableCors(origins: "http://localhost:3001, http://localhost:3000", headers: "*", methods: "*")]
     public class PaisController : ApiController
     {
         private vvuelosEntities db = new vvuelosEntities();
