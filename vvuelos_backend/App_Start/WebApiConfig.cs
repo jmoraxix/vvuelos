@@ -12,11 +12,11 @@ namespace vvuelos_backend
         {
             // Web API configuration and services
             config.EnableCors();
-            var enableCorsAttribute = new EnableCorsAttribute("*",
-                "*",
-                "*");
+           // var enableCorsAttribute = new EnableCorsAttribute("*",
+            //    "*",
+            //    "*");
 
-            config.EnableCors(enableCorsAttribute);
+          //  config.EnableCors(enableCorsAttribute);
 
             // Web API routes
             config.MapHttpAttributeRoutes();
