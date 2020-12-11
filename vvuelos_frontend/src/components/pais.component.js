@@ -11,7 +11,7 @@ export default class Pais extends Component {
     modalActualizar: false,
     form: {
       Consecutivo: "",
-      Nombre: ""
+      Nombre: "",
     },
   };
 
@@ -67,10 +67,11 @@ export default class Pais extends Component {
         });
   }
 
-  nuevoRol = () => {
+  nuevoPais = () => {
     return {
-      Consecutivo: "",
-      Nombre: ""
+      Consecutivo: 1,
+      Nombre: "",
+
     };
   }
 
@@ -202,7 +203,20 @@ export default class Pais extends Component {
           <ModalBody>
             <FormGroup>
               <label>
-                Nombre: 
+                Consecutivo: 
+              </label>
+              <input
+                className="form-control"
+                name="Consecutivo"
+                type="number"
+                onChange={this.handleChange}
+                value={this.state.form.Consecutivo}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Pais: 
               </label>
               <input
                 className="form-control"
@@ -212,6 +226,8 @@ export default class Pais extends Component {
                 value={this.state.form.Nombre}
               />
             </FormGroup>
+
+ 
           </ModalBody>
 
           <ModalFooter>

@@ -67,7 +67,7 @@ export default class TipoPago extends Component {
         });
   }
 
-  nuevoRol = () => {
+  nuevaClase = () => {
     return {
       Codigo: 0,
       Nombre: ""

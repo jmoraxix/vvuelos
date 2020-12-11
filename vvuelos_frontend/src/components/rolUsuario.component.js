@@ -69,7 +69,7 @@ export default class RolUsuario extends Component {
 
   nuevoRol = () => {
     return {
-      Codigo: 0,
+      Codigo: 4,
       Nombre: ""
     };
   }
@@ -203,7 +203,21 @@ export default class RolUsuario extends Component {
           <ModalBody>
             <FormGroup>
               <label>
-                Nombre: 
+                Codigo: 
+              </label>
+              <input
+                className="form-control"
+                name="Codigo"
+                type="number"
+                onChange={this.handleChange}
+                value={this.state.form.Codigo}
+                disabled
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Rol: 
               </label>
               <input
                 className="form-control"
@@ -211,6 +225,7 @@ export default class RolUsuario extends Component {
                 type="text"
                 onChange={this.handleChange}
                 value={this.state.form.Nombre}
+                Nombre
               />
             </FormGroup>
           </ModalBody>

@@ -10,7 +10,7 @@ export default class TipoPago extends Component {
     modalInsertar: false,
     modalActualizar: false,
     form: {
-      id: "",
+      Codigo: "",
       Nombre: ""
     },
   };
@@ -67,7 +67,7 @@ export default class TipoPago extends Component {
         });
   }
 
-  nuevoRol = () => {
+  nuevaClase = () => {
     return {
       Codigo: 0,
       Nombre: ""
@@ -203,7 +203,21 @@ export default class TipoPago extends Component {
           <ModalBody>
             <FormGroup>
               <label>
-                Nombre: 
+                Codigo: 
+              </label>
+              <input
+                className="form-control"
+                name="Codigo"
+                type="number"
+                onChange={this.handleChange}
+                value={this.state.form.Codigo}
+                disabled
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Clase: 
               </label>
               <input
                 className="form-control"
@@ -211,6 +225,7 @@ export default class TipoPago extends Component {
                 type="text"
                 onChange={this.handleChange}
                 value={this.state.form.Nombre}
+               
               />
             </FormGroup>
           </ModalBody>

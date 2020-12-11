@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/App.css";
 
 import Home from "./components/home.component";
-// import Usuario from "./components/usuario.component";
+import Usuario from "./components/usuario.component";
 import RolUsuario from "./components/rolUsuario.component";
 import Aerolinea from "./components/aerolinea.component";
 import Pais from "./components/pais.component";
@@ -14,6 +14,8 @@ import TipoPago from "./components/tipoPago.component";
 import Clase from "./components/clase.component";
 import Accion from "./components/accion.component";
 import Consecutivo from "./components/consecutivo.component";
+import Vuelo from "./components/vuelo.component";
+import Bitacora from "./components/bitacora.component";
 
 class App extends Component {
   render() {
@@ -95,16 +97,16 @@ class App extends Component {
         <div className="container mt-3">
           <Switch>
             <Route exact path="/home" component={Home} />
-            <Route exact path="/usuarios" component={RolUsuario} />
+            <Route exact path="/usuarios" component={Usuario} />
             <Route exact path="/roles" component={RolUsuario} />
-            <Route exact path="/vuelos" component={RolUsuario} />
+            <Route exact path="/vuelos" component={Vuelo} />
             <Route exact path="/aerolineas" component={Aerolinea} />
             <Route exact path="/paises" component={Pais} />
             <Route exact path="/puertas" component={Puerta} />
             <Route exact path="/estadosVuelos" component={EstadoVuelo} />
             <Route exact path="/reservaciones" component={RolUsuario} />
             <Route exact path="/tiposPago" component={TipoPago} />
-            <Route exact path="/bitacora" component={TipoPago} />
+            <Route exact path="/bitacora" component={Bitacora} />
             <Route exact path="/clase" component={Clase} />
             <Route exact path="/accion" component={Accion} />
             <Route exact path="/consecutivo" component={Consecutivo} />

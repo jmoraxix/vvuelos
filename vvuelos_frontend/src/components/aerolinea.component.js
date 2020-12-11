@@ -67,9 +67,9 @@ export default class Aerolinea extends Component {
         });
   }
 
-  nuevoRol = () => {
+  nuevaAerolinea = () => {
     return {
-      Consecutivo: "",
+      Consecutivo: 0,
       Nombre: ""
     };
   }
@@ -202,7 +202,21 @@ export default class Aerolinea extends Component {
           <ModalBody>
             <FormGroup>
               <label>
-                Nombre: 
+                Consecutivo: 
+              </label>
+              <input
+                className="form-control"
+                name="Consecutivo"
+                type="number"
+                onChange={this.handleChange}
+                value={this.state.form.Consecutivo}
+                disabled
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Aerolinea: 
               </label>
               <input
                 className="form-control"

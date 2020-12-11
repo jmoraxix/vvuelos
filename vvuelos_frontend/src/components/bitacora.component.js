@@ -1,17 +1,21 @@
 import React, { Component } from "react";
-import PuertaDataService from "../services/puerta.service";
+import BitacoraDataService from "../services/bitacora.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 
-export default class Puerta extends Component {
+export default class Bitacora extends Component {
 
   state = {
     data: [],
     modalInsertar: false,
     modalActualizar: false,
     form: {
-      Consecutivo: "",
-      Nombre: ""
+      Codigo: "",
+      Usuario: "",
+      Clase:"",
+      Accion:"",
+      Detalle:""
+
     },
   };
 
@@ -20,7 +24,7 @@ export default class Puerta extends Component {
   }
 
   listarObjetos() {
-    PuertaDataService.getAll()
+    BitacoraDataService.getAll()
       .then(response => {
         this.setState({
           data: response.data
@@ -33,7 +37,7 @@ export default class Puerta extends Component {
   }
 
   crearObjeto(data){
-    PuertaDataService.create(data)
+    BitacoraDataService.create(data)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -45,7 +49,7 @@ export default class Puerta extends Component {
   }
 
   actualizarObjeto(data){
-    PuertaDataService.update(data.Consecutivo, data)
+    BitacoraDataService.update(data.Codigo, data)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -56,8 +60,8 @@ export default class Puerta extends Component {
         });
   }
 
-  eliminarObjeto(Consecutivo){
-    PuertaDataService.delete(Consecutivo)
+  eliminarObjeto(Codigo){
+    BitacoraDataService.delete(Codigo)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -67,16 +71,19 @@ export default class Puerta extends Component {
         });
   }
 
-  nuevaPuerta= () => {
+  nuevaBitacora = () => {
     return {
-      Consecutivo: "",
-      Nombre: ""
+        Codigo: "",
+        Usuario: "",
+        Clase:"",
+        Accion:"",
+        Detalle:""
     };
   }
 
   mostrarModalInsertar = () => {
     this.setState({
-      form: this.nuevaPuerta(),
+      form: this.nuevaBitacora(),
       modalInsertar: true,
     });
   };
@@ -112,23 +119,28 @@ export default class Puerta extends Component {
         <Container>
         <br />
          <Row>
-           <Col><h1>Puertas</h1></Col>
+           <Col><h1>Bitacora</h1></Col>
            <Col><Button color="success" onClick={()=>this.mostrarModalInsertar()}>Crear</Button></Col>
          </Row>
           <Table>
             <thead>
               <tr>
-                <th>Consecutivo</th>
-                <th>Puerta</th>
-                <th>Acciones</th>
+                <th>Codigo</th>
+                <th>Usuario</th>
+                <th>Clase</th>
+                <th>Detalle</th>
+                <th>Accion</th>
               </tr>
             </thead>
 
             <tbody>
               {this.state.data.map((dato) => (
-                <tr key={dato.Consecutivo}>
-                  <td>{dato.Consecutivo}</td>
-                  <td>{dato.Nombre}</td>
+                <tr key={dato.Codigo}>
+                  <td>{dato.Codigo}</td>
+                  <td>{dato.Usuario}</td>
+                  <td>{dato.Clase}</td>
+                  <td>{dato.Accion}</td>
+                  <td>{dato.Detalle}</td>
                   <td>
                     <Button
                       color="primary"
@@ -136,7 +148,7 @@ export default class Puerta extends Component {
                     >
                       Editar
                     </Button>{" "}
-                    <Button color="danger" onClick={()=> this.eliminarObjeto(dato.Consecutivo)}>Eliminar</Button>
+                    <Button color="danger" onClick={()=> this.eliminarObjeto(dato.Codigo)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
@@ -146,32 +158,73 @@ export default class Puerta extends Component {
 
         <Modal isOpen={this.state.modalActualizar}>
           <ModalHeader>
-           <div><h3>Editar puerta</h3></div>
+           <div><h3>Editar Bitacora</h3></div>
           </ModalHeader>
 
           <ModalBody>
             <FormGroup>
               <label>
-               Consecutivo:
+               Codigo:
               </label>
             
               <input
                 className="form-control"
-                type="text"
-                value={this.state.form.Consecutivo}
+                name="Codigo"
+                type="number"
+                onChange={this.handleChange}
+                value={this.state.form.Codigo}
               />
             </FormGroup>
             
             <FormGroup>
               <label>
-                Nombre: 
+                Usuario: 
               </label>
               <input
                 className="form-control"
-                name="Nombre"
+                name="Usuario"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.Nombre}
+                value={this.state.form.Usuario}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Correo: 
+              </label>
+              <input
+                className="form-control"
+                name="Correo"
+                type="text"
+                onChange={this.handleChange}
+                value={this.state.form.Correo}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Clase: 
+              </label>
+              <input
+                className="form-control"
+                name="Clase"
+                type="text"
+                onChange={this.handleChange}
+                value={this.state.form.Clase}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Detalle: 
+              </label>
+              <input
+                className="form-control"
+                name="Detalle"
+                type="text"
+                onChange={this.handleChange}
+                value={this.state.form.Detalle}
               />
             </FormGroup>
           </ModalBody>
@@ -196,33 +249,73 @@ export default class Puerta extends Component {
 
         <Modal isOpen={this.state.modalInsertar}>
           <ModalHeader>
-           <div><h3>Insertar puerta</h3></div>
+           <div><h3>Insertar Usuario</h3></div>
           </ModalHeader>
 
           <ModalBody>
+          <FormGroup>
+              <label>
+               Codigo:
+              </label>
+            
+              <input
+                className="form-control"
+                name="Codigo"
+                type="number"
+                onChange={this.handleChange}
+                value={this.state.form.Codigo}
+              />
+            </FormGroup>
+            
             <FormGroup>
               <label>
-                Consecutivo: 
+                Usuario: 
               </label>
               <input
                 className="form-control"
-                name="Consecutivo"
-                type="number"
+                name="Usuario"
+                type="text"
                 onChange={this.handleChange}
-                value={this.state.form.Consecutivo}
+                value={this.state.form.Usuario}
               />
             </FormGroup>
 
             <FormGroup>
               <label>
-                Puerta: 
+                Correo: 
               </label>
               <input
                 className="form-control"
-                name="Puerta"
-                type="number"
+                name="Correo"
+                type="text"
                 onChange={this.handleChange}
-                value={this.state.form.Puerta}
+                value={this.state.form.Correo}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Clase: 
+              </label>
+              <input
+                className="form-control"
+                name="Clase"
+                type="text"
+                onChange={this.handleChange}
+                value={this.state.form.Clase}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Detalle: 
+              </label>
+              <input
+                className="form-control"
+                name="Detalle"
+                type="text"
+                onChange={this.handleChange}
+                value={this.state.form.Detalle}
               />
             </FormGroup>
           </ModalBody>

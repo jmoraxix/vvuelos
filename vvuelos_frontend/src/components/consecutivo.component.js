@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ConsecutivoDataService from "../services/consecutivo.service";
 import ClaseDataService from "../services/clase.service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter, Label, Input} from 'reactstrap';
+import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter, Label, Input, CheckBox} from 'reactstrap';
 
 export default class TipoPago extends Component {
 
@@ -11,9 +11,16 @@ export default class TipoPago extends Component {
     listaClases: [],
     modalInsertar: false,
     modalActualizar: false,
+
     form: {
-      id: "",
-      Nombre: ""
+      Codigo: "",
+      Nombre: "",
+      TienePrefijo:"",
+      Prefijo: "" , 
+      TieneRango:"",
+      RangoInicial:"",
+      RangoFinal:"",
+      Actual:""
     },
   };
 
@@ -91,7 +98,8 @@ export default class TipoPago extends Component {
       Prefijo: "",
       TieneRango: false,
       RangoInicial: 0,
-      RangoFinal: 0
+      RangoFinal: 0,
+      Actual:""
     };
   }
 
@@ -128,6 +136,7 @@ export default class TipoPago extends Component {
 
 
   render() {
+  
     return (
       <>
         <Container>
@@ -146,6 +155,7 @@ export default class TipoPago extends Component {
                 <th>Tiene rango</th>
                 <th>Rango inicial</th>
                 <th>Rango final</th>
+                <th>Actual</th>
               </tr>
             </thead>
 
@@ -154,6 +164,12 @@ export default class TipoPago extends Component {
                 <tr key={dato.Codigo}>
                   <td>{dato.Codigo}</td>
                   <td>{dato.Nombre}</td>
+                  <td>{dato.TienePrefijo}</td>
+                  <td>{dato.Prefijo}</td>
+                  <td>{dato.TieneRango}</td>
+                  <td>{dato.RangoInicial}</td>
+                  <td>{dato.RangoFinal}</td>
+                  <td>{dato.Actual}</td>
                   <td>
                     <Button
                       color="primary"
@@ -188,17 +204,16 @@ export default class TipoPago extends Component {
               />
             </FormGroup>
 
+         
             <FormGroup>
-              <label>
-                Clase:
-              </label>
-              <input
-                  className="form-control"
-                  name="Clase"
-                  type="text"
-                  onChange={this.handleChange}
-                  value={this.state.form.Clase}
-              />
+              <Label for="Clase">Clase</Label>
+              <Input type="select" name="Clase" id="Clase">
+                <option>Aerolinea</option>
+                <option>Pais</option>
+                <option>Puerta</option>
+                <option>Vuelo</option>
+                <option>Reservacion</option>
+              </Input>
             </FormGroup>
 
             <FormGroup>
@@ -207,8 +222,8 @@ export default class TipoPago extends Component {
               </label>
               <input
                   className="form-control"
-                  name="Nombre"
-                  type="text"
+                  name="TienePrefijo"
+                  type="checkbox"
                   onChange={this.handleChange}
                   value={this.state.form.TienePrefijo}
               />
@@ -220,7 +235,7 @@ export default class TipoPago extends Component {
               </label>
               <input
                   className="form-control"
-                  name="Nombre"
+                  name="Prefijo"
                   type="text"
                   onChange={this.handleChange}
                   value={this.state.form.Prefijo}
@@ -229,40 +244,53 @@ export default class TipoPago extends Component {
 
             <FormGroup>
               <label>
-                Nombre:
+                Tiene Rango:
               </label>
               <input
                   className="form-control"
-                  name="Nombre"
-                  type="text"
+                  name="TieneRango"
+                  type="checkbox"
                   onChange={this.handleChange}
-                  value={this.state.form.Nombre}
+                  value={this.state.form.TieneRango}
               />
             </FormGroup>
 
             <FormGroup>
               <label>
-                Nombre:
+                Rango Inicial:
               </label>
               <input
                   className="form-control"
-                  name="Nombre"
-                  type="text"
+                  name="RangoInicial"
+                  type="number"
                   onChange={this.handleChange}
-                  value={this.state.form.Nombre}
+                  value={this.state.form.RangoInicial}
               />
             </FormGroup>
 
             <FormGroup>
               <label>
-                Nombre:
+                Rango final:
               </label>
               <input
                   className="form-control"
-                  name="Nombre"
-                  type="text"
+                  name="RangoFinal"
+                  type="number"
                   onChange={this.handleChange}
-                  value={this.state.form.Nombre}
+                  value={this.state.form.RangoFinal}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Actual:
+              </label>
+              <input
+                  className="form-control"
+                  name="Actual"
+                  type="number"
+                  onChange={this.handleChange}
+                  value={this.state.form.Actual}
               />
             </FormGroup>
           </ModalBody>
@@ -291,28 +319,85 @@ export default class TipoPago extends Component {
           </ModalHeader>
 
           <ModalBody>
+           
+            <FormGroup>
+              <Label for="Clase">Clase</Label>
+              <Input type="select" name="Clase" id="Clase">
+                <option>Aerolinea</option>
+                <option>Pais</option>
+                <option>Puerta</option>
+                <option>Vuelo</option>
+                <option>Reservacion</option>
+              </Input>
+            </FormGroup>
+
             <FormGroup>
               <label>
-                Clase:
+               Tiene prefijo:
               </label>
               <input
                 className="form-control"
-                name="Nombre"
+                style={{textAlign:"right"}}
+                name="TienePrefijo"
+                type="checkbox"
+                onChange={this.handleChange}
+                value={this.state.form.TienePrefijo}
+                
+              />
+            </FormGroup>
+
+            
+            <FormGroup>
+              <label>
+                Prefijo:
+              </label>
+              <input
+                className="form-control"
+                name="Prefijo"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.Nombre}
+                value={this.state.form.Prefijo}
+              />
+            </FormGroup>
+
+
+            <FormGroup>
+              <label>
+               Tiene rango:
+              </label>
+              <input
+                className="form-control"
+                name="TieneRango"
+                type="checkbox"
+                onChange={this.handleChange}
+                value={this.state.form.TieneRango}
               />
             </FormGroup>
 
             <FormGroup>
-              <Label for="Clase">Clase</Label>
-              <Input type="select" name="Clase" id="Clase">
-                <option>1</option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-              </Input>
+              <label>
+                Rango inicial:
+              </label>
+              <input
+                className="form-control"
+                name="RangoInicial"
+                type="number"
+                onChange={this.handleChange}
+                value={this.state.form.RangoInicial}
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Rango final:
+              </label>
+              <input
+                className="form-control"
+                name="RangoFinal"
+                type="number"
+                onChange={this.handleChange}
+                value={this.state.form.RangoFinal}
+              />
             </FormGroup>
           </ModalBody>
 

@@ -203,7 +203,21 @@ export default class TipoPago extends Component {
           <ModalBody>
             <FormGroup>
               <label>
-                Nombre: 
+                Codigo: 
+              </label>
+              <input
+                className="form-control"
+                name="Codigo"
+                type="number"
+                onChange={this.handleChange}
+                value={this.state.form.Codigo}
+                disabled
+              />
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Tipo: 
               </label>
               <input
                 className="form-control"
@@ -211,6 +225,7 @@ export default class TipoPago extends Component {
                 type="text"
                 onChange={this.handleChange}
                 value={this.state.form.Nombre}
+               
               />
             </FormGroup>
           </ModalBody>

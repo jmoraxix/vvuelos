@@ -67,9 +67,9 @@ export default class EstadoVuelo extends Component {
         });
   }
 
-  nuevoRol = () => {
+  nuevoEstadoVuelo = () => {
     return {
-      Codigo: 0,
+      Codigo: 5,
       Nombre: ""
     };
   }
@@ -119,7 +119,7 @@ export default class EstadoVuelo extends Component {
             <thead>
               <tr>
                 <th>Codigo</th>
-                <th>Pais</th>
+                <th>Estado Vuelo</th>
                 <th>Acciones</th>
               </tr>
             </thead>
@@ -202,8 +202,22 @@ export default class EstadoVuelo extends Component {
 
           <ModalBody>
             <FormGroup>
+              <label disable>
+                Codigo: 
+              </label>
+              <input
+                className="form-control"
+                name="Codigo"
+                type="number"
+                onChange={this.handleChange}
+                value={this.state.form.Codigo}
+                disabled
+              />
+            </FormGroup>
+
+            <FormGroup>
               <label>
-                Nombre: 
+                Estado Vuelo: 
               </label>
               <input
                 className="form-control"
