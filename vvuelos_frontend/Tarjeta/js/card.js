@@ -83,7 +83,7 @@ window.onload = function () {
     
     //Mask the Expiration Date
     var expirationdate_mask = new IMask(expirationdate, {
-        mask: 'MM{/}YY',
+        mask: '00{/}00',
         groups: {
             YY: getRndInteger(0, 99),
             MM: getRndInteger(1, 12),
