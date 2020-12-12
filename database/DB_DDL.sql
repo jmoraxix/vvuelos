@@ -14,7 +14,7 @@ CREATE TABLE [Usuario] (
 )
 
 CREATE TABLE [Rol] (
-    [Codigo] int  NOT NULL ,
+    [Codigo] int  NOT NULL IDENTITY(1,1) ,
     [Nombre] VARCHAR(25)  NOT NULL ,
     CONSTRAINT [PK_Rol] PRIMARY KEY CLUSTERED (
         [Codigo] ASC
@@ -51,7 +51,7 @@ CREATE TABLE [Puerta] (
 )
 
 CREATE TABLE [EstadoVuelo] (
-    [Codigo] int  NOT NULL ,
+    [Codigo] int  NOT NULL IDENTITY(1,1) ,
     [Nombre] VARCHAR(25)  NOT NULL ,
     CONSTRAINT [PK_EstadoVuelo] PRIMARY KEY CLUSTERED (
         [Codigo] ASC
@@ -62,16 +62,19 @@ CREATE TABLE [Vuelo] (
     [Consecutivo] VARCHAR(25)  NOT NULL ,
     [AerolineaID] VARCHAR(25)  NOT NULL ,
     [PaisDestinoID] VARCHAR(25)  NOT NULL ,
+    [PaisOrigenID] VARCHAR(25) NOT NULL,
     [FechaHoraSalida] datetime  NOT NULL ,
     [PuertaID] VARCHAR(25)  NOT NULL ,
     [EstadoVueloID] int  NOT NULL ,
+    [Precio] [int] NOT NULL,
+    [Capacidad] [int] NOT NULL,
     CONSTRAINT [PK_Vuelo] PRIMARY KEY CLUSTERED (
         [Consecutivo] ASC
     )
 )
 
 CREATE TABLE [TipoPago] (
-    [Codigo] int  NOT NULL ,
+    [Codigo] int  NOT NULL IDENTITY(1,1) ,
     [Nombre] VARCHAR(25)  NOT NULL ,
     CONSTRAINT [PK_TipoPago] PRIMARY KEY CLUSTERED (
         [Codigo] ASC
@@ -92,7 +95,7 @@ CREATE TABLE [Reservacion] (
 
 
 CREATE TABLE [Clase] (
-    [Codigo] int  NOT NULL ,
+    [Codigo] int  NOT NULL IDENTITY(1,1) ,
     [Nombre] VARCHAR(25)  NOT NULL ,
     CONSTRAINT [PK_Clase] PRIMARY KEY CLUSTERED (
         [Codigo] ASC
@@ -100,7 +103,7 @@ CREATE TABLE [Clase] (
 )
 
 CREATE TABLE [Accion] (
-    [Codigo] int  NOT NULL ,
+    [Codigo] int  NOT NULL IDENTITY(1,1) ,
     [Nombre] VARCHAR(25)  NOT NULL ,
     CONSTRAINT [PK_Accion] PRIMARY KEY CLUSTERED (
         [Codigo] ASC
@@ -108,7 +111,7 @@ CREATE TABLE [Accion] (
 )
 
 CREATE TABLE [Bitacora] (
-    [Codigo] int  NOT NULL ,
+    [Codigo] int  NOT NULL IDENTITY(1,1) ,
     [UsuarioID] VARCHAR(25)  NOT NULL ,
     [ClaseID] int  NOT NULL ,
     [AccionID] int  NOT NULL ,
@@ -119,13 +122,14 @@ CREATE TABLE [Bitacora] (
 )
 
 CREATE TABLE [Consecutivo] (
-    [Codigo] int  NOT NULL ,
+    [Codigo] int  NOT NULL IDENTITY(1,1) ,
     [ClaseID] int  NOT NULL ,
     [TienePrefijo] BIT  NOT NULL ,
     [Prefijo] VARCHAR(25)  NOT NULL ,
     [TieneRango] BIT  NOT NULL ,
     [RangoInicial] int  NOT NULL ,
     [RangoFinal] int  NOT NULL ,
+    [Actual] [int] NOT NULL,
     CONSTRAINT [PK_Consecutivo] PRIMARY KEY CLUSTERED (
         [Codigo] ASC
     )
@@ -150,6 +154,11 @@ ALTER TABLE [Vuelo] WITH CHECK ADD CONSTRAINT [FK_Vuelo_PaisDestinoID] FOREIGN K
 REFERENCES [Pais] ([Consecutivo])
 
 ALTER TABLE [Vuelo] CHECK CONSTRAINT [FK_Vuelo_PaisDestinoID]
+
+ALTER TABLE [Vuelo] WITH CHECK ADD CONSTRAINT [FK_Vuelo_PaisOrigenID] FOREIGN KEY([PaisOrigenID])
+REFERENCES [Pais] ([Consecutivo])
+
+ALTER TABLE [Vuelo] CHECK CONSTRAINT [FK_Vuelo_PaisOrigenID]
 
 ALTER TABLE [Vuelo] WITH CHECK ADD CONSTRAINT [FK_Vuelo_PuertaID] FOREIGN KEY([PuertaID])
 REFERENCES [Puerta] ([Consecutivo])
@@ -200,3 +209,40 @@ CREATE INDEX [idx_Usuario_Correo]
 ON [Usuario] ([Correo])
 
 COMMIT TRANSACTION VVUELOSBD
+
+INSERT [dbo].[Accion] ([Nombre]) VALUES (N'Agregar')
+INSERT [dbo].[Accion] ([Nombre]) VALUES (N'Modificar')
+INSERT [dbo].[Accion] ([Nombre]) VALUES (N'Eliminar')
+
+INSERT [dbo].[Clase] ([Nombre]) VALUES (N'Aerolinea')
+INSERT [dbo].[Clase] ([Nombre]) VALUES (N'Pais')
+INSERT [dbo].[Clase] ([Nombre]) VALUES (N'Puerta')
+INSERT [dbo].[Clase] ([Nombre]) VALUES (N'Vuelo')
+INSERT [dbo].[Clase] ([Nombre]) VALUES (N'Reservacion')
+
+INSERT [dbo].[Consecutivo] ([ClaseID], [TienePrefijo], [Prefijo], [TieneRango], [RangoInicial], [RangoFinal], [Actual]) VALUES (1, 1, N'AE-', 1, 100, 200, 100)
+INSERT [dbo].[Consecutivo] ([ClaseID], [TienePrefijo], [Prefijo], [TieneRango], [RangoInicial], [RangoFinal], [Actual]) VALUES (2, 1, N'PA-', 1, 100, 200, 100)
+INSERT [dbo].[Consecutivo] ([ClaseID], [TienePrefijo], [Prefijo], [TieneRango], [RangoInicial], [RangoFinal], [Actual]) VALUES (3, 1, N'PU-', 1, 100, 200, 100)
+INSERT [dbo].[Consecutivo] ([ClaseID], [TienePrefijo], [Prefijo], [TieneRango], [RangoInicial], [RangoFinal], [Actual]) VALUES (4, 1, N'VU-', 1, 100, 200, 100)
+INSERT [dbo].[Consecutivo] ([ClaseID], [TienePrefijo], [Prefijo], [TieneRango], [RangoInicial], [RangoFinal], [Actual]) VALUES (5, 1, N'RE-', 1, 100, 200, 100)
+
+INSERT [dbo].[EstadoVuelo] ([Nombre]) VALUES (N'A Tiempo')
+INSERT [dbo].[EstadoVuelo] ([Nombre]) VALUES (N'Atrasado')
+INSERT [dbo].[EstadoVuelo] ([Nombre]) VALUES (N'Cancelado')
+INSERT [dbo].[EstadoVuelo] ([Nombre]) VALUES (N'En Ruta')
+INSERT [dbo].[EstadoVuelo] ([Nombre]) VALUES (N'Prueba')
+
+INSERT [dbo].[Pais] ([Consecutivo], [Nombre]) VALUES (N'1', N'Panama')
+INSERT [dbo].[Pais] ([Consecutivo], [Nombre]) VALUES (N'2', N'Costa Rica')
+
+INSERT [dbo].[Rol] ([Nombre]) VALUES (N'Administrador')
+INSERT [dbo].[Rol] ([Nombre]) VALUES (N'Cliente')
+
+INSERT [dbo].[TipoPago] ([Nombre]) VALUES (N'Tarjeta')
+INSERT [dbo].[TipoPago] ([Nombre]) VALUES (N'Efectivo')
+INSERT [dbo].[TipoPago] ([Nombre]) VALUES (N'Easy Pay')
+
+INSERT [dbo].[Usuario] ([Usuario], [Contrasena], [Correo], [PreguntaSeg], [RespuestaSeg]) VALUES (N'josef14', N'1234', N'josef@gmail.com', N'¿Cual es su comida favorita?', N'Hamburguesas')
+INSERT [dbo].[Usuario] ([Usuario], [Contrasena], [Correo], [PreguntaSeg], [RespuestaSeg]) VALUES (N'sebas31', N'1234', N'sebas@gmail.com', N'¿Cual es su comida favorita?', N'Pizza')
+
+INSERT [dbo].[Aerolinea] ([Consecutivo], [Nombre]) VALUES (N'0', N'American Airlines')

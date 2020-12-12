@@ -9,7 +9,7 @@
           <Key>
             <PropertyRef Name="Codigo" />
           </Key>
-          <Property Name="Codigo" Type="int" Nullable="false" />
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityType Name="Aerolinea">
@@ -23,7 +23,7 @@
           <Key>
             <PropertyRef Name="Codigo" />
           </Key>
-          <Property Name="Codigo" Type="int" Nullable="false" />
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UsuarioID" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="ClaseID" Type="int" Nullable="false" />
           <Property Name="AccionID" Type="int" Nullable="false" />
@@ -33,14 +33,14 @@
           <Key>
             <PropertyRef Name="Codigo" />
           </Key>
-          <Property Name="Codigo" Type="int" Nullable="false" />
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityType Name="Consecutivo">
           <Key>
             <PropertyRef Name="Codigo" />
           </Key>
-          <Property Name="Codigo" Type="int" Nullable="false" />
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="ClaseID" Type="int" Nullable="false" />
           <Property Name="TienePrefijo" Type="bit" Nullable="false" />
           <Property Name="Prefijo" Type="varchar" MaxLength="25" Nullable="false" />
@@ -53,7 +53,7 @@
           <Key>
             <PropertyRef Name="Codigo" />
           </Key>
-          <Property Name="Codigo" Type="int" Nullable="false" />
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityType Name="Pais">
@@ -85,7 +85,7 @@
           <Key>
             <PropertyRef Name="Codigo" />
           </Key>
-          <Property Name="Codigo" Type="int" Nullable="false" />
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <!--Errors Found During Generation:
@@ -102,7 +102,7 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <Key>
             <PropertyRef Name="Codigo" />
           </Key>
-          <Property Name="Codigo" Type="int" Nullable="false" />
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityType Name="Usuario">
@@ -122,11 +122,12 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <Property Name="Consecutivo" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="AerolineaID" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="PaisDestinoID" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="PaisOrigenID" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="FechaHoraSalida" Type="datetime" Nullable="false" />
           <Property Name="PuertaID" Type="varchar" MaxLength="25" Nullable="false" />
           <Property Name="EstadoVueloID" Type="int" Nullable="false" />
-          <Property Name="Precio" Type="int" />
-          <Property Name="Capacidad" Type="int" />
+          <Property Name="Precio" Type="int" Nullable="false" />
+          <Property Name="Capacidad" Type="int" Nullable="false" />
         </EntityType>
         <Association Name="FK_Bitacora_AccionID">
           <End Role="Accion" Type="Self.Accion" Multiplicity="1" />
@@ -272,6 +273,18 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Vuelo_PaisOrigenID">
+          <End Role="Pais" Type="Self.Pais" Multiplicity="1" />
+          <End Role="Vuelo" Type="Self.Vuelo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pais">
+              <PropertyRef Name="Consecutivo" />
+            </Principal>
+            <Dependent Role="Vuelo">
+              <PropertyRef Name="PaisOrigenID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Vuelo_PuertaID">
           <End Role="Puerta" Type="Self.Puerta" Multiplicity="1" />
           <End Role="Vuelo" Type="Self.Vuelo" Multiplicity="*" />
@@ -352,6 +365,10 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
             <End Role="Pais" EntitySet="Pais" />
             <End Role="Vuelo" EntitySet="Vuelo" />
           </AssociationSet>
+          <AssociationSet Name="FK_Vuelo_PaisOrigenID" Association="Self.FK_Vuelo_PaisOrigenID">
+            <End Role="Pais" EntitySet="Pais" />
+            <End Role="Vuelo" EntitySet="Vuelo" />
+          </AssociationSet>
           <AssociationSet Name="FK_Vuelo_PuertaID" Association="Self.FK_Vuelo_PuertaID">
             <End Role="Puerta" EntitySet="Puerta" />
             <End Role="Vuelo" EntitySet="Vuelo" />
@@ -428,6 +445,7 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <Property Name="Consecutivo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="Vueloes" Relationship="Self.FK_Vuelo_PaisDestinoID" FromRole="Pais" ToRole="Vuelo" />
+          <NavigationProperty Name="Vueloes1" Relationship="DBvvuelosModel.FK_Vuelo_PaisOrigenID" FromRole="Pai" ToRole="Vuelo" />
         </EntityType>
         <EntityType Name="Puerta">
           <Key>
@@ -495,8 +513,10 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <NavigationProperty Name="Pai" Relationship="Self.FK_Vuelo_PaisDestinoID" FromRole="Vuelo" ToRole="Pais" />
           <NavigationProperty Name="Puerta" Relationship="Self.FK_Vuelo_PuertaID" FromRole="Vuelo" ToRole="Puerta" />
           <NavigationProperty Name="Reservacions" Relationship="Self.FK_Reservacion_VueloID" FromRole="Vuelo" ToRole="Reservacion" />
-          <Property Name="Precio" Type="Int32" />
-          <Property Name="Capacidad" Type="Int32" />
+          <Property Name="Precio" Type="Int32" Nullable="false" />
+          <Property Name="Capacidad" Type="Int32" Nullable="false" />
+          <Property Name="PaisOrigenID" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Pai1" Relationship="DBvvuelosModel.FK_Vuelo_PaisOrigenID" FromRole="Vuelo" ToRole="Pai" />
         </EntityType>
         <Association Name="FK_Bitacora_AccionID">
           <End Role="Accion" Type="Self.Accion" Multiplicity="1" />
@@ -696,7 +716,23 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
             <End Role="Rol" EntitySet="Rols" />
             <End Role="Usuario" EntitySet="Usuarios" />
           </AssociationSet>
+          <AssociationSet Name="FK_Vuelo_PaisOrigenID" Association="DBvvuelosModel.FK_Vuelo_PaisOrigenID">
+            <End Role="Pai" EntitySet="Pais" />
+            <End Role="Vuelo" EntitySet="Vueloes" />
+          </AssociationSet>
         </EntityContainer>
+        <Association Name="FK_Vuelo_PaisOrigenID">
+          <End Type="DBvvuelosModel.Pai" Role="Pai" Multiplicity="1" />
+          <End Type="DBvvuelosModel.Vuelo" Role="Vuelo" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Pai">
+              <PropertyRef Name="Consecutivo" />
+            </Principal>
+            <Dependent Role="Vuelo">
+              <PropertyRef Name="PaisOrigenID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -818,6 +854,7 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <EntitySetMapping Name="Vueloes">
             <EntityTypeMapping TypeName="DBvvuelosModel.Vuelo">
               <MappingFragment StoreEntitySet="Vuelo">
+                <ScalarProperty Name="PaisOrigenID" ColumnName="PaisOrigenID" />
                 <ScalarProperty Name="Capacidad" ColumnName="Capacidad" />
                 <ScalarProperty Name="Precio" ColumnName="Precio" />
                 <ScalarProperty Name="Consecutivo" ColumnName="Consecutivo" />

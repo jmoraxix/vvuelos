@@ -26,8 +26,9 @@ namespace vvuelos_backend
         public System.DateTime FechaHoraSalida { get; set; }
         public string PuertaID { get; set; }
         public int EstadoVueloID { get; set; }
-        public Nullable<int> Precio { get; set; }
-        public Nullable<int> Capacidad { get; set; }
+        public int Precio { get; set; }
+        public int Capacidad { get; set; }
+        public string PaisOrigenID { get; set; }
     
         public virtual Aerolinea Aerolinea { get; set; }
         public virtual EstadoVuelo EstadoVuelo { get; set; }
@@ -35,5 +36,6 @@ namespace vvuelos_backend
         public virtual Puerta Puerta { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservacion> Reservacions { get; set; }
+        public virtual Pai Pai1 { get; set; }
     }
 }
