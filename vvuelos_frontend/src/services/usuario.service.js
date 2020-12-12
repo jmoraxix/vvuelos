@@ -2,27 +2,27 @@ import http from "../http-common";
 
 class UsuarioDataService {
   getAll() {
-    return http.get("/usuario");
+    return http.get("/usuarios");
   }
 
   get(id) {
-    return http.get(`/usuario/${id}`);
+    return http.get(`/usuarios/${id}`);
   }
 
   create(data) {
-    return http.post("/usuario", data);
+    return http.post("/usuarios", data);
   }
 
   update(id, data) {
-    return http.put(`/usuario/${id}`, data);
+    return http.put(`/usuarios/${id}`, data);
   }
 
   delete(id) {
-    return http.delete(`/usuario/${id}`);
+    return http.delete(`/usuarios/${id}`);
   }
 
   findByUsername(username) {
-    return http.get(`/usuario?username=${username}`);
+    return http.get(`/usuarios?username=${username}`);
   }
 }
 

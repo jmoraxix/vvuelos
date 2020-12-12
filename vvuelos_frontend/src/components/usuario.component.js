@@ -10,8 +10,8 @@ export default class Usuario extends Component {
     modalInsertar: false,
     modalActualizar: false,
     form: {
-      Usuario: "",
-      Contraseña: "",
+      UsuarioID: "",
+      Contrasena: "",
       Correo:"",
       PreguntaSeg:"",
       RespuestaSeg:""
@@ -49,7 +49,7 @@ export default class Usuario extends Component {
   }
 
   actualizarObjeto(data){
-    UsuarioDataService.update(data.Usuario, data)
+    UsuarioDataService.update(data.UsuarioID, data)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -73,8 +73,8 @@ export default class Usuario extends Component {
 
   nuevoUsuario = () => {
     return {
-        Usuario: "",
-        Contraseña: "",
+        UsuarioID: "",
+        Contrasena: "",
         Correo:"",
         PreguntaSeg:"",
         RespuestaSeg:""
@@ -135,9 +135,9 @@ export default class Usuario extends Component {
 
             <tbody>
               {this.state.data.map((dato) => (
-                <tr key={dato.Usuario}>
-                  <td>{dato.Usuario}</td>
-                  <td>{dato.Contraseña}</td>
+                <tr key={dato.UsuarioID}>
+                  <td>{dato.UsuarioID}</td>
+                  <td>{dato.Contrasena}</td>
                   <td>{dato.Correo}</td>
                   <td>{dato.PreguntaSeg}</td>
                   <td>{dato.RespuestaSeg}</td>
@@ -148,7 +148,7 @@ export default class Usuario extends Component {
                     >
                       Editar
                     </Button>{" "}
-                    <Button color="danger" onClick={()=> this.eliminarObjeto(dato.Usuario)}>Eliminar</Button>
+                    <Button color="danger" onClick={()=> this.eliminarObjeto(dato.UsuarioID)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
@@ -169,10 +169,10 @@ export default class Usuario extends Component {
             
               <input
                 className="form-control"
-                name="Usuario"
+                name="UsuarioID"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.Usuario}
+                value={this.state.form.UsuarioID}
               />
             </FormGroup>
             
@@ -182,10 +182,10 @@ export default class Usuario extends Component {
               </label>
               <input
                 className="form-control"
-                name="Contraseña"
+                name="Contrasena"
                 type="password"
                 onChange={this.handleChange}
-                value={this.state.form.Contraseña}
+                value={this.state.form.Contrasena}
               />
             </FormGroup>
 
@@ -260,10 +260,10 @@ export default class Usuario extends Component {
             
               <input
                 className="form-control"
-                name="Usuario"
+                name="UsuarioID"
                 type="text"
                 onChange={this.handleChange}
-                value={this.state.form.Usuario}
+                value={this.state.form.UsuarioID}
               />
             </FormGroup>
             
@@ -273,10 +273,10 @@ export default class Usuario extends Component {
               </label>
               <input
                 className="form-control"
-                name="Contraseña"
+                name="Contrasena"
                 type="password"
                 onChange={this.handleChange}
-                value={this.state.form.Contraseña}
+                value={this.state.form.Contrasena}
               />
             </FormGroup>
 

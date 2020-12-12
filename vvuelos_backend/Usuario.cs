@@ -22,7 +22,7 @@ namespace vvuelos_backend
             this.Rols = new HashSet<Rol>();
         }
     
-        public string Usuario1 { get; set; }
+        public string UsuarioID { get; set; }
         public string Contrasena { get; set; }
         public string Correo { get; set; }
         public string PreguntaSeg { get; set; }

@@ -469,9 +469,9 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
-            <PropertyRef Name="Usuario1" />
+            <PropertyRef Name="UsuarioID" />
           </Key>
-          <Property Name="Usuario1" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UsuarioID" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Contrasena" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PreguntaSeg" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
@@ -539,7 +539,7 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <End Role="Bitacora" Type="Self.Bitacora" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
-              <PropertyRef Name="Usuario1" />
+              <PropertyRef Name="UsuarioID" />
             </Principal>
             <Dependent Role="Bitacora">
               <PropertyRef Name="UsuarioID" />
@@ -611,7 +611,7 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <End Role="Reservacion" Type="Self.Reservacion" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Usuario">
-              <PropertyRef Name="Usuario1" />
+              <PropertyRef Name="UsuarioID" />
             </Principal>
             <Dependent Role="Reservacion">
               <PropertyRef Name="UsuarioID" />
@@ -807,7 +807,7 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <EntitySetMapping Name="Usuarios">
             <EntityTypeMapping TypeName="DBvvuelosModel.Usuario">
               <MappingFragment StoreEntitySet="Usuario">
-                <ScalarProperty Name="Usuario1" ColumnName="Usuario" />
+                <ScalarProperty Name="UsuarioID" ColumnName="Usuario" />
                 <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
                 <ScalarProperty Name="Correo" ColumnName="Correo" />
                 <ScalarProperty Name="PreguntaSeg" ColumnName="PreguntaSeg" />
@@ -834,7 +834,7 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
               <ScalarProperty Name="Codigo" ColumnName="RolID" />
             </EndProperty>
             <EndProperty Name="Usuario">
-              <ScalarProperty Name="Usuario1" ColumnName="UsuarioID" />
+              <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
             </EndProperty>
           </AssociationSetMapping>
         </EntityContainerMapping>

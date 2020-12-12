@@ -14,8 +14,7 @@ using System.Web.Http.Cors;
 
 namespace vvuelos_backend.Controllers
 {
-    [EnableCors(origins: "http://localhost:3001, http://localhost:3000", headers: "*", methods: "*")]
-
+    [EnableCors(origins: "http://localhost:3001 , http://localhost:3000 ", headers: "*", methods: "*")]
     public class UsuariosController : ApiController
     {
         private vvuelosEntities db = new vvuelosEntities();
@@ -48,7 +47,7 @@ namespace vvuelos_backend.Controllers
                 return BadRequest(ModelState);
             }
 
-            if (id != usuario.Usuario1)
+            if (id != usuario.UsuarioID)
             {
                 return BadRequest();
             }
@@ -91,7 +90,7 @@ namespace vvuelos_backend.Controllers
             }
             catch (DbUpdateException)
             {
-                if (UsuarioExists(usuario.Usuario1))
+                if (UsuarioExists(usuario.UsuarioID))
                 {
                     return Conflict();
                 }
@@ -101,7 +100,7 @@ namespace vvuelos_backend.Controllers
                 }
             }
 
-            return CreatedAtRoute("DefaultApi", new { id = usuario.Usuario1 }, usuario);
+            return CreatedAtRoute("DefaultApi", new { id = usuario.UsuarioID }, usuario);
         }
 
         // DELETE: api/Usuarios/5
@@ -131,7 +130,7 @@ namespace vvuelos_backend.Controllers
 
         private bool UsuarioExists(string id)
         {
-            return db.Usuarios.Count(e => e.Usuario1 == id) > 0;
+            return db.Usuarios.Count(e => e.UsuarioID == id) > 0;
         }
     }
 }
