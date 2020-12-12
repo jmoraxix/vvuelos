@@ -112,9 +112,13 @@ export default class Bitacora extends Component {
     });
   };
 
+  
 
   render() {
+    
+  
     return (
+      
       <>
         <Container>
         <br />

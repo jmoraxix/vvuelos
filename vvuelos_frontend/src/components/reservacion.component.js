@@ -1,29 +1,24 @@
-import React, { Component } from "react";
-import ConsecutivoDataService from "../services/consecutivo.service";
-import ClaseDataService from "../services/clase.service";
+import React, { Component, useState } from "react";
+import ReservaDataService from "../services/reservacion.service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter, Label, Input, checkbox} from 'reactstrap';
-
-export default class Consecutivo extends Component {
+import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter, Label, Input} from 'reactstrap';
+import Calendar from 'react-calendar';
+export default class Reserva extends Component {
   
+
+
   state = {
     data: [],
     listaClases: [],
     modalInsertar: false,
     modalActualizar: false,
-    isPrefijoChecked: false,
-        isRangoChecked: false,
     form: {
-      Codigo: "",
-      Clase: "",
-      TienePrefijo:"",
-      Prefijo: "" , 
-      TieneRango:"",
-      RangoInicial:"",
-      RangoFinal:"",
-      Actual:"",
-      
-      
+      Consecutivo: "",
+      Usuario: "",
+      Vuelo:"",
+      TipoPago: "" , 
+      Fecha:"",
+      CantCampos:""
     },
   };
   
@@ -33,7 +28,7 @@ export default class Consecutivo extends Component {
   }
 
   listarObjetos() {
-    ConsecutivoDataService.getAll()
+    ReservaDataService.getAll()
         .then(response => {
           this.setState({
             data: response.data
@@ -46,7 +41,7 @@ export default class Consecutivo extends Component {
   }
 
   listarClases() {
-    ClaseDataService.getAll()
+    ReservaDataService.getAll()
         .then(response => {
           this.setState({
             listaClases: response.data
@@ -59,7 +54,7 @@ export default class Consecutivo extends Component {
   }
 
   crearObjeto(data){
-    ConsecutivoDataService.create(data)
+    ReservaDataService.create(data)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -71,7 +66,7 @@ export default class Consecutivo extends Component {
   }
 
   actualizarObjeto(data){
-    ConsecutivoDataService.update(data.Codigo, data)
+    ReservaDataService.update(data.Consecutivo, data)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -82,8 +77,8 @@ export default class Consecutivo extends Component {
         });
   }
 
-  eliminarObjeto(Codigo){
-    ConsecutivoDataService.delete(Codigo)
+  eliminarObjeto(Consecutivo  ){
+    ReservaDataService.delete(Consecutivo)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -93,22 +88,21 @@ export default class Consecutivo extends Component {
         });
   }
 
-  nuevoConsecutivo = () => {
+  nuevaReservacion = () => {
     return {
-      Codigo: 0,
-      Clase: 0,
-      TienePrefijo: false,
-      Prefijo: "",
-      TieneRango: false,
-      RangoInicial: 0,
-      RangoFinal: 0,
-      Actual:""
+      Consecutivo: "",
+      Usuario: "",
+      Vuelo:"",
+      TipoPago:"",
+      Fecha:"",
+      CantCampos:""
+    
     };
   }
 
   mostrarModalInsertar = () => {
     this.setState({
-      form: this.nuevoConsecutivo(),
+      form: this.nuevaReservacion(),
       modalInsertar: true,
     });
   };
@@ -136,55 +130,41 @@ export default class Consecutivo extends Component {
       },
     });
   };
-  cbPrefijoOnChange = () => {
-    this.setState({
-      isPrefijoChecked: false
-    });
-  };
-
-  cbRangoOnChange = () => {
-    this.setState({
-      isRangoChecked: false
-    });
-  };
+  
  
   render() {
-    const { isPrefijoChecked, isRangoChecked } = this.state;
-   
-       
+    function MyApp() {
+      const [value, onChange] = useState(new Date());
+    
     return (
       <>
         <Container>
         <br />
          <Row>
-           <Col><h1>Consecutivo</h1></Col>
+           <Col><h1>Reservacion</h1></Col>
            <Col><Button color="success" onClick={()=>this.mostrarModalInsertar()}>Crear</Button></Col>
          </Row>
           <Table>
             <thead>
               <tr>
-                <th>Codigo</th>
-                <th>Clase</th>
-                <th>Tiene prefijo</th>
-                <th>Prefijo</th>
-                <th>Tiene rango</th>
-                <th>Rango inicial</th>
-                <th>Rango final</th>
-                <th>Actual</th>
+                <th>Consecutivo</th>
+                <th>Usuario</th>
+                <th>Vuelo</th>
+                <th>TipoPago</th>
+                <th>Fecha</th>
+                <th>Cantidad de campos</th>
               </tr>
             </thead>
 
             <tbody>
               {this.state.data.map((dato) => (
-                <tr key={dato.Codigo}>
-                  <td>{dato.Codigo}</td>
-                  <td>{dato.Nombre}</td>
-                  <td>{dato.TienePrefijo}</td>
-                  <td>{dato.Prefijo}</td>
-                  <td>{dato.TieneRango}</td>
-                  <td>{dato.RangoInicial}</td>
-                  <td>{dato.RangoFinal}</td>
-                  <td>{dato.Actual}</td>
+                <tr key={dato.Consecutivo}>
+                  <td>{dato.Usuario}</td>
+                  <td>{dato.Vuelo}</td>
+                  <td>{dato.TipoPago}</td>
+                  <td>{dato.Fecha}</td>
+                  <td>{dato.CantCampos}</td>
+
                   <td>
                     <Button
                       color="primary"
@@ -192,7 +172,7 @@ export default class Consecutivo extends Component {
                     >
                       Editar
                     </Button>{" "}
-                    <Button color="danger" onClick={()=> this.eliminarObjeto(dato.Codigo)}>Eliminar</Button>
+                    <Button color="danger" onClick={()=> this.eliminarObjeto(dato.Consecutivo)}>Eliminar</Button>
                   </td>
                 </tr>
               ))}
@@ -208,116 +188,89 @@ export default class Consecutivo extends Component {
           <ModalBody>
             <FormGroup>
               <label>
-               Codigo:
+               Consecutivo:
               </label>
             
               <input
                 className="form-control"
                 readOnly
-                type="text"
-                value={this.state.form.Codigo}
+                type="number"
+                value={this.state.form.Consecutivo}
               />
             </FormGroup>
 
          
             <FormGroup>
               <label>
-                Clase:
+                Usuario:
               </label>
               <input
                   className="form-control"
-                  name="Clase"
+                  name="Usuario"
                   type="number"
                   onChange={this.handleChange}
-                  value={this.state.form.Clase}
+                  value={this.state.form.Usuario}
                  
               />
             </FormGroup>
 
             <FormGroup>
               <label>
-                Tiene prefijo:
+                Vuelo:
               </label>
               <input
                   className="form-control"
-                  name="TienePrefijo"
-                  type="checkbox"
+                  name="Vuelo"
+                  type="number"
                   onChange={this.handleChange}
-                  value={this.state.form.TienePrefijo}
+                  value={this.state.form.Vuelo}
                  
               />
             </FormGroup>
 
             <FormGroup>
               <label>
-                Prefijo:
+                Tipo de pago:
               </label>
               <input
                   className="form-control"
-                  name="Prefijo"
+                  name="TipoPago"
                   type="text"
                   onChange={this.handleChange}
-                  value={this.state.form.Prefijo}
-                  disabled={isPrefijoChecked}
+                  value={this.state.form.TipoPago}
+                  
                   
               />
             </FormGroup>
 
             <FormGroup>
               <label>
-                Tiene Rango:
+                Fecha:
               </label>
               <input
                   className="form-control"
-                  name="TieneRango"
+                  name="Fecha"
                   type="checkbox"
                   onChange={this.handleChange}
-                  value={this.state.form.TieneRango}
+                  value={this.state.form.Fecha}
                 
               />
             </FormGroup>
 
             <FormGroup>
               <label>
-                Rango Inicial:
+                Cantidad de campos:
               </label>
               <input
                   className="form-control"
-                  name="RangoInicial"
+                  name="CantCampos"
                   type="number"
                   onChange={this.handleChange}
-                  value={this.state.form.RangoInicial}
-                  disabled={isPrefijoChecked}
+                  value={this.state.form.CantCampos}
               />
             </FormGroup>
 
-            <FormGroup>
-              <label>
-                Rango final:
-              </label>
-              <input
-                  className="form-control"
-                  name="RangoFinal"
-                  type="number"
-                  onChange={this.handleChange}
-                  value={this.state.form.RangoFinal}
-                  disabled={isRangoChecked}
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <label>
-                Actual:
-              </label>
-              <input
-                  className="form-control"
-                  name="Actual"
-                  type="number"
-                  onChange={this.handleChange}
-                  value={this.state.form.Actual}
-                  disabled={isRangoChecked}
-              />
-            </FormGroup>
+            
           </ModalBody>
 
           <ModalFooter>
@@ -340,91 +293,90 @@ export default class Consecutivo extends Component {
 
         <Modal isOpen={this.state.modalInsertar}>
           <ModalHeader>
-           <div><h3>Insertar consecutivo</h3></div>
+           <div><h3>Insertar reservacion</h3></div>
           </ModalHeader>
 
           <ModalBody>
            
-             <FormGroup>
+          <FormGroup>
               <label>
-                Clase:
+               Consecutivo:
+              </label>
+            
+              <input
+                className="form-control"
+                readOnly
+                type="number"
+                value={this.state.form.Consecutivo}
+              />
+            </FormGroup>
+
+         
+            <FormGroup>
+              <label>
+                Usuario:
               </label>
               <input
                   className="form-control"
-                  name="Clase"
+                  name="Usuario"
                   type="number"
                   onChange={this.handleChange}
-                  value={this.state.form.Clase}
+                  value={this.state.form.Usuario}
                  
               />
             </FormGroup>
 
             <FormGroup>
               <label>
-               Tiene prefijo:
+                Vuelo:
               </label>
               <input
-                className="form-control"
-                style={{textAlign:"right"}}
-                name="TienePrefijo"
-                type="checkbox"
-                onChange={this.handleChange}
-                value={this.state.form.TienePrefijo}
-                
-              />
-            </FormGroup>
-
-            
-            <FormGroup>
-              <label>
-                Prefijo:
-              </label>
-              <input
-                className="form-control"
-                name="Prefijo"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.form.Prefijo}
-              />
-            </FormGroup>
-
-
-            <FormGroup>
-              <label>
-               Tiene rango:
-              </label>
-              <input
-                className="form-control"
-                name="TieneRango"
-                type="checkbox"
-                onChange={this.handleChange}
-                value={this.state.form.TieneRango}
+                  className="form-control"
+                  name="Vuelo"
+                  type="number"
+                  onChange={this.handleChange}
+                  value={this.state.form.Vuelo}
+                 
               />
             </FormGroup>
 
             <FormGroup>
               <label>
-                Rango inicial:
+                Tipo de pago:
               </label>
               <input
-                className="form-control"
-                name="RangoInicial"
-                type="number"
-                onChange={this.handleChange}
-                value={this.state.form.RangoInicial}
+                  className="form-control"
+                  name="TipoPago"
+                  type="text"
+                  onChange={this.handleChange}
+                  value={this.state.form.TipoPago}
+                  
+                  
               />
             </FormGroup>
 
             <FormGroup>
               <label>
-                Rango final:
+                Fecha:
+              </label>
+              <div>
+             <Calendar
+             onChange={onChange}
+             value={value}
+             />
+             </div>
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Cantidad de campos:
               </label>
               <input
-                className="form-control"
-                name="RangoFinal"
-                type="number"
-                onChange={this.handleChange}
-                value={this.state.form.RangoFinal}
+                  className="form-control"
+                  name="CantCampos"
+                  type="number"
+                  onChange={this.handleChange}
+                  value={this.state.form.CantCampos}
               />
             </FormGroup>
           </ModalBody>
@@ -447,4 +399,4 @@ export default class Consecutivo extends Component {
       </>
     );
   }
-}
+}}

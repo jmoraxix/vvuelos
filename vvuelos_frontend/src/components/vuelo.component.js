@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import VueloDataService from "../services/vuelo.service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
+import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter,Label,Input} from 'reactstrap';
 
 export default class Vuelo extends Component {
 
@@ -217,7 +217,7 @@ export default class Vuelo extends Component {
                   <input
                     className="form-control"
                     name="FechaHoraSal"
-                    type="datetime"
+                    type="datetime.Now"
                     onChange={this.handleChange}
                     value={this.state.form.FechaHoraSal}
                     
@@ -238,19 +238,20 @@ export default class Vuelo extends Component {
                   />
                 </FormGroup>
 
+                
                 <FormGroup>
                   <label>
-                    Estado Vuelo:
+                    Estado del vuelo:
                   </label>
                   <input
                     className="form-control"
                     name="EstadoVuelo"
-                    type="text"
+                    type="number"
                     onChange={this.handleChange}
                     value={this.state.form.EstadoVuelo}
                     disabled
                   />
-</FormGroup>
+                </FormGroup>
 <FormGroup>
                   <label>
                     Precio:
@@ -371,18 +372,20 @@ export default class Vuelo extends Component {
                   />
                 </FormGroup>
 
+                
                 <FormGroup>
                   <label>
-                    Estado Vuelo:
+                    Estado del vuelo:
                   </label>
                   <input
                     className="form-control"
                     name="EstadoVuelo"
-                    type="text"
+                    type="number"
                     onChange={this.handleChange}
                     value={this.state.form.EstadoVuelo}
+                    
                   />
-</FormGroup>
+                </FormGroup>
 <FormGroup>
                   <label>
                     Precio:

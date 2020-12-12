@@ -16,7 +16,7 @@ import Accion from "./components/accion.component";
 import Consecutivo from "./components/consecutivo.component";
 import Vuelo from "./components/vuelo.component";
 import Bitacora from "./components/bitacora.component";
-
+import Reserva from "./components/reservacion.component";
 class App extends Component {
   render() {
     return (
@@ -104,7 +104,7 @@ class App extends Component {
             <Route exact path="/paises" component={Pais} />
             <Route exact path="/puertas" component={Puerta} />
             <Route exact path="/estadosVuelos" component={EstadoVuelo} />
-            <Route exact path="/reservaciones" component={RolUsuario} />
+            <Route exact path="/reservaciones" component={Reserva} />
             <Route exact path="/tiposPago" component={TipoPago} />
             <Route exact path="/bitacora" component={Bitacora} />
             <Route exact path="/clase" component={Clase} />
