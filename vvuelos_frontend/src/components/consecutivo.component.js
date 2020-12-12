@@ -11,8 +11,8 @@ export default class Consecutivo extends Component {
     listaClases: [],
     modalInsertar: false,
     modalActualizar: false,
-    isPrefijoChecked: false,
-        isRangoChecked: false,
+    
+        checked: {},
     form: {
       Codigo: "",
       Clase: "",
@@ -149,7 +149,9 @@ export default class Consecutivo extends Component {
   };
  
   render() {
-    const { isPrefijoChecked, isRangoChecked } = this.state;
+    const { checked } = this.state;
+    const checkedCount = Object.keys(checked).filter(key => checked[key]).length;
+    const disabled = checkedCount > 1;
    
        
     return (
@@ -258,7 +260,7 @@ export default class Consecutivo extends Component {
                   type="text"
                   onChange={this.handleChange}
                   value={this.state.form.Prefijo}
-                  disabled={isPrefijoChecked}
+                  
                   
               />
             </FormGroup>
@@ -272,8 +274,7 @@ export default class Consecutivo extends Component {
                   name="TieneRango"
                   type="checkbox"
                   onChange={this.handleChange}
-                  value={this.state.form.TieneRango}
-                
+                 
               />
             </FormGroup>
 
@@ -287,7 +288,7 @@ export default class Consecutivo extends Component {
                   type="number"
                   onChange={this.handleChange}
                   value={this.state.form.RangoInicial}
-                  disabled={isPrefijoChecked}
+                  
               />
             </FormGroup>
 
@@ -301,7 +302,7 @@ export default class Consecutivo extends Component {
                   type="number"
                   onChange={this.handleChange}
                   value={this.state.form.RangoFinal}
-                  disabled={isRangoChecked}
+                  
               />
             </FormGroup>
 
@@ -315,7 +316,7 @@ export default class Consecutivo extends Component {
                   type="number"
                   onChange={this.handleChange}
                   value={this.state.form.Actual}
-                  disabled={isRangoChecked}
+                  
               />
             </FormGroup>
           </ModalBody>

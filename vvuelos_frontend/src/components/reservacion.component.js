@@ -133,9 +133,7 @@ export default class Reserva extends Component {
   
  
   render() {
-    function MyApp() {
-      const [value, onChange] = useState(new Date());
-    
+ 
     return (
       <>
         <Container>
@@ -359,12 +357,13 @@ export default class Reserva extends Component {
               <label>
                 Fecha:
               </label>
-              <div>
-             <Calendar
-             onChange={onChange}
-             value={value}
-             />
-             </div>
+              <input
+                  className="form-control"
+                  name="Fecha"
+                  type="number"
+                  onChange={this.handleChange}
+                  value={this.state.form.Fecha}
+              />
             </FormGroup>
 
             <FormGroup>
@@ -399,4 +398,4 @@ export default class Reserva extends Component {
       </>
     );
   }
-}}
+}
