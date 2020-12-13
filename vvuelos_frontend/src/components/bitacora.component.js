@@ -193,18 +193,7 @@ export default class Bitacora extends Component {
               />
             </FormGroup>
 
-            <FormGroup>
-              <label>
-                Correo: 
-              </label>
-              <input
-                className="form-control"
-                name="Correo"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.form.Correo}
-              />
-            </FormGroup>
+    
 
             <FormGroup>
               <label>
@@ -213,7 +202,7 @@ export default class Bitacora extends Component {
               <input
                 className="form-control"
                 name="Clase"
-                type="text"
+                type="number"
                 onChange={this.handleChange}
                 value={this.state.form.Clase}
               />

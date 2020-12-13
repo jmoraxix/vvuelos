@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import ConsecutivoDataService from "../services/consecutivo.service";
 import ClaseDataService from "../services/clase.service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter, Label, Input, checkbox} from 'reactstrap';
+import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter, checkbox} from 'reactstrap';
 
 export default class Consecutivo extends Component {
   
@@ -11,8 +11,11 @@ export default class Consecutivo extends Component {
     listaClases: [],
     modalInsertar: false,
     modalActualizar: false,
+    isPrefijoChecked:false,
+   
+   
+
     
-        checked: {},
     form: {
       Codigo: "",
       Clase: "",
@@ -136,22 +139,18 @@ export default class Consecutivo extends Component {
       },
     });
   };
-  cbPrefijoOnChange = () => {
-    this.setState({
-      isPrefijoChecked: false
-    });
-  };
+  
 
-  cbRangoOnChange = () => {
-    this.setState({
-      isRangoChecked: false
-    });
-  };
- 
+  verifyCallback(response) {
+    if (response) {
+      this.setState({
+        isPrefijoChecked: true
+      })
+    }
+  }
   render() {
-    const { checked } = this.state;
-    const checkedCount = Object.keys(checked).filter(key => checked[key]).length;
-    const disabled = checkedCount > 1;
+    this.verifyCallback = this.verifyCallback.bind(this);
+   
    
        
     return (
@@ -246,6 +245,8 @@ export default class Consecutivo extends Component {
                   type="checkbox"
                   onChange={this.handleChange}
                   value={this.state.form.TienePrefijo}
+                  verifyCallback={this.verifyCallback}
+          
                  
               />
             </FormGroup>

@@ -1,11 +1,13 @@
 import React, { Component } from "react";
-import UsuarioDataService from "../services/usuario.service";
+import RegistroDataService from "../services/registro.service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
+import { Button,  ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 import Recaptcha from 'react-recaptcha';
-export default class Usuario extends Component {
 
-  state = {
+
+export default class Registrarse extends Component {
+
+state = {
     data: [],
     modalInsertar: false,
     modalActualizar: false,
@@ -16,7 +18,7 @@ export default class Usuario extends Component {
       Correo:"",
       PreguntaSeg:"",
       RespuestaSeg:""
-
+     
     },
   };
 
@@ -25,7 +27,7 @@ export default class Usuario extends Component {
   }
 
   listarObjetos() {
-    UsuarioDataService.getAll()
+    RegistroDataService.getAll()
       .then(response => {
         this.setState({
           data: response.data
@@ -38,7 +40,7 @@ export default class Usuario extends Component {
   }
 
   crearObjeto(data){
-    UsuarioDataService.create(data)
+    RegistroDataService.create(data)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -50,7 +52,7 @@ export default class Usuario extends Component {
   }
 
   actualizarObjeto(data){
-    UsuarioDataService.update(data.UsuarioID, data)
+    RegistroDataService.update(data.UsuarioID, data)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -61,16 +63,7 @@ export default class Usuario extends Component {
         });
   }
 
-  eliminarObjeto(Usuario){
-    UsuarioDataService.delete(Usuario)
-        .then(response => {
-          console.log(response.data);
-          this.listarObjetos();
-        })
-        .catch(e => {
-          console.log(e);
-        });
-  }
+
 
   nuevoUsuario = () => {
     return {
@@ -99,19 +92,6 @@ export default class Usuario extends Component {
       modalActualizar: true,
     });
   };
-
-  cerrarModalActualizar = () => {
-    this.setState({ modalActualizar: false });
-  };
-
-  handleChange = (e) => {
-    this.setState({
-      form: {
-        ...this.state.form,
-        [e.target.name]: e.target.value,
-      },
-    });
-  };
   recaptchaLoaded() {
     console.log('capcha correctamente cargado');
   }
@@ -131,124 +111,31 @@ export default class Usuario extends Component {
       })
     }
   }
+  cerrarModalActualizar = () => {
+    this.setState({ modalActualizar: false });
+  };
 
+  handleChange = (e) => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
   render() {
    
-  
-      this.handleSubscribe = this.handleSubscribe.bind(this);
-      this.recaptchaLoaded = this.recaptchaLoaded.bind(this);
-      this.verifyCallback = this.verifyCallback.bind(this);
-  
+    this.handleSubscribe = this.handleSubscribe.bind(this);
+    this.recaptchaLoaded = this.recaptchaLoaded.bind(this);
+    this.verifyCallback = this.verifyCallback.bind(this);
+    
+
     return (
       <>
-        <Container>
-        <br />
-         <Row>
-           <Col><h1>Usuarios</h1></Col>
-           <Col><Button color="success" onClick={()=>this.mostrarModalInsertar()}>Crear</Button></Col>
-         </Row>
-          <Table>
-            <thead>
-              <tr>
-                <th>Usuario</th>
-                <th>Correo</th>
-                <th>Pregunta de seguridad</th>
-              </tr>
-            </thead>
+ 
 
-            <tbody>
-              {this.state.data.map((dato) => (
-                <tr key={dato.UsuarioID}>
-                  <td>{dato.UsuarioID}</td>
-                  <td>{dato.Correo}</td>
-                  <td>{dato.PreguntaSeg}</td>
-                  <td>
-                    <Button
-                      color="primary"
-                      onClick={() => this.mostrarModalActualizar(dato)}
-                    >
-                      Editar
-                    </Button>{" "}
-                    <Button color="danger" onClick={()=> this.eliminarObjeto(dato.UsuarioID)}>Eliminar</Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-        </Container>
-
-        <Modal isOpen={this.state.modalActualizar}>
-          <ModalHeader>
-           <div><h3>Editar usuario</h3></div>
-          </ModalHeader>
-
-          <ModalBody>
-            <FormGroup>
-              <label>
-               Usuario:
-              </label>
-            
-              <input
-                className="form-control"
-                name="UsuarioID"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.form.UsuarioID}
-              />
-            </FormGroup>
-            
-       
-
-            <FormGroup>
-              <label>
-                Correo: 
-              </label>
-              <input
-                className="form-control"
-                name="Correo"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.form.Correo}
-              />
-            </FormGroup>
-
-            <FormGroup>
-              <label>
-                Pregunta de seguridad: 
-              </label>
-              <input
-                className="form-control"
-                name="PreguntaSeg"
-                type="text"
-                onChange={this.handleChange}
-                value={this.state.form.PreguntaSeg}
-              />
-            </FormGroup>
-
-           
-          </ModalBody>
-
-          <ModalFooter>
-            <Button
-              color="primary"
-              onClick={() => this.actualizarObjeto(this.state.form)}
-            >
-              Editar
-            </Button>
-            <Button
-              color="danger"
-              onClick={() => this.cerrarModalActualizar()}
-            >
-              Cancelar
-            </Button>
-          </ModalFooter>
-        </Modal>
-
-
-
-        <Modal isOpen={this.state.modalInsertar}>
-          <ModalHeader>
-           <div><h3>Insertar Usuario</h3></div>
+ <ModalHeader>
+           <div><h3 >Crea tu cuenta</h3></div>
           </ModalHeader>
 
           <ModalBody>
@@ -338,7 +225,7 @@ export default class Usuario extends Component {
               onClick={() => this.crearObjeto(this.state.form)}
              // onClick={this.handleSubscribe}
             >
-              Insertar
+              Registrarse
             </Button>
             <Button
               className="btn btn-danger"
@@ -348,8 +235,12 @@ export default class Usuario extends Component {
             </Button>
           
           </ModalFooter>
-        </Modal>
-      </>
-    );
-  }
-}
+</>
+);
+  }}
+
+
+
+
+        
+  

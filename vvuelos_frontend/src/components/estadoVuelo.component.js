@@ -69,7 +69,7 @@ export default class EstadoVuelo extends Component {
 
   nuevoEstadoVuelo = () => {
     return {
-      Codigo: 5,
+      Codigo: "",
       Nombre: ""
     };
   }

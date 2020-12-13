@@ -69,7 +69,7 @@ export default class TipoPago extends Component {
 
   nuevoTipoPago = () => {
     return {
-      Codigo: 0,
+      Codigo: "",
       Nombre: ""
     };
   }

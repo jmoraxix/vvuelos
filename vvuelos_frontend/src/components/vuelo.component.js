@@ -10,8 +10,9 @@ export default class Vuelo extends Component {
         modalInsertar: false,
         modalActualizar: false,
         form: {
-          Codigo: "",
+          Consecutivo: "",
           Nombre: "",
+          PaisOri:"",
           PaisDest: "",
           FechaHoraSal:"",
           Puerta: "",
@@ -77,6 +78,7 @@ export default class Vuelo extends Component {
         return {
           Consecutivo: 1,
           Nombre: "",
+          PaisOri:"",
           PaisDest: "",
           FechaHoraSal:"",
           Puerta: 4,
@@ -130,8 +132,9 @@ export default class Vuelo extends Component {
                   <tr>
                     <th>Consecutivo</th>
                     <th>Aerolinea</th>
+                    <th>Pais Origen</th>
                     <th>Pais destino</th>
-                    <th>Fecha y hora de salida</th>
+                    <th>Salida</th>
                     <th>Puerta</th>
                     <th>Estado del vuelo</th>
                     <th>Precio</th>
@@ -141,9 +144,10 @@ export default class Vuelo extends Component {
     
                 <tbody>
                   {this.state.data.map((dato) => (
-                    <tr key={dato.Codigo}>
-                      <td>{dato.Codigo}</td>
+                    <tr key={dato.Consecutivo}>
+                      <td>{dato.Consecutivo}</td>
                       <td>{dato.Nombre}</td>
+                      <td>{dato.PaisOri}</td>
                       <td>{dato.PaisDest}</td>
                       <td>{dato.FechaHoraSal}</td>
                       <td>{dato.Puerta}</td>
@@ -173,7 +177,7 @@ export default class Vuelo extends Component {
               <ModalBody>
                 <FormGroup>
                   <label>
-                  Consecutivos:
+                  Consecutivo:
                   </label>
                 
                   <input
@@ -199,6 +203,19 @@ export default class Vuelo extends Component {
 
                 <FormGroup>
                   <label>
+                    Pais Origen: 
+                  </label>
+                  <input
+                    className="form-control"
+                    name="PaisOri"
+                    type="text"
+                    onChange={this.handleChange}
+                    value={this.state.form.PaisOri}
+                  />
+                </FormGroup>
+
+                <FormGroup>
+                  <label>
                     Pais destino: 
                   </label>
                   <input
@@ -212,7 +229,7 @@ export default class Vuelo extends Component {
 
                 <FormGroup>
                   <label>
-                    Fecha y hora de salida: 
+                    Salida: 
                   </label>
                   <input
                     className="form-control"
@@ -335,6 +352,19 @@ export default class Vuelo extends Component {
 
                 <FormGroup>
                   <label>
+                    Pais Origen: 
+                  </label>
+                  <input
+                    className="form-control"
+                    name="PaisOri"
+                    type="text"
+                    onChange={this.handleChange}
+                    value={this.state.form.PaisOri}
+                  />
+                </FormGroup>
+
+                <FormGroup>
+                  <label>
                     Pais destino: 
                   </label>
                   <input
@@ -348,7 +378,7 @@ export default class Vuelo extends Component {
 
                 <FormGroup>
                   <label>
-                    Fecha y hora de salida: 
+                    Salida: 
                   </label>
                   <input
                     className="form-control"
