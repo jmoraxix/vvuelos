@@ -387,6 +387,7 @@ export default class Consecutivo extends Component {
                 type="text"
                 onChange={this.handleChange}
                 value={this.state.form.Prefijo}
+                
               />
             </FormGroup>
 

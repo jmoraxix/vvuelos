@@ -19,7 +19,7 @@ import Consecutivo from "./components/consecutivo.component";
 import Vuelo from "./components/vuelo.component";
 import Bitacora from "./components/bitacora.component";
 import Reserva from "./components/reservacion.component";
-import Registrarse from "./components/registrarse.component";
+
 class App extends Component {
   render() {
     return (

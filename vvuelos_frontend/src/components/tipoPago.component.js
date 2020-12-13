@@ -10,7 +10,6 @@ export default class TipoPago extends Component {
     modalInsertar: false,
     modalActualizar: false,
     form: {
-      Codigo: "",
       Nombre: ""
     },
   };
@@ -33,6 +32,7 @@ export default class TipoPago extends Component {
   }
 
   crearObjeto(data){
+    console.log(data);
     TipoPagoDataService.create(data)
         .then(response => {
           console.log(response.data);
@@ -69,7 +69,6 @@ export default class TipoPago extends Component {
 
   nuevoTipoPago = () => {
     return {
-      Codigo: "",
       Nombre: ""
     };
   }
@@ -201,19 +200,7 @@ export default class TipoPago extends Component {
           </ModalHeader>
 
           <ModalBody>
-            <FormGroup>
-              <label>
-                Codigo: 
-              </label>
-              <input
-                className="form-control"
-                name="Codigo"
-                type="number"
-                onChange={this.handleChange}
-                value={this.state.form.Codigo}
-                disabled
-              />
-            </FormGroup>
+           
 
             <FormGroup>
               <label>

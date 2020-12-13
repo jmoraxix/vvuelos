@@ -69,7 +69,7 @@ export default class Aerolinea extends Component {
 
   nuevaAerolinea = () => {
     return {
-      Consecutivo: 0,
+      Consecutivo: "",
       Nombre: ""
     };
   }
