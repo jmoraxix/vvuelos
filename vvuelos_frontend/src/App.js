@@ -3,6 +3,8 @@ import { Switch, Route, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/App.css";
 
+import SignIn from "./login/login";
+import Registrarse from "./components/registrarse.component";
 import Home from "./components/home.component";
 import Usuario from "./components/usuario.component";
 import RolUsuario from "./components/rolUsuario.component";
@@ -97,6 +99,7 @@ class App extends Component {
 
         <div className="container mt-3">
           <Switch>
+            <Route exact path="/" component={SignIn} />
             <Route exact path="/home" component={Home} />
             <Route exact path="/usuarios" component={Usuario} />
             <Route exact path="/roles" component={RolUsuario} />
