@@ -116,9 +116,9 @@ export default class Usuario extends Component {
     console.log('capcha correctamente cargado');
   }
 
-  handleSubscribe() {
+  handleRegister() {
     if (this.state.isVerified) {
-      alert('Usted se registro correctamente!');
+      this.crearObjeto(this.state.form)
     } else {
       alert('Por favor vertifica que eres humano!');
     }
@@ -135,7 +135,7 @@ export default class Usuario extends Component {
   render() {
    
   
-      this.handleSubscribe = this.handleSubscribe.bind(this);
+      this.handleRegister = this.handleRegister.bind(this);
       this.recaptchaLoaded = this.recaptchaLoaded.bind(this);
       this.verifyCallback = this.verifyCallback.bind(this);
   
@@ -336,7 +336,7 @@ export default class Usuario extends Component {
             <Button
               color="primary"
               onClick={() => this.crearObjeto(this.state.form)}
-             // onClick={this.handleSubscribe}
+             onClick={this.handleRegister}
             >
               Insertar
             </Button>
