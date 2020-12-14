@@ -4,7 +4,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/App.css";
 import NavBar from "./NavBar";
 
-import SignIn from "./login/login";
+import Login from "./login/login";
 import Registro from "./components/registro.component";
 import Home from "./components/home.component";
 import Usuario from "./components/usuario.component";
@@ -29,8 +29,8 @@ class App extends Component {
 
         <div className="container mt-3">
           <Switch>
-            <Route exact path="/" component={SignIn} />
-            <Route exact path="/home" component={Home} />
+            <Route exact path="/login" component={Login} />
+            <Route exact path="/" component={Home} />
             <Route exact path="/usuarios" component={Usuario} />
             <Route exact path="/roles" component={RolUsuario} />
             <Route exact path="/vuelos" component={Vuelo} />
