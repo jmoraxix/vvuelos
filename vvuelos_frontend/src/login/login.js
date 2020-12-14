@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 
 function Login(props) {
 
-  const baseUrl = "https://localhost:44322/api/usuarios";
+  const baseUrl = "https://localhost:44332/api/usuarios/?id=asa&password=a";
   const cookies = new Cookies();
 
   const [form, setForm] = useState({
@@ -30,15 +30,10 @@ function Login(props) {
       }).then(response => {
         if (response.length > 0) {
           var respuesta = response[0];
-          cookies.set('UsuarioID', respuesta.id, { path: '/' });
-          cookies.set('apellido_paterno', respuesta.apellido_paterno, { path: '/' });
-          cookies.set('apellido_materno', respuesta.apellido_materno, { path: '/' });
-          cookies.set('nombre', respuesta.nombre, { path: '/' });
-          cookies.set('correo', respuesta.correo, { path: '/' });
-          cookies.set('username', respuesta.username, { path: '/' });
-          cookies.set('password', respuesta.password, { path: '/' });
-          alert("Bienvenido: " + respuesta.nombre + " " + respuesta.apellido_paterno);
-          props.history.push('/menu');
+          cookies.set('UsuarioID', respuesta.UsuarioID, { path: '/' });
+          cookies.set('password', respuesta.Contrasena, { path: '/' });
+          alert("Bienvenido: " + respuesta.UsuarioID );
+          props.history.push('/usuarios');
         } else {
           alert('El usuario o la contraseña no son correctos');
         }
@@ -50,7 +45,7 @@ function Login(props) {
   }
 
   useEffect(() => {
-    if (cookies.get('id')) {
+    if (cookies.get('UsuarioID')) {
       props.history.push('/usuarios');
     }
   }, []);
@@ -88,7 +83,7 @@ function Login(props) {
             onChange={handleChange}
           />
           <br />
-          <button className="btn btn-primary" onClick={() => iniciarSesion()}>Iniciar Sesión</button>
+          <button className="btn btn-primary" onClick={() => iniciarSesion()}>Iniciar Sesion</button>
           <br />
           <button className="btn btn-primary"  >
             <Link to={"/registro"} className="text-white">
