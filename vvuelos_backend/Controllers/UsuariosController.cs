@@ -119,6 +119,19 @@ namespace vvuelos_backend.Controllers
             return Ok(usuario);
         }
 
+        // GET: api/Usuarios/5
+        [ResponseType(typeof(Usuario))]
+        public IHttpActionResult GetLogin(string id, string password)
+        {
+            Usuario usuario = db.Usuarios.Where(Usuario => Usuario.UsuarioID.Equals(id) && Usuario.Contrasena.Equals(password)).FirstOrDefault();
+            if (usuario == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(usuario);
+        }
+
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -127,6 +140,7 @@ namespace vvuelos_backend.Controllers
             }
             base.Dispose(disposing);
         }
+
 
         private bool UsuarioExists(string id)
         {
