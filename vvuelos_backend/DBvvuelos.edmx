@@ -28,6 +28,7 @@
           <Property Name="ClaseID" Type="int" Nullable="false" />
           <Property Name="AccionID" Type="int" Nullable="false" />
           <Property Name="Detalle" Type="varchar" MaxLength="500" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" />
         </EntityType>
         <EntityType Name="Clase">
           <Key>
@@ -416,6 +417,7 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <NavigationProperty Name="Accion" Relationship="Self.FK_Bitacora_AccionID" FromRole="Bitacora" ToRole="Accion" />
           <NavigationProperty Name="Clase" Relationship="Self.FK_Bitacora_ClaseID" FromRole="Bitacora" ToRole="Clase" />
           <NavigationProperty Name="Usuario" Relationship="Self.FK_Bitacora_UsuarioID" FromRole="Bitacora" ToRole="Usuario" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Clase">
           <Key>
@@ -778,6 +780,7 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <EntitySetMapping Name="Bitacoras">
             <EntityTypeMapping TypeName="DBvvuelosModel.Bitacora">
               <MappingFragment StoreEntitySet="Bitacora">
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
                 <ScalarProperty Name="Codigo" ColumnName="Codigo" />
                 <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
                 <ScalarProperty Name="ClaseID" ColumnName="ClaseID" />

@@ -8,11 +8,13 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Web.Http.Cors;
 using System.Web.Http.Description;
 using vvuelos_backend;
 
 namespace vvuelos_backend.Controllers
 {
+    [EnableCors(origins: "http://localhost:3001, http://localhost:3000", headers: "*", methods: "*")]
     public class ErrorsController : ApiController
     {
         private vvuelosEntities db = new vvuelosEntities();

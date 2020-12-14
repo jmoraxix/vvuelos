@@ -216,6 +216,7 @@ CREATE INDEX [idx_Usuario_Correo]
 ON [Usuario] ([Correo])
 
 ALTER TABLE Reservacion ADD CONSTRAINT DF_Reservacion DEFAULT GETDATE() FOR Fecha;
+ALTER TABLE Bitacora ADD Fecha datetime DEFAULT GETDATE();
 
 COMMIT TRANSACTION VVUELOSBD
 

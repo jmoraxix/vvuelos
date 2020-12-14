@@ -19,6 +19,7 @@ namespace vvuelos_backend
         public int ClaseID { get; set; }
         public int AccionID { get; set; }
         public string Detalle { get; set; }
+        public Nullable<System.DateTime> Fecha { get; set; }
     
         public virtual Accion Accion { get; set; }
         public virtual Clase Clase { get; set; }
