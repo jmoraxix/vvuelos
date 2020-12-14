@@ -13,7 +13,7 @@ const validateForm = errors => {
   return valid;
 };
 
-export default class Registrarse extends Component {
+export default class Registro extends Component {
 
 state = {
     data: [],

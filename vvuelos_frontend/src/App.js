@@ -5,7 +5,7 @@ import "./css/App.css";
 import NavBar from "./NavBar";
 
 import SignIn from "./login/login";
-import Registrarse from "./components/registrarse.component";
+import Registro from "./components/registro.component";
 import Home from "./components/home.component";
 import Usuario from "./components/usuario.component";
 import RolUsuario from "./components/rolUsuario.component";
@@ -44,7 +44,7 @@ class App extends Component {
             <Route exact path="/clase" component={Clase} />
             <Route exact path="/accion" component={Accion} />
             <Route exact path="/consecutivo" component={Consecutivo} />
-            <Route exact path="/registro" component={Registrarse} />
+            <Route exact path="/registro" component={Registro} />
           </Switch>
         </div>
       </div>
