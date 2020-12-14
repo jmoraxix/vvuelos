@@ -1,5 +1,4 @@
 import React, { useState, useEffect} from 'react';
-import md5 from 'md5';
 import Cookies from 'universal-cookie';
 import axios from 'axios';
 import GoogleLogin from 'react-google-login';
@@ -8,7 +7,7 @@ import { Link } from "react-router-dom";
 
 function Login(props) {
 
-  const baseUrl = "https://localhost:44332/api/usuarios/?id=asa&password=a";
+  const baseUrl = "https://localhost:44332/api/usuarios/";
   const cookies = new Cookies();
 
   const [form, setForm] = useState({
@@ -24,18 +23,19 @@ function Login(props) {
   }
 
   const iniciarSesion = async () => {
-    await axios.get(baseUrl + `/${form.UsuarioID}/${md5(form.Contrasena)}`)
+    await axios.get(baseUrl + `?id=${form.UsuarioID}&password=${form.Contrasena}`)
       .then(response => {
         return response.data;
       }).then(response => {
         if (response.length > 0) {
+          
+        } else {
+          alert('El usuario o la contraseña no son correctos');
           var respuesta = response[0];
           cookies.set('UsuarioID', respuesta.UsuarioID, { path: '/' });
           cookies.set('password', respuesta.Contrasena, { path: '/' });
           alert("Bienvenido: " + respuesta.UsuarioID );
           props.history.push('/usuarios');
-        } else {
-          alert('El usuario o la contraseña no son correctos');
         }
       })
 
