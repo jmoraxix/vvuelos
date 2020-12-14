@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import RegistroDataService from "../services/registro.service";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "../login/node_modules/bootstrap/dist/css/bootstrap.min.css";
 import { Button,  ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 import Recaptcha from 'react-recaptcha';
 

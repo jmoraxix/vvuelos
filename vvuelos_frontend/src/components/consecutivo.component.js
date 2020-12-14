@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import ConsecutivoDataService from "../services/consecutivo.service";
 import ClaseDataService from "../services/clase.service";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "../login/node_modules/bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter, checkbox} from 'reactstrap';
 
 export default class Consecutivo extends Component {

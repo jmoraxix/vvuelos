@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import BitacoraDataService from "../services/bitacora.service";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "../login/node_modules/bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 
 export default class Bitacora extends Component {

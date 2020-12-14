@@ -1,6 +1,6 @@
 import React, { Component, useState } from "react";
 import ReservaDataService from "../services/reservacion.service";
-import "bootstrap/dist/css/bootstrap.min.css";
+import "../login/node_modules/bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter, Label, Input} from 'reactstrap';
 import Calendar from 'react-calendar';
 export default class Reserva extends Component {

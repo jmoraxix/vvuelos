@@ -1,103 +1,85 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import md5 from 'md5';
+import Cookies from 'universal-cookie';
+import axios from 'axios';
 
-import { Avatar, Button, CssBaseline, TextField, FormControlLabel, Checkbox, Link, Grid, Box, Typography, makeStyles, Container } from '@material-ui/core';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://vvuelos.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
+function Login(props) {
+
+const baseUrl="https://localhost:44322/api/usuarios";
+const cookies = new Cookies();
+
+const [form, setForm]=useState({
+  UsuarioID:'',
+  Contrasena: ''
+});
+  const handleChange=e=>{
+ const {name, value} = e.target;
+ setForm({
+   ...form,
+   [name]: value
+ });
+  }
+
+  const iniciarSesion=async()=>{
+    await axios.get(baseUrl+`/${form.UsuarioID}/${md5(form.Contrasena)}`)
+    .then(response=>{
+      return response.data;
+    }).then(response=>{
+      if(response.length>0){
+        var respuesta=response[0];
+        cookies.set('UsuarioID', respuesta.id, {path: '/'});
+        cookies.set('apellido_paterno', respuesta.apellido_paterno, {path: '/'});
+        cookies.set('apellido_materno', respuesta.apellido_materno, {path: '/'});
+        cookies.set('nombre', respuesta.nombre, {path: '/'});
+        cookies.set('correo', respuesta.correo, {path: '/'});
+        cookies.set('username', respuesta.username, {path: '/'});
+        cookies.set('password', respuesta.password, {path: '/'});
+        alert("Bienvenido: "+respuesta.nombre+" "+respuesta.apellido_paterno);
+        props.history.push('/menu');
+      }else{
+        alert('El usuario o la contraseña no son correctos');
+      }
+    })
+    
+    .catch(error=>{
+      console.log(error);
+    })
+  }
+
+  useEffect(()=>{
+if(cookies.get('id')){
+  props.history.push('/usuarios');
 }
+  },[]);
 
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '100%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  },
-  submit: {
-    margin: theme.spacing(3, 0, 2),
-  },
-}));
-
-export default function SignIn() {
-  const classes = useStyles();
-
-  return (
-    <Container component="main" maxWidth="xs">
-      <CssBaseline />
-      <div className={classes.paper}>
-        <Typography component="h1" variant="h5">
-          Sign in
-        </Typography>
-        <form className={classes.form} noValidate>
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            id="email"
-            label="Email Address"
-            name="email"
-            autoComplete="email"
-            autoFocus
-          />
-          <TextField
-            variant="outlined"
-            margin="normal"
-            required
-            fullWidth
-            name="password"
-            label="Password"
-            type="password"
-            id="password"
-            autoComplete="current-password"
-          />
-          <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
-            label="Remember me"
-          />
-          <Button
-            type="submit"
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            Sign In
-          </Button>
-          <Grid container>
-            <Grid item xs>
-              <Link href="#" variant="body2">
-                Olvid&eacute; mi contrase&ntilde;a
-              </Link>
-            </Grid>
-            <Grid item>
-              <Link href="#" variant="body2">
-                {"Crear cuenta"}
-              </Link>
-            </Grid>
-          </Grid>
-        </form>
+    return (
+        <div className="containerPrincipal">
+        <div className="containerLogin">
+          <div className="form-group">
+            <label>Usuario: </label>
+            <br />
+            <input
+              type="text"
+              className="form-control"
+              name="UsuarioID"
+              onChange={handleChange}
+            />
+            <br />
+            <label>Contraseña: </label>
+            <br />
+            <input
+              type="password"
+              className="form-control"
+              name="Contrasena"
+              onChange={handleChange}
+            />
+            <br />
+            <button className="btn btn-primary" onClick={()=>iniciarSesion()}>Iniciar Sesión</button>
+          </div>
+        </div>
       </div>
-      <Box mt={8}>
-        <Copyright />
-      </Box>
-    </Container>
-  );
+    );
 }
+
+export default Login;
