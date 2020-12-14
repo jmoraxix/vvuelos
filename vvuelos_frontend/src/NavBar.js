@@ -98,6 +98,12 @@ const NavBar = (props) => {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
+             
+              <NavItem>
+                <NavLink to="/logout">Cerrar Sesion</NavLink>
+              </NavItem>
+             
+              
             </Nav>
           </Collapse>
         </Navbar>

@@ -5,6 +5,7 @@ import "./css/App.css";
 import NavBar from "./NavBar";
 
 import Login from "./login/login";
+import logout from "./login/logout";
 import Registro from "./components/registro.component";
 import Home from "./components/home.component";
 import Usuario from "./components/usuario.component";
@@ -30,6 +31,7 @@ class App extends Component {
         <div className="container mt-3">
           <Switch>
             <Route exact path="/login" component={Login} />
+            <Route exact path="/logout" component={logout} />
             <Route exact path="/" component={Home} />
             <Route exact path="/usuarios" component={Usuario} />
             <Route exact path="/roles" component={RolUsuario} />

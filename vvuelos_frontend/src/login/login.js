@@ -4,10 +4,11 @@ import axios from 'axios';
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 import { Link } from "react-router-dom";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function Login(props) {
 
-  const baseUrl = "https://localhost:44332/api/usuarios/";
+  const baseUrl = "https://localhost:44332/api/usuarios";
   const cookies = new Cookies();
 
   const [form, setForm] = useState({
@@ -25,17 +26,19 @@ function Login(props) {
   const iniciarSesion = async () => {
     await axios.get(baseUrl + `?id=${form.UsuarioID}&password=${form.Contrasena}`)
       .then(response => {
+        console.log(1,response);
         return response.data;
       }).then(response => {
-        if (response.length > 0) {
-          
+        console.log(2, response);
+        if (response) {
+          console.log(3, response);
+          cookies.set('UsuarioID', response.UsuarioID, { path: '/' });
+          cookies.set('Correo', response.Correo, { path: '/' });
+          alert("Bienvenido: " + response.UsuarioID );
+          props.history.push('/');
         } else {
           alert('El usuario o la contraseña no son correctos');
-          var respuesta = response[0];
-          cookies.set('UsuarioID', respuesta.UsuarioID, { path: '/' });
-          cookies.set('password', respuesta.Contrasena, { path: '/' });
-          alert("Bienvenido: " + respuesta.UsuarioID );
-          props.history.push('/usuarios');
+          
         }
       })
 
@@ -45,8 +48,9 @@ function Login(props) {
   }
 
   useEffect(() => {
+    
     if (cookies.get('UsuarioID')) {
-      props.history.push('/usuarios');
+      props.history.push('/');
     }
   }, []);
 

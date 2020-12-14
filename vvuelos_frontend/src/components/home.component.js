@@ -5,7 +5,7 @@ export default class Home extends Component {
 
   render() {
     return (
-      <div class="jumbotron">
+      <div className="jumbotron">
         Bienvenidos
       </div>
     );
