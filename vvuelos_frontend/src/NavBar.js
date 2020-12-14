@@ -1,66 +1,108 @@
-import React from 'react';
-import { Switch, Route, Link } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
-import Button from '@material-ui/core/Button';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import React, { useState } from 'react';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown,
+  DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import "./css/App.css";
 
-export default function SimpleMenu() {
-  const [anchorEl, setAnchorEl] = React.useState(null);
+const NavBar = (props) => {
+  const [isOpen, setIsOpen] = useState(false);
 
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const toggle = () => setIsOpen(!isOpen);
 
   return (
       <div>
-      <nav className="navbar navbar-expand navbar-dark bg-primary">
-        <a href="/" className="navbar-brand">
-          vVuelos
-        </a>
-        <div className="navbar-nav mr-auto">
-          <li className="nav-item">
-            <Link to={"/usuario"} className="nav-link">
-              Usuario
-            </Link>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Admin
-            </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-              <div>
-              <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
-                Open Menu
-              </Button>
-              <Menu
-                id="simple-menu"
-                anchorEl={anchorEl}
-                keepMounted
-                open={Boolean(anchorEl)}
-                onClose={handleClose}
-                >
-                  <MenuItem onClick={handleClose}>Profile</MenuItem>
-                  <MenuItem onClick={handleClose}>My account</MenuItem>
-                  <MenuItem onClick={handleClose}>Logout</MenuItem>
-                </Menu>
-              </div>
-              <Link to={"/roles"} className="dropdown-item">
-                Roles
-              </Link>
-            </div>
-          </li>
-        </div>
-      </nav>
-
-
-    
-      
-
-    </div>
+        <Navbar color="primary" dark expand="md">
+          <NavbarBrand href="/">vVuelos</NavbarBrand>
+          <NavbarToggler onClick={toggle} />
+          <Collapse isOpen={isOpen} navbar>
+            <Nav className="mr-auto" navbar>
+              <NavItem>
+                <NavLink to="/">Crear reserva</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink to="/">Mis reservas</NavLink>
+              </NavItem>
+              <NavItem>
+                <NavLink to="/">Mi cuenta</NavLink>
+              </NavItem>
+              <UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret>
+                  Administraci&oacute;n
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/usuarios" className="text-muted">Usuario</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/roles" className="text-muted">Roles</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/aerolineas" className="text-muted">Aerolineas</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/paises" className="text-muted">Paises</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/puertas" className="text-muted">Puertas</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/estadosVuelos" className="text-muted">Estados de vuelos</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/vuelos" className="text-muted">Vuelos</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/tiposPago" className="text-muted">Tipos de Pago</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/reservaciones" className="text-muted">Reservaciones</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/consecutivo" className="text-muted">Consecutivo</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/clase" className="text-muted">Clase</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/accion" className="text-muted">Accion</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/bitacora" className="text-muted">Bitacora</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
+            </Nav>
+          </Collapse>
+        </Navbar>
+      </div>
   );
 }
+
+export default NavBar;
