@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import AccionDataService from "../services/accion.service";
-import "../login/node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 
 export default class TipoPago extends Component {

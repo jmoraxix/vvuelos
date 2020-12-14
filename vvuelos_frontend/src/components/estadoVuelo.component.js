@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import EstadoVueloDataService from "../services/estadoVuelo.service";
-import "../login/node_modules/bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 
 export default class EstadoVuelo extends Component {
