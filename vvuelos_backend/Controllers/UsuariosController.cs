@@ -124,6 +124,9 @@ namespace vvuelos_backend.Controllers
         public IHttpActionResult GetLogin(string id, string password)
         {
             Usuario usuario = db.Usuarios.Where(Usuario => Usuario.UsuarioID.Equals(id) && Usuario.Contrasena.Equals(password)).FirstOrDefault();
+            usuario.Contrasena = string.Empty;
+            usuario.PreguntaSeg = string.Empty;
+            usuario.RespuestaSeg = string.Empty;
             if (usuario == null)
             {
                 return NotFound();
