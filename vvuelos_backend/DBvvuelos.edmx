@@ -49,6 +49,15 @@
           <Property Name="RangoFinal" Type="int" Nullable="false" />
           <Property Name="Actual" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Error">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Numero" Type="varchar" MaxLength="25" Nullable="false" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="Mensaje" Type="varchar" MaxLength="500" Nullable="false" />
+        </EntityType>
         <EntityType Name="EstadoVuelo">
           <Key>
             <PropertyRef Name="Codigo" />
@@ -303,6 +312,7 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <EntitySet Name="Bitacora" EntityType="Self.Bitacora" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Clase" EntityType="Self.Clase" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Consecutivo" EntityType="Self.Consecutivo" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Error" EntityType="Self.Error" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="EstadoVuelo" EntityType="Self.EstadoVuelo" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Pais" EntityType="Self.Pais" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Puerta" EntityType="Self.Puerta" Schema="dbo" store:Type="Tables" />
@@ -720,6 +730,7 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
             <End Role="Pai" EntitySet="Pais" />
             <End Role="Vuelo" EntitySet="Vueloes" />
           </AssociationSet>
+          <EntitySet Name="Errors" EntityType="DBvvuelosModel.Error" />
         </EntityContainer>
         <Association Name="FK_Vuelo_PaisOrigenID">
           <End Type="DBvvuelosModel.Pai" Role="Pai" Multiplicity="1" />
@@ -733,6 +744,15 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Error">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Numero" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="Mensaje" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="false" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -874,6 +894,16 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
               <ScalarProperty Name="UsuarioID" ColumnName="UsuarioID" />
             </EndProperty>
           </AssociationSetMapping>
+          <EntitySetMapping Name="Errors">
+            <EntityTypeMapping TypeName="DBvvuelosModel.Error">
+              <MappingFragment StoreEntitySet="Error">
+                <ScalarProperty Name="Mensaje" ColumnName="Mensaje" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Numero" ColumnName="Numero" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

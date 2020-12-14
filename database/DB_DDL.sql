@@ -135,6 +135,13 @@ CREATE TABLE [Consecutivo] (
     )
 )
 
+CREATE TABLE [Error] (
+    [Codigo] int NOT NULL IDENTITY(1,1) PRIMARY KEY,
+    [Numero] VARCHAR(25)  NOT NULL ,
+    [Fecha] datetime  DEFAULT GETDATE() ,
+    [Mensaje] VARCHAR(500)  NOT NULL 
+    )
+
 ALTER TABLE [RolUsuario] WITH CHECK ADD CONSTRAINT [FK_RolUsuario_UsuarioID] FOREIGN KEY([UsuarioID])
 REFERENCES [Usuario] ([Usuario])
 
@@ -207,6 +214,8 @@ ALTER TABLE [Consecutivo] CHECK CONSTRAINT [FK_Consecutivo_ClaseID]
 
 CREATE INDEX [idx_Usuario_Correo]
 ON [Usuario] ([Correo])
+
+ALTER TABLE Reservacion ADD CONSTRAINT DF_Reservacion DEFAULT GETDATE() FOR Fecha;
 
 COMMIT TRANSACTION VVUELOSBD
 

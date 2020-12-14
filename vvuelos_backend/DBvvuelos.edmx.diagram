@@ -31,6 +31,7 @@
         <AssociationConnector Association="DBvvuelosModel.FK_Reservacion_VueloID" ManuallyRouted="false" />
         <AssociationConnector Association="DBvvuelosModel.RolUsuario" ManuallyRouted="false" />
         <AssociationConnector Association="DBvvuelosModel.FK_Vuelo_PaisOrigenID" />
+        <EntityTypeShape EntityType="DBvvuelosModel.Error" Width="1.5" PointX="7.375" PointY="0.75" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

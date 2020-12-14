@@ -38,5 +38,6 @@ namespace vvuelos_backend
         public virtual DbSet<TipoPago> TipoPagoes { get; set; }
         public virtual DbSet<Usuario> Usuarios { get; set; }
         public virtual DbSet<Vuelo> Vueloes { get; set; }
+        public virtual DbSet<Error> Errors { get; set; }
     }
 }
