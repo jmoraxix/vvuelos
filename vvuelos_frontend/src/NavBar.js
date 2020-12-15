@@ -42,7 +42,7 @@ const NavBar = (props) => {
                   <DropdownItem divider />
                   <DropdownItem>
                     <NavItem>
-                      <NavLink href="/aerolineas" className="text-muted">Aerolineas</NavLink>
+                      <NavLink href="/aerolineas" className="text-muted">Aerol&iacute;neas</NavLink>
                     </NavItem>
                   </DropdownItem>
                   <DropdownItem>
@@ -88,19 +88,19 @@ const NavBar = (props) => {
                   </DropdownItem>
                   <DropdownItem>
                     <NavItem>
-                      <NavLink href="/accion" className="text-muted">Accion</NavLink>
+                      <NavLink href="/accion" className="text-muted">Acci&oacute;n</NavLink>
                     </NavItem>
                   </DropdownItem>
                   <DropdownItem>
                     <NavItem>
-                      <NavLink href="/bitacora" className="text-muted">Bitacora</NavLink>
+                      <NavLink href="/bitacora" className="text-muted">Bit&aacute;cora</NavLink>
                     </NavItem>
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
              
               <NavItem>
-                <NavLink to="/logout">Cerrar Sesion</NavLink>
+                <NavLink to="/logout">Cerrar Sesi&oacute;n</NavLink>
               </NavItem>
              
               
