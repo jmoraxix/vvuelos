@@ -48,7 +48,6 @@ function Login(props) {
   }
 
   useEffect(() => {
-    
     if (cookies.get('UsuarioID')) {
       props.history.push('/');
     }

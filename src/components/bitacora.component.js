@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import BitacoraDataService from "../services/bitacora.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 export default class Bitacora extends Component {
 
@@ -20,6 +23,7 @@ export default class Bitacora extends Component {
   };
 
   componentDidMount() {
+    this.validarSesion();
     this.listarObjetos();
   }
 
@@ -112,6 +116,11 @@ export default class Bitacora extends Component {
     });
   };
 
+  validarSesion =() => {
+    if (!cookies.get('UsuarioID')) {
+      this.props.history.push('/login');
+    }
+  };
   
 
   render() {

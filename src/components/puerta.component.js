@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import PuertaDataService from "../services/puerta.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
 export default class Puerta extends Component {
 
   state = {
@@ -16,6 +18,7 @@ export default class Puerta extends Component {
   };
 
   componentDidMount() {
+    this.validarSesion();
     this.listarObjetos();
   }
 
@@ -105,7 +108,11 @@ export default class Puerta extends Component {
     });
   };
 
-
+  validarSesion =() => {
+    if (!cookies.get('UsuarioID')) {
+      this.props.history.push('/login');
+    }
+  };
   render() {
     return (
       <>

@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import VueloDataService from "../services/vuelo.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter,Label,Input} from 'reactstrap';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 export default class Vuelo extends Component {
 
@@ -23,6 +26,7 @@ export default class Vuelo extends Component {
       };
 
       componentDidMount() {
+        this.validarSesion();
         this.listarObjetos();
       }
     
@@ -118,6 +122,11 @@ export default class Vuelo extends Component {
             [e.target.name]: e.target.value,
           },
         });
+      };
+      validarSesion =() => {
+        if (!cookies.get('UsuarioID')) {
+          this.props.history.push('/login');
+        }
       };
       render() {
         return (

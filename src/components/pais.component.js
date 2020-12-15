@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import PaisDataService from "../services/pais.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
+import Cookies from 'universal-cookie';
 
+const cookies = new Cookies();
 export default class Pais extends Component {
 
   state = {
@@ -16,6 +18,7 @@ export default class Pais extends Component {
   };
 
   componentDidMount() {
+    this.validarSesion();
     this.listarObjetos();
   }
 
@@ -106,7 +109,11 @@ export default class Pais extends Component {
     });
   };
 
-
+  validarSesion =() => {
+    if (!cookies.get('UsuarioID')) {
+      this.props.history.push('/login');
+    }
+  };
   render() {
     return (
       <>

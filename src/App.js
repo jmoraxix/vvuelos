@@ -23,6 +23,8 @@ import Bitacora from "./components/bitacora.component";
 import Reservacion from "./components/reservacion.component";
 import Error from "./components/error.component";
 import VueloDisponible from "./components/vuelosdisponibles.component";
+import RolesUsuario from "./components/rolesyusuarios.component";
+
 
 class App extends Component {
   render() {
@@ -51,6 +53,7 @@ class App extends Component {
             <Route exact path="/registro" component={Registro} />
             <Route exact path="/erros" component={Error} />
             <Route exact path="/reservar" component={VueloDisponible} />
+            <Route exact path="/rolesusuario" component={RolesUsuario} />
           </Switch>
         </div>
       </div>

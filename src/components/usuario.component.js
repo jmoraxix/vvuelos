@@ -3,6 +3,9 @@ import UsuarioDataService from "../services/usuario.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 import Recaptcha from 'react-recaptcha';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 const validEmailRegex = RegExp(
   /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i
@@ -38,6 +41,7 @@ export default class Usuario extends Component {
   };
 
   componentDidMount() {
+    this.validarSesion();
     this.listarObjetos();
   }
 
@@ -202,7 +206,11 @@ export default class Usuario extends Component {
       console.error('Invalid Form')
     }
   }
-
+  validarSesion =() => {
+    if (!cookies.get('UsuarioID')) {
+      this.props.history.push('/login');
+    }
+  };
   render() {
     this.handleRegister = this.handleRegister.bind(this);
     this.recaptchaLoaded = this.recaptchaLoaded.bind(this);

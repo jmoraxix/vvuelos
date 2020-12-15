@@ -3,6 +3,9 @@ import ConsecutivoDataService from "../services/consecutivo.service";
 import ClaseDataService from "../services/clase.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter, checkbox} from 'reactstrap';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 export default class Consecutivo extends Component {
   
@@ -32,6 +35,7 @@ export default class Consecutivo extends Component {
   
   componentDidMount() {
     this.listarObjetos();
+    this.validarSesion();
     this.listarClases();
   }
 
@@ -148,6 +152,13 @@ export default class Consecutivo extends Component {
       })
     }
   }
+
+   
+  validarSesion =() => {
+    if (!cookies.get('UsuarioID')) {
+      this.props.history.push('/login');
+    }
+  };
   render() {
     this.verifyCallback = this.verifyCallback.bind(this);
    

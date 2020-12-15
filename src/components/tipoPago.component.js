@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import TipoPagoDataService from "../services/tipoPago.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 export default class TipoPago extends Component {
 
@@ -15,6 +18,7 @@ export default class TipoPago extends Component {
   };
 
   componentDidMount() {
+    this.validarSesion();
     this.listarObjetos();
   }
 
@@ -103,7 +107,12 @@ export default class TipoPago extends Component {
       },
     });
   };
-
+  
+  validarSesion =() => {
+    if (!cookies.get('UsuarioID')) {
+      this.props.history.push('/login');
+    }
+  };
 
   render() {
     return (

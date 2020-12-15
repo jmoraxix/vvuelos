@@ -2,7 +2,10 @@ import React, { Component, useState } from "react";
 import ReservaDataService from "../services/reservacion.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter, Label, Input} from 'reactstrap';
-import Calendar from 'react-calendar';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
+
 export default class Reserva extends Component {
   
 
@@ -23,6 +26,7 @@ export default class Reserva extends Component {
   };
   
   componentDidMount() {
+    this.validarSesion();
     this.listarObjetos();
     this.listarClases();
   }
@@ -131,6 +135,11 @@ export default class Reserva extends Component {
     });
   };
   
+  validarSesion =() => {
+    if (!cookies.get('UsuarioID')) {
+      this.props.history.push('/login');
+    }
+  };
  
   render() {
  

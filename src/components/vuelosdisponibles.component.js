@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import VuelosDisponibleDataService from "../services/vuelosdisponibles.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
+import Cookies from 'universal-cookie';
+
+const cookies = new Cookies();
 
 export default class VueloDisponible extends Component {
   state = {
@@ -22,6 +25,7 @@ export default class VueloDisponible extends Component {
 
   };
   componentDidMount() {
+    this.validarSesion();
     this.listarObjetos();
   }
 
@@ -88,6 +92,13 @@ export default class VueloDisponible extends Component {
   cerrarModalInsertar = () => {
     this.setState({ modalInsertar: false });
   };
+
+  validarSesion =() => {
+    if (!cookies.get('UsuarioID')) {
+      this.props.history.push('/login');
+    }
+  };
+
   render() {
 
     return (
