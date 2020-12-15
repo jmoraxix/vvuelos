@@ -6,11 +6,11 @@ export default function logout (props) {
 
   const cookies = new Cookies();
 
-  const cerrarSesion = () => {
+  //const cerrarSesion = () => {
     cookies.remove('UsuarioID', { path: '/' });
     cookies.remove('Contrasena', { path: '/' });
     props.history.push('/login');
-  }
+ // }
 
   return (
     <>

@@ -11,7 +11,7 @@ export default class Vuelo extends Component {
         modalActualizar: false,
         form: {
           Consecutivo: "",
-          Nombre: "",
+          Aerolinea: "",
           PaisOri:"",
           PaisDest: "",
           FechaHoraSal:"",
@@ -29,6 +29,7 @@ export default class Vuelo extends Component {
       listarObjetos() {
             VueloDataService.getAll()
           .then(response => {
+            console.log(1, response);
             this.setState({
               data: response.data
             });
@@ -76,15 +77,15 @@ export default class Vuelo extends Component {
     
       nuevoVuelo = () => {
         return {
-          Consecutivo: 1,
-          Nombre: "",
+          Consecutivo: "",
+          Aerolinea: "",
           PaisOri:"",
           PaisDest: "",
           FechaHoraSal:"",
-          Puerta: 4,
-          EstadoVuelo:"Atrasado",
-          Precio:500,
-          Capacidad: 100
+          Puerta: "",
+          EstadoVuelo:"",
+          Precio:"",
+          Capacidad: ""
         };
       }
     
@@ -146,7 +147,7 @@ export default class Vuelo extends Component {
                   {this.state.data.map((dato) => (
                     <tr key={dato.Consecutivo}>
                       <td>{dato.Consecutivo}</td>
-                      <td>{dato.Nombre}</td>
+                      <td>{dato.Aerolinea}</td>
                       <td>{dato.PaisOri}</td>
                       <td>{dato.PaisDest}</td>
                       <td>{dato.FechaHoraSal}</td>
@@ -161,7 +162,7 @@ export default class Vuelo extends Component {
                         >
                           Editar
                         </Button>{" "}
-                        <Button color="danger" onClick={()=> this.eliminarObjeto(dato.Codigo)}>Eliminar</Button>
+                        <Button color="danger" onClick={()=> this.eliminarObjeto(dato.Consecutivo)}>Eliminar</Button>
                       </td>
                     </tr>
                   ))}
@@ -197,7 +198,7 @@ export default class Vuelo extends Component {
                     name="Nombre"
                     type="text"
                     onChange={this.handleChange}
-                    value={this.state.form.Nombre}
+                    value={this.state.form.Aerolinea}
                   />
                 </FormGroup>
 

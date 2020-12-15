@@ -21,6 +21,8 @@ import Consecutivo from "./components/consecutivo.component";
 import Vuelo from "./components/vuelo.component";
 import Bitacora from "./components/bitacora.component";
 import Reservacion from "./components/reservacion.component";
+import Error from "./components/error.component";
+import VueloDisponible from "./components/vuelosdisponibles.component";
 
 class App extends Component {
   render() {
@@ -47,6 +49,8 @@ class App extends Component {
             <Route exact path="/accion" component={Accion} />
             <Route exact path="/consecutivo" component={Consecutivo} />
             <Route exact path="/registro" component={Registro} />
+            <Route exact path="/erros" component={Error} />
+            <Route exact path="/reservar" component={VueloDisponible} />
           </Switch>
         </div>
       </div>

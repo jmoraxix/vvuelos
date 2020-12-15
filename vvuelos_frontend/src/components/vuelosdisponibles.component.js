@@ -1,147 +1,187 @@
 import React, { Component } from "react";
-import RegistroDataService from "../services/registro.service";
+import VuelosDisponibleDataService from "../services/vuelosdisponibles.service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, FormGroup } from 'reactstrap';
+import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 
 export default class VueloDisponible extends Component {
-    state = {
-        data: [],
-        isVerified: false,
-        form: {
-          Consecutivo: "",
-          Nombre: "",
-          PaisOri:"",
-          PaisDest: "",
-          FechaHoraSal:"",
-          Puerta: "",
-          EstadoVuelo:"",
-          Precio:"",
-          Capacidad: "" 
-        }
-    };
-    render() {
+  state = {
+    data: [],
+    modalInsertar: false,
+        modalActualizar: false,
+    form: {
+      Consecutivo: "",
+      Aerolinea: "",
+      PaisOri: "",
+      PaisDest: "",
+      FechaHoraSal: "",
+      Puerta: "",
+      EstadoVuelo: "",
+      Precio: "",
+      Capacidad: ""
+    }
 
-        return (
-            <>
+  };
+  componentDidMount() {
+    this.listarObjetos();
+  }
+
+  listarObjetos() {
+    VuelosDisponibleDataService.getAll()
+      .then(response => {
+        this.setState({
+          data: response.data
+        });
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  crearObjeto(data) {
+    console.log(data);
+    VuelosDisponibleDataService.create(data)
+      .then(response => {
+        console.log(response.data);
+        this.listarObjetos();
+        this.cerrarModalInsertar();
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  actualizarObjeto(data) {
+    VuelosDisponibleDataService.update(data.Consecutivo, data)
+      .then(response => {
+        console.log(response.data);
+        this.listarObjetos();
+        this.cerrarModalActualizar();
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+  nuevaCompra = () => {
+    return {
+      Capacidad: "",
+      Precio: ""
+    };
+  }
+
+
+  handleChange = (e) => {
+    this.setState({
+      form: {
+        ...this.state.form,
+        [e.target.name]: e.target.value,
+      },
+    });
+  };
+  mostrarModalInsertar = () => {
+    this.setState({
+      form: this.nuevaCompra(),
+      modalInsertar: true,
+    });
+  };
+
+  cerrarModalInsertar = () => {
+    this.setState({ modalInsertar: false });
+  };
+  render() {
+
+    return (
+      <>
+        <Container>
+          <br />
+          <Row>
+            <Col><h1>Reservar vuelos</h1></Col>
+            <Col><Button color="success" onClick={() => this.mostrarModalInsertar()}>Crear</Button></Col>
+          </Row>
+          <Table>
+            <thead>
+              <tr>
+                <th>Consecutivo</th>
+                <th>Aerolinea</th>
+                <th>Pais Origen</th>
+                <th>Pais destino</th>
+                <th>Salida</th>
+                <th>Puerta</th>
+                <th>Estado del vuelo</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {this.state.data.map((dato) => (
+                <tr key={dato.Consecutivo}>
+                  <td>{dato.Consecutivo}</td>
+                  <td>{dato.Aerolinea}</td>
+                  <td>{dato.PaisOri}</td>
+                  <td>{dato.PaisDest}</td>
+                  <td>{dato.FechaHoraSal}</td>
+                  <td>{dato.Puerta}</td>
+                  <td>{dato.EstadoVuelo}</td>
+                  <td>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </Table>
+        </Container>
+
       
-              <div><h3 >Vuelos disponibles</h3></div>
-      
-              <FormGroup>
-                <label>
-                  Consecutivo
-                    </label>
-      
-                <input
-                  placeholder="Ingrese un usuario"
-                  className="form-control"
-                  name="UsuarioID"
-                  type="text"
-                  onChange={this.handleChange}
-                  value={this.state.form.UsuarioID}
-                  noValidate
-      
-                />
-                {errors.UsuarioID.length > 0 &&
-                  <span className='error'>{errors.UsuarioID}</span>}
-      
-              </FormGroup>
-      
-              <FormGroup>
-                <label>
-                  Contraseña:
-                    </label>
-                <input
-                  placeholder="Ingrese una contraseña"
-                  className="form-control"
-                  name="Contrasena"
-                  type="password"
-                  onChange={this.handleChange}
-                  value={this.state.form.Contrasena}
-                  noValidate
-      
-                />
-      
-                {errors.Contrasena.length > 0 &&
-                  <span className='error'>{errors.Contrasena}</span>}
-              </FormGroup>
-      
-      
-      
-              <FormGroup>
-                <label>
-                  Correo:
-                    </label>
-                <input
-                  placeholder="Ingrese un correo"
-                  className="form-control"
-                  name="Correo"
-                  type="text"
-                  onChange={this.handleChange}
-                  value={this.state.form.Correo}
-                  noValidate
-      
-                />
-      
-                {errors.Correo.length > 0 &&
-                  <span className='error'>{errors.Correo}</span>}
-              </FormGroup>
-      
-              <FormGroup>
-                <label>
-                  Pregunta de seguridad:
-                    </label>
-                <input
-                  placeholder="Ingrese una pregunta de seguridad"
-                  className="form-control"
-                  name="PreguntaSeg"
-                  type="text"
-                  onChange={this.handleChange}
-                  value={this.state.form.PreguntaSeg}
-                  noValidate
-      
-                />
-      
-                {errors.PreguntaSeg.length > 0 &&
-                  <span className='error'>{errors.PreguntaSeg}</span>}
-              </FormGroup>
-      
-              <FormGroup>
-                <label>
-                  Respuesta de seguridad:
-                    </label>
-                <input
-                  placeholder="Ingrese una respuesta de seguridad"
-                  className="form-control"
-                  name="RespuestaSeg"
-                  type="text"
-                  onChange={this.handleChange}
-                  value={this.state.form.RespuestaSeg}
-                  noValidate
-                />
-                {errors.RespuestaSeg.length > 0 &&
-                  <span className='error'>{errors.RespuestaSeg}</span>}
-              </FormGroup>
-      
-              <Recaptcha
-                sitekey="6LcaJQMaAAAAAGrz88IuWRMGIdZD_CkuYrIHVpkC"
-                render="explicit"
-                onloadCallback={this.recaptchaLoaded}
-                verifyCallback={this.verifyCallback}
+          <Modal isOpen={this.state.modalInsertar}>
+            <ModalHeader>
+              <div><h3>Reservar</h3></div>
+            </ModalHeader>
+
+            <ModalBody>
+            <FormGroup>
+              <label>
+                Precio:
+                  </label>
+              <input
+                className="form-control"
+                name="Precio"
+                type="double"
+                onChange={this.handleChange}
+                value={this.state.form.Precio}
               />
-      
-              <Button
-                color="primary"
-                onClick={() => this.crearObjeto(this.state.form)}
-              // onClick={this.handleRegistro}
-              >
-                Registrarse
-                  </Button>
-              <Button className="btn btn-danger">
-                <Link to={"/login"} className="text-white">
-                  Volver
-                  </Link>
-              </Button>
-            </>
-          );
-                }
-            }
+
+            </FormGroup>
+
+            <FormGroup>
+              <label>
+                Capacidad:
+                  </label>
+              <input
+                className="form-control"
+                name="Capacidad"
+                type="number"
+                onChange={this.handleChange}
+                value={this.state.form.Capacidad}
+              />
+
+            </FormGroup>
+         </ModalBody>
+
+
+          <ModalFooter>
+            <Button
+              color="primary"
+              onClick={() => this.crearObjeto(this.state.form)}
+            >
+              Insertar
+                </Button>
+            <Button
+              className="btn btn-danger"
+              onClick={() => this.cerrarModalInsertar()}
+            >
+              Cancelar
+                </Button>
+          </ModalFooter>
+        </Modal>
+      </>
+    );
+  }
+}
