@@ -32,10 +32,10 @@ namespace vvuelos_backend
     
         public virtual Aerolinea Aerolinea { get; set; }
         public virtual EstadoVuelo EstadoVuelo { get; set; }
-        public virtual Pai Pai { get; set; }
+        public virtual Pai PaisD { get; set; }
         public virtual Puerta Puerta { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservacion> Reservacions { get; set; }
-        public virtual Pai Pai1 { get; set; }
+        public virtual Pai PaisO { get; set; }
     }
 }

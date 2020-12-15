@@ -17,16 +17,16 @@ namespace vvuelos_backend
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Pai()
         {
-            this.Vueloes = new HashSet<Vuelo>();
-            this.Vueloes1 = new HashSet<Vuelo>();
+            this.VueloesD = new HashSet<Vuelo>();
+            this.VueloesO = new HashSet<Vuelo>();
         }
     
         public string Consecutivo { get; set; }
         public string Nombre { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vuelo> Vueloes { get; set; }
+        public virtual ICollection<Vuelo> VueloesD { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vuelo> Vueloes1 { get; set; }
+        public virtual ICollection<Vuelo> VueloesO { get; set; }
     }
 }
