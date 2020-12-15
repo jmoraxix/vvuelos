@@ -6,7 +6,7 @@ export default class Home extends Component {
   render() {
     return (
       <div className="jumbotron">
-        Bienvenidos
+        Bienvenidos a vVuelos
       </div>
     );
   }
