@@ -1,6 +1,6 @@
 import React, { useState, useEffect} from 'react';
 import Cookies from 'universal-cookie';
-import axios from 'axios';
+import http from "../http-common";
 import GoogleLogin from 'react-google-login';
 import FacebookLogin from 'react-facebook-login';
 import { Link } from "react-router-dom";
@@ -8,13 +8,13 @@ import "bootstrap/dist/css/bootstrap.min.css";
 
 function Login(props) {
 
-  const baseUrl = "https://localhost:44332/api/usuarios";
   const cookies = new Cookies();
 
   const [form, setForm] = useState({
     UsuarioID: '',
     Contrasena: ''
   });
+
   const handleChange = e => {
     const { name, value } = e.target;
     setForm({
@@ -24,7 +24,14 @@ function Login(props) {
   }
 
   const iniciarSesion = async () => {
-    await axios.get(baseUrl + `?id=${form.UsuarioID}&password=${form.Contrasena}`)
+    let usuario = {
+      UsuarioID: `${form.UsuarioID}`,
+      Contrasena: `${form.Contrasena}`,
+      Correo:"",
+      PreguntaSeg:"",
+      RespuestaSeg:""
+    }
+    await http.post("/login", usuario)
       .then(response => {
         console.log(1,response);
         return response.data;
@@ -58,7 +65,6 @@ function Login(props) {
     var res = response.profileObj;
     console.log(res);
   }
-
 
   const responseFacebook = (response) => {
     console.log(response);
@@ -109,7 +115,7 @@ function Login(props) {
                 textButton="INICIAR SESION CON FACEBOOK"
                 icon="fa-facebook" />,
                 onClick= {iniciarSesion}
-      </div>
+            </div>
           </div>
         </div>
       </div>
