@@ -1,7 +1,11 @@
 import React, { useState } from 'react';
+import Cookies from 'universal-cookie';
 import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown,
   DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import "./css/App.css";
+
+const cookies = new Cookies();
+const usuarioID = cookies.get('UsuarioID');
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,15 +18,16 @@ const NavBar = (props) => {
           <NavbarBrand href="/">vVuelos</NavbarBrand>
           <NavbarToggler onClick={toggle} />
           <Collapse isOpen={isOpen} navbar>
+            { usuarioID &&
             <Nav className="mr-auto" navbar>
               <NavItem>
-                <NavLink to="/">Crear reserva</NavLink>
+                <NavLink href="/">Crear reserva</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/">Mis reservas</NavLink>
+                <NavLink href="/">Mis reservas</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink to="/">Mi cuenta</NavLink>
+                <NavLink href="/">Mi cuenta</NavLink>
               </NavItem>
               <UncontrolledDropdown nav inNavbar>
                 <DropdownToggle nav caret>
@@ -98,13 +103,11 @@ const NavBar = (props) => {
                   </DropdownItem>
                 </DropdownMenu>
               </UncontrolledDropdown>
-             
               <NavItem>
-                <NavLink to="/logout">Cerrar Sesi&oacute;n</NavLink>
+                <NavLink href="/logout">Cerrar Sesi&oacute;n</NavLink>
               </NavItem>
-             
-              
             </Nav>
+            }
           </Collapse>
         </Navbar>
       </div>

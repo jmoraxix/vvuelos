@@ -9,7 +9,7 @@ import logout from "./login/logout";
 import Registro from "./components/registro.component";
 import Home from "./components/home.component";
 import Usuario from "./components/usuario.component";
-import RolUsuario from "./components/rolUsuario.component";
+import Rol from "./components/rol.component";
 import Aerolinea from "./components/aerolinea.component";
 import Pais from "./components/pais.component";
 import Puerta from "./components/puerta.component";
@@ -38,7 +38,7 @@ class App extends Component {
             <Route exact path="/logout" component={logout} />
             <Route exact path="/" component={Home} />
             <Route exact path="/usuarios" component={Usuario} />
-            <Route exact path="/roles" component={RolUsuario} />
+            <Route exact path="/roles" component={Rol} />
             <Route exact path="/vuelos" component={Vuelo} />
             <Route exact path="/aerolineas" component={Aerolinea} />
             <Route exact path="/paises" component={Pais} />
