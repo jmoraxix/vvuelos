@@ -73,7 +73,7 @@ export default class Clase extends Component {
 
   nuevaClase = () => {
     return {
-      Codigo: 0,
+      Codigo: "",
       Nombre: ""
     };
   }

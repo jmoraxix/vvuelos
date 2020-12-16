@@ -190,10 +190,20 @@ export default class Consecutivo extends Component {
               {this.state.data.map((dato) => (
                 <tr key={dato.Codigo}>
                   <td>{dato.Codigo}</td>
-                  <td>{dato.Nombre}</td>
-                  <td>{dato.TienePrefijo}</td>
+                  <td>{dato.Clase.Nombre}</td>
+                  <td> <input
+                className="form-control"
+                readOnly
+                type="checkbox"
+                value={dato.TienePrefijo}
+              /></td>
                   <td>{dato.Prefijo}</td>
-                  <td>{dato.TieneRango}</td>
+                  <td><input
+                className="form-control"
+                readOnly
+                type="checkbox"
+                value={dato.TieneRango}
+              /></td>
                   <td>{dato.RangoInicial}</td>
                   <td>{dato.RangoFinal}</td>
                   <td>{dato.Actual}</td>

@@ -12,7 +12,7 @@ export default class Pais extends Component {
     modalInsertar: false,
     modalActualizar: false,
     form: {
-      Consecutivo: "",
+      Consecutivo: 0,
       Nombre: "",
     },
   };
@@ -72,7 +72,7 @@ export default class Pais extends Component {
 
   nuevoPais = () => {
     return {
-      Consecutivo: 1,
+      Consecutivo: 0,
       Nombre: "",
 
     };
@@ -208,18 +208,7 @@ export default class Pais extends Component {
           </ModalHeader>
 
           <ModalBody>
-            <FormGroup>
-              <label>
-                Consecutivo: 
-              </label>
-              <input
-                className="form-control"
-                name="Consecutivo"
-                type="number"
-                onChange={this.handleChange}
-                value={this.state.form.Consecutivo}
-              />
-            </FormGroup>
+            
 
             <FormGroup>
               <label>

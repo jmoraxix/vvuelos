@@ -46,7 +46,7 @@ class App extends Component {
             <Route exact path="/estadosVuelos" component={EstadoVuelo} />
             <Route exact path="/reservaciones" component={Reservacion} />
             <Route exact path="/tiposPago" component={TipoPago} />
-            <Route exact path="/bitacora" component={Bitacora} />
+            <Route exact path="/bitacoras" component={Bitacora} />
             <Route exact path="/clase" component={Clase} />
             <Route exact path="/accion" component={Accion} />
             <Route exact path="/consecutivo" component={Consecutivo} />
