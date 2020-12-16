@@ -506,7 +506,6 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PreguntaSeg" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="RespuestaSeg" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Bitacoras" Relationship="Self.FK_Bitacora_UsuarioID" FromRole="Usuario" ToRole="Bitacora" />
           <NavigationProperty Name="Reservacions" Relationship="Self.FK_Reservacion_UsuarioID" FromRole="Usuario" ToRole="Reservacion" />
           <NavigationProperty Name="Rols" Relationship="Self.RolUsuario" FromRole="Usuario" ToRole="Rol" />
         </EntityType>
