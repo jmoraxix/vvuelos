@@ -267,7 +267,9 @@ export default class Registro extends Component {
           onClick={() => this.crearObjeto(this.state.form)}
           onClick={this.handleRegister}
         >
-          Registrarse
+         <Link to={"/login"} className="text-white">
+            Registrarse
+            </Link>
             </Button>
         <Button className="btn btn-danger">
           <Link to={"/login"} className="text-white">
