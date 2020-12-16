@@ -114,7 +114,8 @@ function Login(props) {
                 callback={responseFacebook}
                 textButton="INICIAR SESION CON FACEBOOK"
                 icon="fa-facebook" />,
-                onClick= {iniciarSesion}
+               onClick= {this.iniciarSesion}
+                verifyCallback={this.verifyCallback}
             </div>
           </div>
         </div>

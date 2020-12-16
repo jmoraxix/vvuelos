@@ -21,7 +21,7 @@ const NavBar = (props) => {
             { usuarioID &&
             <Nav className="mr-auto" navbar>
               <NavItem>
-                <NavLink href="/">Crear reserva</NavLink>
+                <NavLink href="/reservar">Crear reserva</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="/">Mis reservas</NavLink>
@@ -98,7 +98,7 @@ const NavBar = (props) => {
                   </DropdownItem>
                   <DropdownItem>
                     <NavItem>
-                      <NavLink href="/bitacora" className="text-muted">Bit&aacute;cora</NavLink>
+                      <NavLink href="/bitacoras" className="text-muted">Bit&aacute;cora</NavLink>
                     </NavItem>
                   </DropdownItem>
                 </DropdownMenu>

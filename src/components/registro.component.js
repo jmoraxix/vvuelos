@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import RegistroDataService from "../services/registro.service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Button, FormGroup } from 'reactstrap';
+import { Button, FormGroup, Modal } from 'reactstrap';
 import Recaptcha from 'react-recaptcha';
 import { Link } from "react-router-dom";
 
@@ -47,6 +47,17 @@ export default class Registro extends Component {
         console.log(e);
       });
   }
+
+  mostrarModalInsertar = () => {
+    this.setState({
+      form: this.nuevoUsuario(),
+      modalInsertar: true,
+    });
+  };
+
+  cerrarModalInsertar = () => {
+    this.setState({ modalInsertar: false });
+  };
 
   nuevoUsuario = () => {
     return {
@@ -254,7 +265,7 @@ export default class Registro extends Component {
         <Button
           color="primary"
           onClick={() => this.crearObjeto(this.state.form)}
-        // onClick={this.handleRegistro}
+          onClick={this.handleRegister}
         >
           Registrarse
             </Button>
@@ -263,6 +274,7 @@ export default class Registro extends Component {
             Volver
             </Link>
         </Button>
+       
       </>
     );
   }

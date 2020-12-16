@@ -17,9 +17,9 @@ export default class Reserva extends Component {
     modalActualizar: false,
     form: {
       Consecutivo: "",
-      Usuario: "",
-      Vuelo:"",
-      TipoPago: "" , 
+      UsuarioID: "",
+      VueloID:"",
+      TipoPagoID: "" , 
       Fecha:"",
       CantCampos:""
     },
@@ -95,9 +95,9 @@ export default class Reserva extends Component {
   nuevaReservacion = () => {
     return {
       Consecutivo: "",
-      Usuario: "",
-      Vuelo:"",
-      TipoPago:"",
+      UsuarioID: "",
+      VueloID:"",
+      TipoPagoID:"",
       Fecha:"",
       CantCampos:""
     
@@ -166,9 +166,9 @@ export default class Reserva extends Component {
             <tbody>
               {this.state.data.map((dato) => (
                 <tr key={dato.Consecutivo}>
-                  <td>{dato.Usuario}</td>
-                  <td>{dato.Vuelo}</td>
-                  <td>{dato.TipoPago}</td>
+                  <td>{dato.UsuarioID}</td>
+                  <td>{dato.VueloID}</td>
+                  <td>{dato.TipoPagoID}</td>
                   <td>{dato.Fecha}</td>
                   <td>{dato.CantCampos}</td>
 
@@ -216,7 +216,7 @@ export default class Reserva extends Component {
                   name="Usuario"
                   type="number"
                   onChange={this.handleChange}
-                  value={this.state.form.Usuario}
+                  value={this.state.form.UsuarioID}
                  
               />
             </FormGroup>
@@ -230,7 +230,7 @@ export default class Reserva extends Component {
                   name="Vuelo"
                   type="number"
                   onChange={this.handleChange}
-                  value={this.state.form.Vuelo}
+                  value={this.state.form.VueloID}
                  
               />
             </FormGroup>
@@ -244,7 +244,7 @@ export default class Reserva extends Component {
                   name="TipoPago"
                   type="text"
                   onChange={this.handleChange}
-                  value={this.state.form.TipoPago}
+                  value={this.state.form.TipoPagoID}
                   
                   
               />
@@ -325,10 +325,10 @@ export default class Reserva extends Component {
               </label>
               <input
                   className="form-control"
-                  name="Usuario"
-                  type="number"
+                  name="UsuarioID"
+                  type="text"
                   onChange={this.handleChange}
-                  value={this.state.form.Usuario}
+                  value={this.state.form.UsuarioID}
                  
               />
             </FormGroup>
@@ -340,9 +340,9 @@ export default class Reserva extends Component {
               <input
                   className="form-control"
                   name="Vuelo"
-                  type="number"
+                  type="text"
                   onChange={this.handleChange}
-                  value={this.state.form.Vuelo}
+                  value={this.state.form.VueloID}
                  
               />
             </FormGroup>
@@ -356,7 +356,7 @@ export default class Reserva extends Component {
                   name="TipoPago"
                   type="text"
                   onChange={this.handleChange}
-                  value={this.state.form.TipoPago}
+                  value={this.state.form.TipoPagoID}
                   
                   
               />
@@ -369,7 +369,7 @@ export default class Reserva extends Component {
               <input
                   className="form-control"
                   name="Fecha"
-                  type="number"
+                  type="date"
                   onChange={this.handleChange}
                   value={this.state.form.Fecha}
               />

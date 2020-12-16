@@ -13,7 +13,7 @@ export default class EstadoVuelo extends Component {
     modalInsertar: false,
     modalActualizar: false,
     form: {
-      Codigo: "",
+      Codigo: 0,
       Nombre: ""
     },
   };
@@ -73,7 +73,7 @@ export default class EstadoVuelo extends Component {
 
   nuevoEstadoVuelo = () => {
     return {
-      Codigo: "",
+      Codigo: 0,
       Nombre: ""
     };
   }

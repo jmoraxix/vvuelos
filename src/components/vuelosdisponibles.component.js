@@ -107,7 +107,6 @@ export default class VueloDisponible extends Component {
           <br />
           <Row>
             <Col><h1>Reservar vuelos</h1></Col>
-            <Col><Button color="success" onClick={() => this.mostrarModalInsertar()}>Crear</Button></Col>
           </Row>
           <Table>
             <thead>
@@ -119,6 +118,7 @@ export default class VueloDisponible extends Component {
                 <th>Salida</th>
                 <th>Puerta</th>
                 <th>Estado del vuelo</th>
+                <th>Comprar boletos</th>
               </tr>
             </thead>
 
@@ -132,6 +132,12 @@ export default class VueloDisponible extends Component {
                   <td>{dato.FechaHoraSal}</td>
                   <td>{dato.Puerta}</td>
                   <td>{dato.EstadoVuelo}</td>
+                  <td> <Button
+              color="primary"
+              onClick={() => this.mostrarModalInsertar()}
+            >
+              Comprar
+                </Button></td>
                   <td>
                   </td>
                 </tr>

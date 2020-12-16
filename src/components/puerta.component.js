@@ -171,12 +171,12 @@ export default class Puerta extends Component {
             
             <FormGroup>
               <label>
-                Nombre: 
+               Puerta: 
               </label>
               <input
                 className="form-control"
                 name="Nombre"
-                type="text"
+                type="number"
                 onChange={this.handleChange}
                 value={this.state.form.Nombre}
               />
@@ -214,10 +214,10 @@ export default class Puerta extends Component {
               </label>
               <input
                 className="form-control"
-                name="Puerta"
+                name="Nombre"
                 type="number"
                 onChange={this.handleChange}
-                value={this.state.form.Puerta}
+                value={this.state.form.Nombre}
               />
             </FormGroup>
           </ModalBody>

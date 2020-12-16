@@ -13,7 +13,7 @@ export default class RolUsuario extends Component {
     modalInsertar: false,
     modalActualizar: false,
     form: {
-      Codigo: null,
+      Codigo: 0,
       Nombre: ""
     },
   };
@@ -73,7 +73,7 @@ export default class RolUsuario extends Component {
 
   nuevoRol = () => {
     return {
-      Codigo: null,
+      Codigo: 0,
       Nombre: ""
     };
   }

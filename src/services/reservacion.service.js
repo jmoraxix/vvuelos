@@ -2,23 +2,23 @@ import http from "../http-common";
 
 class ReservaDataService {
   getAll() {
-    return http.get("/reservaciones");
+    return http.get("/vuelos");
   }
 
   get(id) {
-    return http.get(`/reservaciones/${id}`);
+    return http.get(`/vuelos/${id}`);
   }
 
   create(data) {
-    return http.post("/reservaciones", data);
+    return http.post("/vuelos", data);
   }
 
   update(id, data) {
-    return http.put(`/reservaciones/${id}`, data);
+    return http.put(`/vuelos/${id}`, data);
   }
 
   delete(id) {
-    return http.delete(`/reservaciones/${id}`);
+    return http.delete(`/vuelos/${id}`);
   }
 }
 
