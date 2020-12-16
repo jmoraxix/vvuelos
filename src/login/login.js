@@ -26,26 +26,20 @@ function Login(props) {
   const iniciarSesion = async () => {
     let usuario = {
       UsuarioID: `${form.UsuarioID}`,
-      Contrasena: `${form.Contrasena}`,
-      Correo:"",
-      PreguntaSeg:"",
-      RespuestaSeg:""
+      Contrasena: `${form.Contrasena}`
     }
     await http.post("/login", usuario)
       .then(response => {
-        console.log(1,response);
         return response.data;
       }).then(response => {
-        console.log(2, response);
         if (response) {
-          console.log(3, response);
           cookies.set('UsuarioID', response.UsuarioID, { path: '/' });
           cookies.set('Correo', response.Correo, { path: '/' });
+          cookies.set('Roles', response.Rols, { path: '/' });
           alert("Bienvenido: " + response.UsuarioID );
           props.history.push('/');
         } else {
           alert('El usuario o la contraseña no son correctos');
-          
         }
       })
 
@@ -62,8 +56,16 @@ function Login(props) {
 
   const responseGoogle = (response) => {
     console.log(response);
-    var res = response.profileObj;
-    console.log(res);
+    if (response) {
+      cookies.set('UsuarioID', response.googleId, { path: '/' });
+      cookies.set('Correo', response.email, { path: '/' });
+      cookies.set('Nombre', response.name, { path: '/' });
+      cookies.set('Roles', [], { path: '/' });
+      alert("Bienvenido: " + response.UsuarioID );
+      props.history.push('/');
+    } else {
+      alert('No se pudo iniciar sesión');
+    }
   }
 
   const responseFacebook = (response) => {
