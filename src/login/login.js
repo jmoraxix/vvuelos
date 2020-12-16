@@ -61,7 +61,7 @@ function Login(props) {
       cookies.set('Correo', response.email, { path: '/' });
       cookies.set('Nombre', response.name, { path: '/' });
       cookies.set('Roles', [], { path: '/' });
-      alert("Bienvenido: " + response.UsuarioID );
+      alert("Bienvenido: " + response.name );
       props.history.push('/');
     } else {
       alert('No se pudo iniciar sesión');
@@ -70,6 +70,16 @@ function Login(props) {
 
   const responseFacebook = (response) => {
     console.log(response);
+    if (response) {
+      cookies.set('UsuarioID', response.userID, { path: '/' });
+      cookies.set('Correo', response.email, { path: '/' });
+      cookies.set('Nombre', response.name, { path: '/' });
+      cookies.set('Roles', [], { path: '/' });
+      alert("Bienvenido: " + response.name );
+      props.history.push('/');
+    } else {
+      alert('No se pudo iniciar sesión');
+    }
   }
 
   return (
@@ -115,7 +125,7 @@ function Login(props) {
                 fields="name,email,picture"
                 callback={responseFacebook}
                 textButton="INICIAR SESION CON FACEBOOK"
-                icon="fa-facebook" />,
+                icon="fa-facebook" />
             </div>
           </div>
         </div>
