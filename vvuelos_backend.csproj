@@ -398,6 +398,7 @@
     <Compile Include="Controllers\ErrorsController.cs" />
     <Compile Include="Controllers\EstadoVuelosController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\PaisController.cs" />
     <Compile Include="Controllers\PuertasController.cs" />
     <Compile Include="Controllers\ReservacionesController.cs" />
