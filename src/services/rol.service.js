@@ -1,6 +1,6 @@
 import http from "../http-common";
 
-class RolUsuarioDataService {
+class RolDataService {
   getAll() {
     return http.get("/rols");
   }
@@ -22,4 +22,4 @@ class RolUsuarioDataService {
   }
 }
 
-export default new RolUsuarioDataService();
+export default new RolDataService();

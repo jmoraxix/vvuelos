@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import RolUsuarioDataService from "../services/rolUsuario.service";
+import RolDataService from "../services/rol.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 import Cookies from 'universal-cookie';
@@ -24,7 +24,7 @@ export default class RolUsuario extends Component {
   }
 
   listarObjetos() {
-    RolUsuarioDataService.getAll()
+    RolDataService.getAll()
       .then(response => {
         this.setState({
           data: response.data
@@ -37,7 +37,7 @@ export default class RolUsuario extends Component {
   }
 
   crearObjeto(data){
-    RolUsuarioDataService.create(data)
+    RolDataService.create(data)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -49,7 +49,7 @@ export default class RolUsuario extends Component {
   }
 
   actualizarObjeto(data){
-    RolUsuarioDataService.update(data.Codigo, data)
+    RolDataService.update(data.Codigo, data)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
@@ -61,7 +61,7 @@ export default class RolUsuario extends Component {
   }
 
   eliminarObjeto(Codigo){
-    RolUsuarioDataService.delete(Codigo)
+    RolDataService.delete(Codigo)
         .then(response => {
           console.log(response.data);
           this.listarObjetos();
