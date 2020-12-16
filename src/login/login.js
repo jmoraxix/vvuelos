@@ -24,7 +24,13 @@ function Login(props) {
   }
 
   const iniciarSesion = async () => {
-    let usuario = `{UsuarioID: ${form.UsuarioID}, password: ${form.Contrasena}}`;
+    let usuario = {
+      UsuarioID: `${form.UsuarioID}`,
+      Contrasena: `${form.Contrasena}`,
+      Correo:"",
+      PreguntaSeg:"",
+      RespuestaSeg:""
+    }
     await http.post("/login", usuario)
       .then(response => {
         console.log(1,response);
