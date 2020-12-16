@@ -4,12 +4,13 @@ import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Un
   DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import "./css/App.css";
 
-const cookies = new Cookies();
-const usuarioID = cookies.get('UsuarioID');
-
 const NavBar = (props) => {
-  const [isOpen, setIsOpen] = useState(false);
+  const cookies = new Cookies();
+  const usuarioID = cookies.get('UsuarioID');
+  const nombre = cookies.get('Nombre');
+  const nombreMsj = "Bienvenido " + (nombre? nombre : usuarioID);
 
+  const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
 
   return (
@@ -106,6 +107,9 @@ const NavBar = (props) => {
               <NavItem>
                 <NavLink href="/logout">Cerrar Sesi&oacute;n</NavLink>
               </NavItem>
+              <div>
+                {nombreMsj}
+              </div>
             </Nav>
             }
           </Collapse>
