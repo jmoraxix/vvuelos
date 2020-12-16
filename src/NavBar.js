@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Cookies from 'universal-cookie';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, UncontrolledDropdown,
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, NavbarText, UncontrolledDropdown,
   DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import "./css/App.css";
 
@@ -43,6 +43,11 @@ const NavBar = (props) => {
                   <DropdownItem>
                     <NavItem>
                       <NavLink href="/roles" className="text-muted">Roles</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/usuarios/roles" className="text-muted">Asignar roles</NavLink>
                     </NavItem>
                   </DropdownItem>
                   <DropdownItem divider />
@@ -107,10 +112,11 @@ const NavBar = (props) => {
               <NavItem>
                 <NavLink href="/logout">Cerrar Sesi&oacute;n</NavLink>
               </NavItem>
-              <div>
-                {nombreMsj}
-              </div>
             </Nav>
+            }
+            {
+              usuarioID &&
+              <NavbarText>{nombreMsj}</NavbarText>
             }
           </Collapse>
         </Navbar>
