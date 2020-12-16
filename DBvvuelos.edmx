@@ -395,7 +395,6 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           </Key>
           <Property Name="Codigo" Type="Int32" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Bitacoras" Relationship="Self.FK_Bitacora_AccionID" FromRole="Accion" ToRole="Bitacora" />
         </EntityType>
         <EntityType Name="Aerolinea">
           <Key>
@@ -403,7 +402,6 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           </Key>
           <Property Name="Consecutivo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Vueloes" Relationship="Self.FK_Vuelo_AerolineaID" FromRole="Aerolinea" ToRole="Vuelo" />
         </EntityType>
         <EntityType Name="Bitacora">
           <Key>
@@ -425,8 +423,6 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           </Key>
           <Property Name="Codigo" Type="Int32" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Bitacoras" Relationship="Self.FK_Bitacora_ClaseID" FromRole="Clase" ToRole="Bitacora" />
-          <NavigationProperty Name="Consecutivoes" Relationship="Self.FK_Consecutivo_ClaseID" FromRole="Clase" ToRole="Consecutivo" />
         </EntityType>
         <EntityType Name="Consecutivo">
           <Key>
@@ -448,7 +444,6 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           </Key>
           <Property Name="Codigo" Type="Int32" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Vueloes" Relationship="Self.FK_Vuelo_EstadoVueloID" FromRole="EstadoVuelo" ToRole="Vuelo" />
         </EntityType>
         <EntityType Name="Pai">
           <Key>
@@ -456,8 +451,6 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           </Key>
           <Property Name="Consecutivo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="VueloesD" Relationship="Self.FK_Vuelo_PaisDestinoID" FromRole="Pais" ToRole="Vuelo" />
-          <NavigationProperty Name="VueloesO" Relationship="DBvvuelosModel.FK_Vuelo_PaisOrigenID" FromRole="Pai" ToRole="Vuelo" />
         </EntityType>
         <EntityType Name="Puerta">
           <Key>
@@ -465,7 +458,6 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           </Key>
           <Property Name="Consecutivo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Vueloes" Relationship="Self.FK_Vuelo_PuertaID" FromRole="Puerta" ToRole="Vuelo" />
         </EntityType>
         <EntityType Name="Reservacion">
           <Key>
@@ -478,7 +470,6 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <Property Name="Fecha" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CantidadCampos" Type="Int32" Nullable="false" />
           <NavigationProperty Name="TipoPago" Relationship="Self.FK_Reservacion_TipoPagoID" FromRole="Reservacion" ToRole="TipoPago" />
-          <NavigationProperty Name="Usuario" Relationship="Self.FK_Reservacion_UsuarioID" FromRole="Reservacion" ToRole="Usuario" />
           <NavigationProperty Name="Vuelo" Relationship="Self.FK_Reservacion_VueloID" FromRole="Reservacion" ToRole="Vuelo" />
         </EntityType>
         <EntityType Name="Rol">
@@ -487,7 +478,6 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           </Key>
           <Property Name="Codigo" Type="Int32" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Usuarios" Relationship="Self.RolUsuario" FromRole="Rol" ToRole="Usuario" />
         </EntityType>
         <EntityType Name="TipoPago">
           <Key>
@@ -495,7 +485,6 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           </Key>
           <Property Name="Codigo" Type="Int32" Nullable="false" />
           <Property Name="Nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Reservacions" Relationship="Self.FK_Reservacion_TipoPagoID" FromRole="TipoPago" ToRole="Reservacion" />
         </EntityType>
         <EntityType Name="Usuario">
           <Key>
@@ -506,7 +495,6 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <Property Name="Correo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="PreguntaSeg" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="RespuestaSeg" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="Reservacions" Relationship="Self.FK_Reservacion_UsuarioID" FromRole="Usuario" ToRole="Reservacion" />
           <NavigationProperty Name="Rols" Relationship="Self.RolUsuario" FromRole="Usuario" ToRole="Rol" />
         </EntityType>
         <EntityType Name="Vuelo">
@@ -523,7 +511,6 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <NavigationProperty Name="EstadoVuelo" Relationship="Self.FK_Vuelo_EstadoVueloID" FromRole="Vuelo" ToRole="EstadoVuelo" />
           <NavigationProperty Name="PaisD" Relationship="Self.FK_Vuelo_PaisDestinoID" FromRole="Vuelo" ToRole="Pais" />
           <NavigationProperty Name="Puerta" Relationship="Self.FK_Vuelo_PuertaID" FromRole="Vuelo" ToRole="Puerta" />
-          <NavigationProperty Name="Reservacions" Relationship="Self.FK_Reservacion_VueloID" FromRole="Vuelo" ToRole="Reservacion" />
           <Property Name="Precio" Type="Int32" Nullable="false" />
           <Property Name="Capacidad" Type="Int32" Nullable="false" />
           <Property Name="PaisOrigenID" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />

@@ -14,19 +14,7 @@ namespace vvuelos_backend
     
     public partial class Clase
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Clase()
-        {
-            this.Bitacoras = new HashSet<Bitacora>();
-            this.Consecutivoes = new HashSet<Consecutivo>();
-        }
-    
         public int Codigo { get; set; }
         public string Nombre { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bitacora> Bitacoras { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Consecutivo> Consecutivoes { get; set; }
     }
 }

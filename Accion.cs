@@ -14,16 +14,7 @@ namespace vvuelos_backend
     
     public partial class Accion
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Accion()
-        {
-            this.Bitacoras = new HashSet<Bitacora>();
-        }
-    
         public int Codigo { get; set; }
         public string Nombre { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Bitacora> Bitacoras { get; set; }
     }
 }

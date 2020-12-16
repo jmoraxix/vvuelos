@@ -14,16 +14,7 @@ namespace vvuelos_backend
     
     public partial class Rol
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Rol()
-        {
-            this.Usuarios = new HashSet<Usuario>();
-        }
-    
         public int Codigo { get; set; }
         public string Nombre { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Usuario> Usuarios { get; set; }
     }
 }

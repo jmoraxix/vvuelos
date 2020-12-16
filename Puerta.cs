@@ -14,16 +14,7 @@ namespace vvuelos_backend
     
     public partial class Puerta
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Puerta()
-        {
-            this.Vueloes = new HashSet<Vuelo>();
-        }
-    
         public string Consecutivo { get; set; }
         public string Nombre { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Vuelo> Vueloes { get; set; }
     }
 }

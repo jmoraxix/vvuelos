@@ -14,16 +14,7 @@ namespace vvuelos_backend
     
     public partial class TipoPago
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public TipoPago()
-        {
-            this.Reservacions = new HashSet<Reservacion>();
-        }
-    
         public int Codigo { get; set; }
         public string Nombre { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reservacion> Reservacions { get; set; }
     }
 }

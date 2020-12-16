@@ -22,7 +22,6 @@ namespace vvuelos_backend
         public int CantidadCampos { get; set; }
     
         public virtual TipoPago TipoPago { get; set; }
-        public virtual Usuario Usuario { get; set; }
         public virtual Vuelo Vuelo { get; set; }
     }
 }

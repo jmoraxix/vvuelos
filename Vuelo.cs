@@ -14,12 +14,6 @@ namespace vvuelos_backend
     
     public partial class Vuelo
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Vuelo()
-        {
-            this.Reservacions = new HashSet<Reservacion>();
-        }
-    
         public string Consecutivo { get; set; }
         public string AerolineaID { get; set; }
         public string PaisDestinoID { get; set; }
@@ -34,8 +28,6 @@ namespace vvuelos_backend
         public virtual EstadoVuelo EstadoVuelo { get; set; }
         public virtual Pai PaisD { get; set; }
         public virtual Puerta Puerta { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reservacion> Reservacions { get; set; }
         public virtual Pai PaisO { get; set; }
     }
 }

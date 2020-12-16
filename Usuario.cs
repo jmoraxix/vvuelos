@@ -17,7 +17,6 @@ namespace vvuelos_backend
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Usuario()
         {
-            this.Reservacions = new HashSet<Reservacion>();
             this.Rols = new HashSet<Rol>();
         }
     
@@ -27,8 +26,6 @@ namespace vvuelos_backend
         public string PreguntaSeg { get; set; }
         public string RespuestaSeg { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Reservacion> Reservacions { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Rol> Rols { get; set; }
     }
