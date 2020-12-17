@@ -4,14 +4,15 @@ import 'react-credit-cards/es/styles-compiled.css';
 import ValidarTarjetaDataService from '../services/validarTarjeta.service';
 import { Badge } from 'reactstrap';
 
-const PaymentForm = () => {
+const PaymentForm = (monto) => {
 
     const [state, setState] = useState({
-        number: '',
+      Num_Tarjeta: '',
         name: '',
-        cvc: '',
+        CVV: '',
         expiry: '',
         focus: '',
+        Monto: monto,
         resultado: ''
     })
 
@@ -32,9 +33,10 @@ const PaymentForm = () => {
 
     const submitPayment = () => {
         console.log("name => " , state.name)
-        console.log("number => " , state.number)
+        console.log("Num_Tarjeta => " , state.Num_Tarjeta)
         console.log("expiry => " , state.expiry)
-        console.log("cvc => " , state.cvc)
+        console.log("cvc => " , state.CVV)
+        console.log("cobro => " , state.Monto)
         alert(JSON.stringify(state))
 
       // ValidarTarjetaDataService.create()
@@ -53,19 +55,19 @@ const PaymentForm = () => {
         <div className="card" >
             <div className="card-body">
                 <Cards
-                    cvc={state.cvc}
+                    cvc={state.CVV}
                     expiry={state.expiry}
                     focused={state.focus}
                     name={state.name}
-                    number={state.number}
+                    number={state.Num_Tarjeta}
                 />
                 <form>
                     <div className="form-group">
-                        <label htmlFor="number">Número de la tarjeta</label>
+                        <label htmlFor="Num_Tarjeta">Número de la tarjeta</label>
                         <input
                             type="text"
                             className="form-control"
-                            name="number"
+                            name="Num_Tarjeta"
                             maxLength="16"
                             placeholder="Número de tarjeta"
                             onChange={handleChange}
@@ -73,7 +75,7 @@ const PaymentForm = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="Nombre">Nombre</label>
+                        <label htmlFor="name">Nombre</label>
                         <input
                             type="text"
                             className="form-control"
@@ -98,11 +100,11 @@ const PaymentForm = () => {
                             />
                         </div>
                         <div className="form-group col-md-6">
-                            <label htmlFor="cvc">CVC</label>
+                            <label htmlFor="CVV">CVC</label>
                             <input
                                 type="text"
                                 className="form-control"
-                                name="cvc"
+                                name="CVV"
                                 maxLength="4"
                                 placeholder="CVC"
                                 onChange={handleChange}

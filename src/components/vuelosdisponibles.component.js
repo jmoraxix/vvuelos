@@ -20,8 +20,12 @@ export default class VueloDisponible extends Component {
       VueloID: 0,
       UsuarioID: "",
       TipoPagoID: 0
-    }
+    },
+    costoVuelo: 0,
+    capacidadVuelo: 0,
+    totalPagar: 0
   };
+
   componentDidMount() {
     this.validarSesion();
     this.listarVuelos();
@@ -84,16 +88,24 @@ export default class VueloDisponible extends Component {
         [e.target.name]: e.target.value,
       },
     });
+
+    if(e.target.name == "CantidadCampos"){
+      this.setState({
+          "totalPagar" : this.state.costoVuelo * this.state.form.CantidadCampos,
+      });
+    }
   };
 
-  mostrarModalInsertar = (vueloID) => {
+  mostrarModalInsertar = (vuelo) => {
     let newForm = this.nuevaCompra();
     newForm.UsuarioID = cookies.get('UsuarioID');
-    newForm.VueloID = vueloID;
+    newForm.VueloID = vuelo.Consecutivo;
     console.log(newForm);
 
     this.setState({
       form: newForm,
+      costoVuelo: vuelo.Precio,
+      capacidadVuelo: vuelo.Capacidad,
       modalInsertar: true,
     });
   };
@@ -129,6 +141,8 @@ export default class VueloDisponible extends Component {
                 <th>Salida</th>
                 <th>Puerta</th>
                 <th>Estado del vuelo</th>
+                <th>Precio</th>
+                <th>Campos disponibles</th>
                 <th>Comprar boletos</th>
               </tr>
             </thead>
@@ -143,9 +157,11 @@ export default class VueloDisponible extends Component {
                   <td>{dato.FechaHoraSalida}</td>
                   <td>{dato.Puerta.Nombre}</td>
                   <td>{dato.EstadoVuelo.Nombre}</td>
+                  <td>{dato.Precio}</td>
+                  <td>{dato.Capacidad}</td>
                   <td> <Button
               color="primary"
-              onClick={() => this.mostrarModalInsertar(dato.Consecutivo)}
+              onClick={() => this.mostrarModalInsertar(dato)}
             >
               Comprar
                 </Button></td>
@@ -196,8 +212,20 @@ export default class VueloDisponible extends Component {
                 </Col>
               </Row>
             </FormGroup>
-            { mostrarValidarTarjeta && < Tarjeta/>   }
-            < Tarjeta/> 
+
+            <FormGroup>
+              <Row>
+                <Col md="3">
+                  <label> Total a pagar:</label>
+                </Col>
+                <Col>
+                  <Input type="number" name="totalPagar" value={this.state.totalPagar} read-only/>
+                </Col>
+              </Row>
+            </FormGroup>
+
+            { mostrarValidarTarjeta && < Tarjeta monto={this.state.totalPagar}/> }
+            < Tarjeta/>
             { mostrarEasyPay &&
             // < EasyPay />
             <span>Easy pay</span> }
