@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import Cards from 'react-credit-cards';
-import 'react-credit-cards/es/styles-compiled.css'
-
+import 'react-credit-cards/es/styles-compiled.css';
+import ValidarTarjetaDataService from '../services/validarTarjeta.service';
+import { Badge } from 'reactstrap';
 
 const PaymentForm = () => {
 
@@ -10,7 +11,8 @@ const PaymentForm = () => {
         name: '',
         cvc: '',
         expiry: '',
-        focus: ''
+        focus: '',
+        resultado: ''
     })
 
     const handleFocus = (e) => {
@@ -34,6 +36,17 @@ const PaymentForm = () => {
         console.log("expiry => " , state.expiry)
         console.log("cvc => " , state.cvc)
         alert(JSON.stringify(state))
+
+      // ValidarTarjetaDataService.create()
+      //   .then(response => {
+      //     this.setState({
+      //       resultado: response.data
+      //     });
+      //     console.log(response.data);
+      //   })
+      //   .catch(e => {
+      //     console.log(e);
+      //   });
     }
 
     return (
@@ -97,6 +110,13 @@ const PaymentForm = () => {
                             />
                         </div>
                     </div>
+                  <button
+                      type="button"
+                      className="btn btn-success btn-block btn-lg"
+                      onClick={submitPayment}
+                  >Validar tarjeta</button>
+                  {/*TODO validar colores success/error */}
+                  <Badge color="success" pill>{state.resultado}</Badge>
                 </form>
             </div>
         </div>

@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import VueloDataService from "../services/vuelo.service";
 import ReservacionDataService from "../services/reservacion.service";
+import TipoPagoDataService from "../services/tipoPago.service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
+import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter, Input} from 'reactstrap';
 import Cookies from 'universal-cookie';
 import Tarjeta from './tarjeta.component';
 
@@ -11,6 +12,7 @@ const cookies = new Cookies();
 export default class VueloDisponible extends Component {
   state = {
     listaVuelos: [],
+    listaTipoPago: [],
     modalInsertar: false,
     form: {
       CantidadCampos: "",
@@ -19,7 +21,6 @@ export default class VueloDisponible extends Component {
       UsuarioID:"",
       TipoPagoID:""
     }
-
   };
   componentDidMount() {
     this.validarSesion();
@@ -42,9 +43,22 @@ export default class VueloDisponible extends Component {
         });
   }
 
-  crearObjeto(data) {
-    console.log(data);
-    ReservacionDataService.create(data)
+  listarTipoPago() {
+    TipoPagoDataService.getAll()
+        .then(response => {
+          this.setState({
+            listaTipoPago: response.data
+          });
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  crearReservacion(reservacion) {
+    console.log(reservacion);
+    ReservacionDataService.create(reservacion)
       .then(response => {
         console.log(response.data);
         this.listarObjetos();
@@ -73,9 +87,15 @@ export default class VueloDisponible extends Component {
       },
     });
   };
-  mostrarModalInsertar = () => {
+
+  mostrarModalInsertar = (vueloID) => {
+    let newForm = this.nuevaCompra();
+    newForm.UsuarioID = cookies.get('UsuarioID');
+    newForm.VueloID = vueloID;
+    console.log(newForm);
+
     this.setState({
-      form: this.nuevaCompra(),
+      form: newForm,
       modalInsertar: true,
     });
   };
@@ -89,8 +109,6 @@ export default class VueloDisponible extends Component {
       this.props.history.push('/login');
     }
   };
-
-  
 
   render() {
 
@@ -127,7 +145,7 @@ export default class VueloDisponible extends Component {
                   <td>{dato.EstadoVuelo.Nombre}</td>
                   <td> <Button
               color="primary"
-              onClick={() => this.mostrarModalInsertar()}
+              onClick={() => this.mostrarModalInsertar(dato.Consecutivo)}
             >
               Comprar
                 </Button></td>
@@ -140,32 +158,64 @@ export default class VueloDisponible extends Component {
         </Container>
 
       
-          <Modal className="modal-dialog modal-xl" isOpen={this.state.modalInsertar}>
-            <ModalHeader>
-              <div><h3>Reservar</h3></div>
-            </ModalHeader>
+        <Modal className="modal-dialog modal-xl" isOpen={this.state.modalInsertar}>
+          <ModalHeader>
+            <div><h3>Reservar</h3></div>
+          </ModalHeader>
 
-            <ModalBody>
+          <ModalBody>
             <FormGroup>
-              <label>
-                Cantidad de campos:
-                  </label>
-              <input
-                className="form-control"
-                name="Campos"
-                type="number"
-                onChange={this.handleChange}
-                value={this.state.form.Campos}
-              />
+              <Row>
+              <Col md="3">
+                <label> Cantidad de campos: </label>
+              </Col>
+              <Col>
+                <input
+                    className="form-control"
+                    name="Campos"
+                    type="number"
+                    onChange={this.handleChange}
+                    value={this.state.form.CantidadCampos}
+                />
+              </Col>
+              </Row>
             </FormGroup>
-            < Tarjeta/>
-         </ModalBody>
 
+            <FormGroup>
+              <Row>
+                <Col md="3">
+                  <label> Tipo de pago:</label>
+                </Col>
+                <Col>
+                  <input
+                      className="form-control"
+                      name="Campos"
+                      type="number"
+                      onChange={this.handleChange}
+                      value={this.state.form.CantidadCampos}
+                  />
+
+                  <Input type="select" name="TipoPagoID" id="TipoPagoID" value={this.state.form.TipoPagoID}>
+                    {this.state.listaTipoPago.map((tipoPagoTmp) => (
+                        <option value={tipoPagoTmp.Codigo}>{tipoPagoTmp.Nombre}</option>
+                    ))}
+                  </Input>
+                </Col>
+              </Row>
+            </FormGroup>
+            { this.state.form.TipoPagoID === 1 &&
+            < Tarjeta/>
+            }
+            { this.state.form.TipoPagoID === 3 &&
+            // < EasyPay />
+            <span>Easy pay</span>
+            }
+          </ModalBody>
 
           <ModalFooter>
             <Button
               color="primary"
-              onClick={this.changeState}
+              onClick={this.reservacion(this.state.form)}
             >
               Pagar
                 </Button>
