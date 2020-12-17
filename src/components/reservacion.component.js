@@ -69,6 +69,7 @@ export default class Reservaciones extends Component {
             <tbody>
               {this.state.data.map((dato) => (
                 <tr key={dato.Consecutivo}>
+                  <td>{dato.Consecutivo}</td>
                   <td>{dato.UsuarioID}</td>
                   <td>{dato.Vuelo.Consecutivo}</td>
                   <td>{dato.TipoPago.Nombre}</td>
