@@ -23,7 +23,7 @@ import Bitacora from "./components/bitacora.component";
 import Reservacion from "./components/reservacion.component";
 import Error from "./components/error.component";
 import VueloDisponible from "./components/vuelosdisponibles.component";
-import ReservacionesUsuario from "./components/vuelosdisponibles.component";
+import ReservacionesUsuario from "./components/reservacionUsuario.component";
 import RolUsuario from "./components/rolUsuario.component";
 
 

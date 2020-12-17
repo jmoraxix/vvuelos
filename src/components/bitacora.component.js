@@ -42,7 +42,7 @@ export default class Bitacora extends Component {
         <Container>
         <br />
          <Row>
-           <Col><h1>Bitacora</h1></Col>
+           <Col><h1>Bit&aacute;cora</h1></Col>
          </Row>
           <Table>
             <thead>

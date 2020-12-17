@@ -1,14 +1,15 @@
 import React, { Component } from "react";
-import ReservacionDataService from "../services/reservacion.service";
+import ReservacionUsuarioDataService from "../services/reservacionUsuario.service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { Row, Col, Table, Button, Container } from 'reactstrap';
+import { Row, Col, Table, Container } from 'reactstrap';
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
-export default class Reservaciones extends Component {
+export default class ReservacionesUsuario extends Component {
   
   state = {
+    usuarioID: "",
     data: []
   };
   
@@ -18,7 +19,7 @@ export default class Reservaciones extends Component {
   }
 
   listarObjetos() {
-    ReservacionDataService.getAll()
+    ReservacionUsuarioDataService.get(this.state.usuarioID)
         .then(response => {
           this.setState({
             data: response.data
@@ -29,21 +30,12 @@ export default class Reservaciones extends Component {
           console.log(e);
         });
   }
-
-  eliminarObjeto(Consecutivo){
-    ReservacionDataService.delete(Consecutivo)
-        .then(response => {
-          console.log(response.data);
-          this.listarObjetos();
-        })
-        .catch(e => {
-          console.log(e);
-        });
-  }
   
   validarSesion =() => {
     if (!cookies.get('UsuarioID')) {
       this.props.history.push('/login');
+    } else {
+      this.setState({usuarioID: cookies.get('UsuarioID')});
     }
   };
  
@@ -53,23 +45,22 @@ export default class Reservaciones extends Component {
         <Container>
         <br />
          <Row>
-           <Col><h1>Reservaciones</h1></Col>
+           <Col><h1>Mis reservaciones</h1></Col>
          </Row>
           <Table>
             <thead>
               <tr>
                 <th>Consecutivo</th>
-                <th>Usuario</th>
                 <th>Vuelo</th>
                 <th>TipoPago</th>
                 <th>Fecha</th>
                 <th>Cantidad de campos</th>
               </tr>
             </thead>
+
             <tbody>
               {this.state.data.map((dato) => (
                 <tr key={dato.Consecutivo}>
-                  <td>{dato.UsuarioID}</td>
                   <td>{dato.Vuelo.Consecutivo}</td>
                   <td>{dato.TipoPago.Nombre}</td>
                   <td>{dato.Fecha}</td>
