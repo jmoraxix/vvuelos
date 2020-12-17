@@ -17,9 +17,9 @@ export default class VueloDisponible extends Component {
     form: {
       CantidadCampos: "",
       Consecutivo: "",
-      VueloID:"",
-      UsuarioID:"",
-      TipoPagoID:""
+      VueloID: 0,
+      UsuarioID: "",
+      TipoPagoID: 0
     }
   };
   componentDidMount() {
@@ -192,7 +192,7 @@ export default class VueloDisponible extends Component {
                       value={this.state.form.CantidadCampos}
                   />
 
-                  <Input type="select" name="TipoPagoID" id="TipoPagoID" defaultValue={this.state.form.TipoPagoID}>
+                  <Input type="select" name="TipoPagoID" id="TipoPagoID" onChange={this.handleChange} value={this.state.form.TipoPagoID}>
                     {this.state.listaTipoPago.map((tipoPagoTmp) => (
                         <option value={tipoPagoTmp.Codigo}>{tipoPagoTmp.Nombre}</option>
                     ))}
