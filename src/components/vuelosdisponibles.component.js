@@ -109,6 +109,8 @@ export default class VueloDisponible extends Component {
   };
 
   render() {
+    const mostrarValidarTarjeta = this.state.form.TipoPagoID === 1;
+    const mostrarEasyPay = this.state.form.TipoPagoID === 3;
 
     return (
       <>
@@ -154,7 +156,6 @@ export default class VueloDisponible extends Component {
             </tbody>
           </Table>
         </Container>
-
       
         <Modal className="modal-dialog modal-xl" isOpen={this.state.modalInsertar}>
           <ModalHeader>
@@ -187,6 +188,7 @@ export default class VueloDisponible extends Component {
                 <Col>
 
                   <Input type="select" name="TipoPagoID" id="TipoPagoID" onChange={this.handleChange} value={this.state.form.TipoPagoID}>
+                    <option value="0" disabled>---- Seleccione una opci&oacute;n ----</option>
                     {this.state.listaTipoPago.map((tipoPagoTmp) => (
                         <option value={tipoPagoTmp.Codigo}>{tipoPagoTmp.Nombre}</option>
                     ))}
@@ -194,13 +196,10 @@ export default class VueloDisponible extends Component {
                 </Col>
               </Row>
             </FormGroup>
-            { this.state.form.TipoPagoID === 1 &&
-            < Tarjeta/>
-            }
-            { this.state.form.TipoPagoID === 3 &&
+            { mostrarValidarTarjeta && < Tarjeta/> }
+            { mostrarEasyPay &&
             // < EasyPay />
-            <span>Easy pay</span>
-            }
+            <span>Easy pay</span> }
           </ModalBody>
 
           <ModalFooter>
