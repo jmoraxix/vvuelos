@@ -187,8 +187,8 @@ export default class VueloDisponible extends Component {
                 </Col>
                 <Col>
 
-                  <Input type="select" name="TipoPagoID" id="TipoPagoID" onChange={this.handleChange} value={this.state.form.TipoPagoID}>
-                    <option value="0" disabled>---- Seleccione una opci&oacute;n ----</option>
+                  <Input type="select" name="TipoPagoID" id="TipoPagoID" onChange={this.handleChange} defaultValue= "0">
+                    <option value="0" disabled >---- Seleccione una opci&oacute;n ----</option>
                     {this.state.listaTipoPago.map((tipoPagoTmp) => (
                         <option value={tipoPagoTmp.Codigo}>{tipoPagoTmp.Nombre}</option>
                     ))}
@@ -196,7 +196,8 @@ export default class VueloDisponible extends Component {
                 </Col>
               </Row>
             </FormGroup>
-            { mostrarValidarTarjeta && < Tarjeta/> }
+            { mostrarValidarTarjeta && < Tarjeta/>   }
+            < Tarjeta/> 
             { mostrarEasyPay &&
             // < EasyPay />
             <span>Easy pay</span> }
