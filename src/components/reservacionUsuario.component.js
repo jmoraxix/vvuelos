@@ -9,7 +9,6 @@ const cookies = new Cookies();
 export default class ReservacionesUsuario extends Component {
   
   state = {
-    usuarioID: "",
     data: []
   };
   
@@ -19,7 +18,7 @@ export default class ReservacionesUsuario extends Component {
   }
 
   listarObjetos() {
-    ReservacionUsuarioDataService.get(this.state.usuarioID)
+    ReservacionUsuarioDataService.get(cookies.get('UsuarioID'))
         .then(response => {
           this.setState({
             data: response.data
@@ -34,8 +33,6 @@ export default class ReservacionesUsuario extends Component {
   validarSesion =() => {
     if (!cookies.get('UsuarioID')) {
       this.props.history.push('/login');
-    } else {
-      this.setState({usuarioID: cookies.get('UsuarioID')});
     }
   };
  
@@ -61,6 +58,7 @@ export default class ReservacionesUsuario extends Component {
             <tbody>
               {this.state.data.map((dato) => (
                 <tr key={dato.Consecutivo}>
+                  <td>{dato.Consecutivo}</td>
                   <td>{dato.Vuelo.Consecutivo}</td>
                   <td>{dato.TipoPago.Nombre}</td>
                   <td>{dato.Fecha}</td>

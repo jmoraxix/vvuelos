@@ -6,7 +6,7 @@ class ReservacionUsuarioDataService {
   }
 
   delete(id) {
-    return http.delete(`/vuelos/${id}`);
+    return http.delete(`/reservacionesusuarios/${id}`);
   }
 }
 
