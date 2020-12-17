@@ -18,7 +18,7 @@ namespace vvuelospago_backend
         public int Mes_Exp { get; set; }
         public int Ano_Exp { get; set; }
         public int CVV { get; set; }
-        public decimal Monto { get; set; }
         public string Tipo { get; set; }
+        public decimal Saldo { get; set; }
     }
 }

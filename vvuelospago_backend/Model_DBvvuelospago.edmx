@@ -11,6 +11,7 @@
           </Key>
           <Property Name="Num_Cuenta" Type="int" Nullable="false" />
           <Property Name="Codigo_Seguridad" Type="int" Nullable="false" />
+          <Property Name="Saldo" Type="decimal" Precision="20" Scale="2" Nullable="false" />
           <Property Name="Contrasena" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
         <EntityType Name="Tarjeta">
@@ -21,12 +22,68 @@
           <Property Name="Mes_Exp" Type="int" Nullable="false" />
           <Property Name="Ano_Exp" Type="int" Nullable="false" />
           <Property Name="CVV" Type="int" Nullable="false" />
-          <Property Name="Monto" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Saldo" Type="decimal" Precision="20" Scale="2" Nullable="false" />
           <Property Name="Tipo" Type="varchar" MaxLength="2" Nullable="false" />
         </EntityType>
+        <EntityType Name="Transaccion_EasyPay">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Num_Cuenta" Type="int" Nullable="false" />
+          <Property Name="Codigo_Seguridad" Type="int" Nullable="false" />
+          <Property Name="Monto" Type="decimal" Precision="20" Scale="2" Nullable="false" />
+          <Property Name="Contrasena" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Transaccion_Tarjeta">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Num_Tarjeta" Type="bigint" Nullable="false" />
+          <Property Name="Mes_Exp" Type="int" Nullable="false" />
+          <Property Name="Ano_Exp" Type="int" Nullable="false" />
+          <Property Name="CVV" Type="int" Nullable="false" />
+          <Property Name="Monto" Type="decimal" Precision="20" Scale="2" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Transaccion_EasyPay">
+          <End Role="EasyPay" Type="Self.EasyPay" Multiplicity="1" />
+          <End Role="Transaccion_EasyPay" Type="Self.Transaccion_EasyPay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EasyPay">
+              <PropertyRef Name="Num_Cuenta" />
+            </Principal>
+            <Dependent Role="Transaccion_EasyPay">
+              <PropertyRef Name="Num_Cuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaccion_Tarjeta">
+          <End Role="Tarjeta" Type="Self.Tarjeta" Multiplicity="1" />
+          <End Role="Transaccion_Tarjeta" Type="Self.Transaccion_Tarjeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarjeta">
+              <PropertyRef Name="Num_Tarjeta" />
+            </Principal>
+            <Dependent Role="Transaccion_Tarjeta">
+              <PropertyRef Name="Num_Tarjeta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <EntityContainer Name="vvuelospagoModelStoreContainer">
           <EntitySet Name="EasyPay" EntityType="Self.EasyPay" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Tarjeta" EntityType="Self.Tarjeta" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaccion_EasyPay" EntityType="Self.Transaccion_EasyPay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Transaccion_Tarjeta" EntityType="Self.Transaccion_Tarjeta" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Transaccion_EasyPay" Association="Self.FK_Transaccion_EasyPay">
+            <End Role="EasyPay" EntitySet="EasyPay" />
+            <End Role="Transaccion_EasyPay" EntitySet="Transaccion_EasyPay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaccion_Tarjeta" Association="Self.FK_Transaccion_Tarjeta">
+            <End Role="Tarjeta" EntitySet="Tarjeta" />
+            <End Role="Transaccion_Tarjeta" EntitySet="Transaccion_Tarjeta" />
+          </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
@@ -35,6 +92,16 @@
         <EntityContainer Name="vvuelospagoEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="EasyPays" EntityType="vvuelospagoModel.EasyPay" />
           <EntitySet Name="Tarjetas" EntityType="vvuelospagoModel.Tarjeta" />
+          <EntitySet Name="Transaccion_EasyPay" EntityType="vvuelospagoModel.Transaccion_EasyPay" />
+          <EntitySet Name="Transaccion_Tarjeta" EntityType="vvuelospagoModel.Transaccion_Tarjeta" />
+          <AssociationSet Name="FK_Transaccion_EasyPay" Association="vvuelospagoModel.FK_Transaccion_EasyPay">
+            <End Role="EasyPay" EntitySet="EasyPays" />
+            <End Role="Transaccion_EasyPay" EntitySet="Transaccion_EasyPay" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Transaccion_Tarjeta" Association="vvuelospagoModel.FK_Transaccion_Tarjeta">
+            <End Role="Tarjeta" EntitySet="Tarjetas" />
+            <End Role="Transaccion_Tarjeta" EntitySet="Transaccion_Tarjeta" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="EasyPay">
           <Key>
@@ -43,6 +110,7 @@
           <Property Name="Num_Cuenta" Type="Int32" Nullable="false" />
           <Property Name="Codigo_Seguridad" Type="Int32" Nullable="false" />
           <Property Name="Contrasena" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Saldo" Type="Decimal" Nullable="false" Precision="20" Scale="2" />
         </EntityType>
         <EntityType Name="Tarjeta">
           <Key>
@@ -52,9 +120,55 @@
           <Property Name="Mes_Exp" Type="Int32" Nullable="false" />
           <Property Name="Ano_Exp" Type="Int32" Nullable="false" />
           <Property Name="CVV" Type="Int32" Nullable="false" />
-          <Property Name="Monto" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="Tipo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="Saldo" Type="Decimal" Nullable="false" Precision="20" Scale="2" />
+        </EntityType>
+        <EntityType Name="Transaccion_EasyPay">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Num_Cuenta" Type="Int32" Nullable="false" />
+          <Property Name="Codigo_Seguridad" Type="Int32" Nullable="false" />
+          <Property Name="Monto" Type="Decimal" Nullable="false" Precision="20" Scale="2" />
+          <Property Name="Contrasena" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Transaccion_Tarjeta">
+          <Key>
+            <PropertyRef Name="Codigo" />
+          </Key>
+          <Property Name="Codigo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Num_Tarjeta" Type="Int64" Nullable="false" />
+          <Property Name="Mes_Exp" Type="Int32" Nullable="false" />
+          <Property Name="Ano_Exp" Type="Int32" Nullable="false" />
+          <Property Name="CVV" Type="Int32" Nullable="false" />
+          <Property Name="Monto" Type="Decimal" Nullable="false" Precision="20" Scale="2" />
           <Property Name="Tipo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
         </EntityType>
+        <Association Name="FK_Transaccion_EasyPay">
+          <End Type="vvuelospagoModel.EasyPay" Role="EasyPay" Multiplicity="1" />
+          <End Type="vvuelospagoModel.Transaccion_EasyPay" Role="Transaccion_EasyPay" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="EasyPay">
+              <PropertyRef Name="Num_Cuenta" />
+            </Principal>
+            <Dependent Role="Transaccion_EasyPay">
+              <PropertyRef Name="Num_Cuenta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Transaccion_Tarjeta">
+          <End Type="vvuelospagoModel.Tarjeta" Role="Tarjeta" Multiplicity="1" />
+          <End Type="vvuelospagoModel.Transaccion_Tarjeta" Role="Transaccion_Tarjeta" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Tarjeta">
+              <PropertyRef Name="Num_Tarjeta" />
+            </Principal>
+            <Dependent Role="Transaccion_Tarjeta">
+              <PropertyRef Name="Num_Tarjeta" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -64,6 +178,7 @@
           <EntitySetMapping Name="EasyPays">
             <EntityTypeMapping TypeName="vvuelospagoModel.EasyPay">
               <MappingFragment StoreEntitySet="EasyPay">
+                <ScalarProperty Name="Saldo" ColumnName="Saldo" />
                 <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
                 <ScalarProperty Name="Codigo_Seguridad" ColumnName="Codigo_Seguridad" />
                 <ScalarProperty Name="Num_Cuenta" ColumnName="Num_Cuenta" />
@@ -73,12 +188,36 @@
           <EntitySetMapping Name="Tarjetas">
             <EntityTypeMapping TypeName="vvuelospagoModel.Tarjeta">
               <MappingFragment StoreEntitySet="Tarjeta">
+                <ScalarProperty Name="Saldo" ColumnName="Saldo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="CVV" ColumnName="CVV" />
+                <ScalarProperty Name="Ano_Exp" ColumnName="Ano_Exp" />
+                <ScalarProperty Name="Mes_Exp" ColumnName="Mes_Exp" />
+                <ScalarProperty Name="Num_Tarjeta" ColumnName="Num_Tarjeta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transaccion_EasyPay">
+            <EntityTypeMapping TypeName="vvuelospagoModel.Transaccion_EasyPay">
+              <MappingFragment StoreEntitySet="Transaccion_EasyPay">
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="Codigo_Seguridad" ColumnName="Codigo_Seguridad" />
+                <ScalarProperty Name="Num_Cuenta" ColumnName="Num_Cuenta" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Transaccion_Tarjeta">
+            <EntityTypeMapping TypeName="vvuelospagoModel.Transaccion_Tarjeta">
+              <MappingFragment StoreEntitySet="Transaccion_Tarjeta">
                 <ScalarProperty Name="Tipo" ColumnName="Tipo" />
                 <ScalarProperty Name="Monto" ColumnName="Monto" />
                 <ScalarProperty Name="CVV" ColumnName="CVV" />
                 <ScalarProperty Name="Ano_Exp" ColumnName="Ano_Exp" />
                 <ScalarProperty Name="Mes_Exp" ColumnName="Mes_Exp" />
                 <ScalarProperty Name="Num_Tarjeta" ColumnName="Num_Tarjeta" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

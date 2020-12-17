@@ -46,10 +46,10 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <HintPath>packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+      <HintPath>packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.AspNetCore.Cors, Version=2.2.0.0, Culture=neutral, PublicKeyToken=adb9793829ddae60, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.AspNetCore.Cors.2.2.0\lib\netstandard2.0\Microsoft.AspNetCore.Cors.dll</HintPath>
@@ -223,6 +223,8 @@
     <Compile Include="Controllers\EasyPaysController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TarjetasController.cs" />
+    <Compile Include="Controllers\TEasyPaysController.cs" />
+    <Compile Include="Controllers\TTarjetasController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="EasyPay.cs">
       <DependentUpon>Model_DBvvuelospago.tt</DependentUpon>
@@ -247,6 +249,12 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tarjeta.cs">
+      <DependentUpon>Model_DBvvuelospago.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Transaccion_EasyPay.cs">
+      <DependentUpon>Model_DBvvuelospago.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Transaccion_Tarjeta.cs">
       <DependentUpon>Model_DBvvuelospago.tt</DependentUpon>
     </Compile>
   </ItemGroup>

@@ -25,7 +25,7 @@ namespace vvuelospago_backend.Controllers
 
         // GET: api/Tarjetas/5
         [ResponseType(typeof(Tarjeta))]
-        public IHttpActionResult GetTarjeta(int id)
+        public IHttpActionResult GetTarjeta(long id)
         {
             Tarjeta tarjeta = db.Tarjetas.Find(id);
             if (tarjeta == null)
@@ -38,7 +38,7 @@ namespace vvuelospago_backend.Controllers
 
         // PUT: api/Tarjetas/5
         [ResponseType(typeof(void))]
-        public IHttpActionResult PutTarjeta(int id, Tarjeta tarjeta)
+        public IHttpActionResult PutTarjeta(long id, Tarjeta tarjeta)
         {
             if (!ModelState.IsValid)
             {
@@ -88,7 +88,14 @@ namespace vvuelospago_backend.Controllers
             }
             catch (DbUpdateException)
             {
-               
+                if (TarjetaExists(tarjeta.Num_Tarjeta))
+                {
+                    return Conflict();
+                }
+                else
+                {
+                    throw;
+                }
             }
 
             return CreatedAtRoute("DefaultApi", new { id = tarjeta.Num_Tarjeta }, tarjeta);
@@ -96,7 +103,7 @@ namespace vvuelospago_backend.Controllers
 
         // DELETE: api/Tarjetas/5
         [ResponseType(typeof(Tarjeta))]
-        public IHttpActionResult DeleteTarjeta(int id)
+        public IHttpActionResult DeleteTarjeta(long id)
         {
             Tarjeta tarjeta = db.Tarjetas.Find(id);
             if (tarjeta == null)
@@ -119,7 +126,7 @@ namespace vvuelospago_backend.Controllers
             base.Dispose(disposing);
         }
 
-        private bool TarjetaExists(int id)
+        private bool TarjetaExists(long id)
         {
             return db.Tarjetas.Count(e => e.Num_Tarjeta == id) > 0;
         }

@@ -12,11 +12,12 @@ namespace vvuelospago_backend
     using System;
     using System.Collections.Generic;
     
-    public partial class EasyPay
+    public partial class Transaccion_EasyPay
     {
+        public int Codigo { get; set; }
         public int Num_Cuenta { get; set; }
         public int Codigo_Seguridad { get; set; }
+        public decimal Monto { get; set; }
         public string Contrasena { get; set; }
-        public decimal Saldo { get; set; }
     }
 }

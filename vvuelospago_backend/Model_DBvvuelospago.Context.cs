@@ -27,5 +27,7 @@ namespace vvuelospago_backend
     
         public virtual DbSet<EasyPay> EasyPays { get; set; }
         public virtual DbSet<Tarjeta> Tarjetas { get; set; }
+        public virtual DbSet<Transaccion_EasyPay> Transaccion_EasyPay { get; set; }
+        public virtual DbSet<Transaccion_Tarjeta> Transaccion_Tarjeta { get; set; }
     }
 }
