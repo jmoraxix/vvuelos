@@ -29,10 +29,8 @@ export default class VueloDisponible extends Component {
   }
 
   listarVuelos() {
-    console.log(1);
     VueloDataService.getAll()
         .then(response => {
-          console.log(2);
           this.setState({
             listaVuelos: response.data
           });
@@ -56,8 +54,7 @@ export default class VueloDisponible extends Component {
         });
   }
 
-  crearReservacion(reservacion) {
-    console.log(reservacion);
+  crearReservacion = (reservacion) => {
     ReservacionDataService.create(reservacion)
       .then(response => {
         console.log(response.data);
@@ -67,7 +64,7 @@ export default class VueloDisponible extends Component {
       .catch(e => {
         console.log(e);
       });
-  }
+  };
 
   nuevaCompra = () => {
     return {
@@ -195,7 +192,7 @@ export default class VueloDisponible extends Component {
                       value={this.state.form.CantidadCampos}
                   />
 
-                  <Input type="select" name="TipoPagoID" id="TipoPagoID" value={this.state.form.TipoPagoID}>
+                  <Input type="select" name="TipoPagoID" id="TipoPagoID" defaultValue={this.state.form.TipoPagoID}>
                     {this.state.listaTipoPago.map((tipoPagoTmp) => (
                         <option value={tipoPagoTmp.Codigo}>{tipoPagoTmp.Nombre}</option>
                     ))}
@@ -215,7 +212,7 @@ export default class VueloDisponible extends Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={this.reservacion(this.state.form)}
+              onClick={this.crearReservacion(this.state.form)}
             >
               Pagar
                 </Button>
