@@ -21,7 +21,8 @@ namespace vvuelos_backend.Controllers
         // GET: api/Bitacoras
         public IQueryable<Bitacora> GetBitacoras()
         {
-            return db.Bitacoras;
+            var items = db.Bitacoras.OrderByDescending(u => u.Codigo).Take(25);
+            return items;
         }
 
         // GET: api/Bitacoras/5
