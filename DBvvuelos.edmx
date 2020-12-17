@@ -98,8 +98,6 @@
           <Property Name="Codigo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Nombre" Type="varchar" MaxLength="25" Nullable="false" />
         </EntityType>
-        <!--Errors Found During Generation:
-warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
         <EntityType Name="RolUsuario">
           <Key>
             <PropertyRef Name="UsuarioID" />
@@ -319,15 +317,10 @@ warning 6002: The table/view 'vvuelos.dbo.RolUsuario' does not have a primary ke
           <EntitySet Name="Puerta" EntityType="Self.Puerta" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Reservacion" EntityType="Self.Reservacion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="RolUsuario" EntityType="Self.RolUsuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TipoPago" EntityType="Self.TipoPago" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Vuelo" EntityType="Self.Vuelo" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="RolUsuario" EntityType="Self.RolUsuario" store:Type="Tables" store:Schema="dbo">
-            <DefiningQuery>SELECT 
-    [RolUsuario].[UsuarioID] AS [UsuarioID], 
-    [RolUsuario].[RolID] AS [RolID]
-    FROM [dbo].[RolUsuario] AS [RolUsuario]</DefiningQuery>
-          </EntitySet>
           <AssociationSet Name="FK_Bitacora_AccionID" Association="Self.FK_Bitacora_AccionID">
             <End Role="Accion" EntitySet="Accion" />
             <End Role="Bitacora" EntitySet="Bitacora" />
