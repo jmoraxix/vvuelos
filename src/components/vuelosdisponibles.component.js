@@ -187,7 +187,7 @@ export default class VueloDisponible extends Component {
               <Col>
                 <input
                     className="form-control"
-                    name="Campos"
+                    name="CantidadCampos"
                     type="number"
                     onChange={this.handleChange}
                     value={this.state.form.CantidadCampos}
@@ -219,7 +219,7 @@ export default class VueloDisponible extends Component {
                   <label> Total a pagar:</label>
                 </Col>
                 <Col>
-                  <Input type="number" name="totalPagar" value={this.state.totalPagar} read-only/>
+                  <Input type="number" name="totalPagar" value={this.state.totalPagar} disabled/>
                 </Col>
               </Row>
             </FormGroup>
