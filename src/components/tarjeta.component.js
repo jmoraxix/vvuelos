@@ -10,7 +10,9 @@ const PaymentForm = (monto) => {
         Num_Tarjeta: '',
         Nombre: '',
         CVV: '',
-        expiry: '',
+        Mes_Exp: '',
+        Ano_Exp: '',
+        expiry: state.Mes_Exp + '' + state.Ano_Exp,
         focus: '',
         Monto: monto,
         Tipo: "V",
@@ -33,14 +35,16 @@ const PaymentForm = (monto) => {
     }
 
     const submitPayment = () => {
-        console.log("name => " , state.Nombre)
-        console.log("Num_Tarjeta => " , state.Num_Tarjeta)
-        console.log("expiry => " , state.expiry)
-        console.log("cvc => " , state.CVV)
-        console.log("cobro => " , state.Monto)
-        alert(JSON.stringify(state))
+      const tarjeta = {
+        Num_Tarjeta: state.Num_Tarjeta,
+        Mes_Exp: state.Mes_Exp,
+        Ano_Exp: state.Ano_Exp,
+        CVV: state.CVV,
+        Monto: state.Monto
+      }
+        console.log("Tarjeta a validar => ", tarjeta)
 
-      ValidarTarjetaDataService.create(state)
+      ValidarTarjetaDataService.create(tarjeta)
         .then(response => {
           this.setState({
             resultado: response.data
@@ -88,17 +92,28 @@ const PaymentForm = (monto) => {
                         />
                     </div>
                     <div className="form-row">
-                        <div className="form-group col-md-6">
-                            <label htmlFor="expiry">Vencimiento</label>
-                            <input
-                                type="text"
-                                className="form-control"
-                                name="expiry"
-                                maxLength="4"
-                                placeholder="Expiración"
-                                onChange={handleChange}
-                                onFocus={handleFocus}
-                            />
+                        <div className="form-group col-md-3">
+                          <label htmlFor="expiry">Vencimiento</label>
+                          <input
+                              type="text"
+                              className="form-control"
+                              name="Mes_Exp"
+                              maxLength="2"
+                              placeholder="Mes"
+                              onChange={handleChange}
+                              onFocus={handleFocus}
+                          />
+                        </div>
+                        <div className="form-group col-md-3">
+                          <input
+                              type="text"
+                              className="form-control"
+                              name="Ano_Exp"
+                              maxLength="2"
+                              placeholder="A&ntilde;o"
+                              onChange={handleChange}
+                              onFocus={handleFocus}
+                          />
                         </div>
                         <div className="form-group col-md-6">
                             <label htmlFor="CVV">CVC</label>

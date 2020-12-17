@@ -81,7 +81,7 @@ export default class VueloDisponible extends Component {
   }
 
   handleChange = (e) => {
-    console.log("cambio", e.target.name,e.target.value );
+    console.log("Cambio valor:", e.target.name, e.target.value);
     this.setState({
       form: {
         ...this.state.form,
@@ -91,7 +91,7 @@ export default class VueloDisponible extends Component {
 
     if(e.target.name == "CantidadCampos"){
       this.setState({
-          totalPagar: this.state.costoVuelo * this.state.form.CantidadCampos,
+          totalPagar: this.state.costoVuelo * e.target.value,
       });
     }
   };
