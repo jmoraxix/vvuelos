@@ -183,7 +183,7 @@ export default class Consecutivo extends Component {
         <br />
          <Row>
            <Col><h1>Consecutivo</h1></Col>
-           <Col><Button color="success" onClick={()=>this.mostrarModalInsertar()}>Crear</Button></Col>
+           
          </Row>
           <Table>
             <thead>
