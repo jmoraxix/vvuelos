@@ -57,7 +57,7 @@ class App extends Component {
             <Route exact path="/admin/consecutivo" component={Consecutivo} />
             <Route exact path="/admin/error" component={Error} />
             <Route exact path="/admin/usuarios/roles" component={RolUsuario} />
-            <Route exact path="/tarjeta" component={Tarjeta} />
+            <Route exact path="/pago" component={Tarjeta} />
           </Switch>
         </div>
       </div>

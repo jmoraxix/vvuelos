@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Cards from 'react-credit-cards';
 import 'react-credit-cards/es/styles-compiled.css'
 
+
 const PaymentForm = () => {
 
     const [state, setState] = useState({
@@ -13,7 +14,7 @@ const PaymentForm = () => {
     })
 
     const handleFocus = (e) => {
-        this.setState({ 
+        setState({ 
             ...state,
             focus: e.target.name 
         });
@@ -21,7 +22,7 @@ const PaymentForm = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-        this.setState({ 
+        setState({ 
             ...state,
             [name]: value 
         });
@@ -96,15 +97,10 @@ const PaymentForm = () => {
                             />
                         </div>
                     </div>
-                    <button
-                        type="button"
-                        className="btn btn-success btn-block btn-lg"
-                        onClick={submitPayment}
-                    >Pagar</button>
                 </form>
             </div>
         </div>
     );
 }
 
-export default PaymentForm
+export default PaymentForm;

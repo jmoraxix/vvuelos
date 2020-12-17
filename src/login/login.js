@@ -6,6 +6,7 @@ import FacebookLogin from 'react-facebook-login';
 import { Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
+
 function Login(props) {
 
   const cookies = new Cookies();
@@ -60,9 +61,9 @@ function Login(props) {
     if (response) {
       cookies.set('UsuarioID', response.googleId, { path: '/' });
       cookies.set('Correo', response.email, { path: '/' });
-      cookies.set('Nombre', response.nName, { path: '/' });
+      cookies.set('Nombre', response.name, { path: '/' });
       cookies.set('Roles', [], { path: '/' });
-      alert("Bienvenido: " + response.nName );
+      alert("Bienvenido: " + response.name );
       props.history.push('/');
     } else {
       alert('No se pudo iniciar sesión');
@@ -84,6 +85,10 @@ function Login(props) {
   }
 
   return (
+     
+  
+  
+  
     <div className="containerPrincipal">
       <div className="containerLogin">
         <div className="form-group">
@@ -119,6 +124,7 @@ function Login(props) {
               buttonText="Login with Google"
               onSuccess={responseGoogle}
               onFailure={responseGoogle} />
+              
             <div className="App">
               <FacebookLogin
                 appId="141117857540249"
@@ -132,8 +138,10 @@ function Login(props) {
         </div>
       </div>
     </div>
-
+     
+ 
   );
+  
 }
 
 export default Login;

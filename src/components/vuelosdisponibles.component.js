@@ -1,45 +1,30 @@
 import React, { Component } from "react";
 import VueloDataService from "../services/vuelo.service";
-import AerolineaDataService from "../services/aerolinea.service";
-import EstadoVueloDataService from "../services/estadoVuelo.service";
+import ReservacionDataService from "../services/reservacion.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 import Cookies from 'universal-cookie';
+import Tarjeta from './tarjeta.component';
 
 const cookies = new Cookies();
 
 export default class VueloDisponible extends Component {
   state = {
     listaVuelos: [],
-    listaEstadoVuelos: [],
-    listaAerolineas: [],
     modalInsertar: false,
-        modalActualizar: false,
     form: {
+      CantidadCampos: "",
       Consecutivo: "",
-      Campos: "",
-      
+      VueloID:"",
+      UsuarioID:"",
+      TipoPagoID:""
     }
 
   };
   componentDidMount() {
     this.validarSesion();
-    this.listarAerolineas();
     this.listarVuelos();
-    this.listarEstadoVuelos();
-  }
 
-  listarAerolineas() {
-    AerolineaDataService.getAll()
-      .then(response => {
-        this.setState({
-          listaAerolineas: response.data
-        });
-        console.log(response.data);
-      })
-      .catch(e => {
-        console.log(e);
-      });
   }
 
   listarVuelos() {
@@ -57,22 +42,9 @@ export default class VueloDisponible extends Component {
         });
   }
 
-  listarEstadoVuelos() {
-    EstadoVueloDataService.getAll()
-        .then(response => {
-          this.setState({
-            listaEstadoVuelos: response.data
-          });
-          console.log(response.data);
-        })
-        .catch(e => {
-          console.log(e);
-        });
-  }
-
   crearObjeto(data) {
     console.log(data);
-    AerolineaDataService.create(data)
+    ReservacionDataService.create(data)
       .then(response => {
         console.log(response.data);
         this.listarObjetos();
@@ -83,33 +55,15 @@ export default class VueloDisponible extends Component {
       });
   }
 
-  actualizarObjeto(data) {
-    AerolineaDataService.update(data.Consecutivo, data)
-      .then(response => {
-        console.log(response.data);
-        this.listarObjetos();
-        this.cerrarModalActualizar();
-      })
-      .catch(e => {
-        console.log(e);
-      });
-  }
   nuevaCompra = () => {
     return {
-      Campos: "",
-      Consecutivo: ""
-      
+      CantidadCampos: "",
+      Consecutivo: "",
+      VueloID:"",
+      UsuarioID:"",
+      TipoPagoID:"",
     };
   }
-
-  agregarTarjeta = () => {
-    return {
-      Campos: "",
-      Consecutivo: ""
-      
-    };
-  }
-
 
   handleChange = (e) => {
     this.setState({
@@ -135,6 +89,8 @@ export default class VueloDisponible extends Component {
       this.props.history.push('/login');
     }
   };
+
+  
 
   render() {
 
@@ -184,7 +140,7 @@ export default class VueloDisponible extends Component {
         </Container>
 
       
-          <Modal isOpen={this.state.modalInsertar}>
+          <Modal className="modal-dialog modal-xl" isOpen={this.state.modalInsertar}>
             <ModalHeader>
               <div><h3>Reservar</h3></div>
             </ModalHeader>
@@ -201,15 +157,15 @@ export default class VueloDisponible extends Component {
                 onChange={this.handleChange}
                 value={this.state.form.Campos}
               />
-
             </FormGroup>
+            < Tarjeta/>
          </ModalBody>
 
 
           <ModalFooter>
             <Button
               color="primary"
-              onClick={() => this.crearObjeto(this.state.form)}
+              onClick={this.changeState}
             >
               Pagar
                 </Button>
@@ -217,14 +173,7 @@ export default class VueloDisponible extends Component {
               className="btn btn-danger"
               onClick={() => this.cerrarModalInsertar()}
             >
-              Agregar Tarjeta
-                </Button>
-
-                <Button
-              className="btn btn-danger"
-              onClick={() => this.cerrarModalInsertar()}
-            >
-              Easy Pay
+              Cancelar
                 </Button>
           </ModalFooter>
         </Modal>
