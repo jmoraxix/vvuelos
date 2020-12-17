@@ -12,7 +12,7 @@ const PaymentForm = (monto) => {
         CVV: '',
         Mes_Exp: '',
         Ano_Exp: '',
-        expiry: state.Mes_Exp + '' + state.Ano_Exp,
+        expiry: '',
         focus: '',
         Monto: monto,
         Tipo: "V",
@@ -32,6 +32,18 @@ const PaymentForm = (monto) => {
             ...state,
             [name]: value 
         });
+
+        if(name == 'Mes_Exp'){
+          setState({
+            ...state,
+            expiry: value + '' + state.Ano_Exp
+          });
+        } else if(name == 'Ano_Exp'){
+          setState({
+            ...state,
+            expiry: state.Mes_Exp + '' + value
+          });
+        }
     }
 
     const submitPayment = () => {
