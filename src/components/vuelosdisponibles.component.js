@@ -91,7 +91,7 @@ export default class VueloDisponible extends Component {
 
     if(e.target.name == "CantidadCampos"){
       this.setState({
-          "totalPagar" : this.state.costoVuelo * this.state.form.CantidadCampos,
+          totalPagar: this.state.costoVuelo * this.state.form.CantidadCampos,
       });
     }
   };

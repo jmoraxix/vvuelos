@@ -7,12 +7,13 @@ import { Badge } from 'reactstrap';
 const PaymentForm = (monto) => {
 
     const [state, setState] = useState({
-      Num_Tarjeta: '',
-        name: '',
+        Num_Tarjeta: '',
+        Nombre: '',
         CVV: '',
         expiry: '',
         focus: '',
         Monto: monto,
+        Tipo: "V",
         resultado: ''
     })
 
@@ -32,23 +33,23 @@ const PaymentForm = (monto) => {
     }
 
     const submitPayment = () => {
-        console.log("name => " , state.name)
+        console.log("name => " , state.Nombre)
         console.log("Num_Tarjeta => " , state.Num_Tarjeta)
         console.log("expiry => " , state.expiry)
         console.log("cvc => " , state.CVV)
         console.log("cobro => " , state.Monto)
         alert(JSON.stringify(state))
 
-      // ValidarTarjetaDataService.create()
-      //   .then(response => {
-      //     this.setState({
-      //       resultado: response.data
-      //     });
-      //     console.log(response.data);
-      //   })
-      //   .catch(e => {
-      //     console.log(e);
-      //   });
+      ValidarTarjetaDataService.create(state)
+        .then(response => {
+          this.setState({
+            resultado: response.data
+          });
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
     }
 
     return (
@@ -58,7 +59,7 @@ const PaymentForm = (monto) => {
                     cvc={state.CVV}
                     expiry={state.expiry}
                     focused={state.focus}
-                    name={state.name}
+                    name={state.Nombre}
                     number={state.Num_Tarjeta}
                 />
                 <form>
@@ -75,11 +76,11 @@ const PaymentForm = (monto) => {
                         />
                     </div>
                     <div className="form-group">
-                        <label htmlFor="name">Nombre</label>
+                        <label htmlFor="Nombre">Nombre</label>
                         <input
                             type="text"
                             className="form-control"
-                            name="name"
+                            name="Nombre"
                             maxLength="30"
                             placeholder="Nombre"
                             onChange={handleChange}
