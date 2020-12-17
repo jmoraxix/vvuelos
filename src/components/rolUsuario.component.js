@@ -167,7 +167,6 @@ export default class RolUsuario extends Component {
         tieneRol = true;
       }
     });
-    // console.log(tieneRol, rol, usuario);
     return tieneRol;
   }
 
@@ -178,6 +177,8 @@ export default class RolUsuario extends Component {
     } else {
       this.eliminarRol(e.target.getAttribute("usuario"), e.target.getAttribute("rol"));
     }
+    // e.target.setAttribute('checked', e.target.checked);
+    this.listarUsuarios();
   };
 
   validarSesion =() => {
