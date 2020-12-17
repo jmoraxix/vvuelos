@@ -25,7 +25,7 @@ export default class VueloDisponible extends Component {
   componentDidMount() {
     this.validarSesion();
     this.listarVuelos();
-
+    this.listarTipoPago();
   }
 
   listarVuelos() {
@@ -47,7 +47,7 @@ export default class VueloDisponible extends Component {
           this.setState({
             listaTipoPago: response.data
           });
-          console.log(response.data);
+          console.log("tipoPago",response.data);
         })
         .catch(e => {
           console.log(e);
@@ -77,6 +77,7 @@ export default class VueloDisponible extends Component {
   }
 
   handleChange = (e) => {
+    console.log("cambio", e.target.name,e.target.value );
     this.setState({
       form: {
         ...this.state.form,
@@ -184,13 +185,6 @@ export default class VueloDisponible extends Component {
                   <label> Tipo de pago:</label>
                 </Col>
                 <Col>
-                  <input
-                      className="form-control"
-                      name="Campos"
-                      type="number"
-                      onChange={this.handleChange}
-                      value={this.state.form.CantidadCampos}
-                  />
 
                   <Input type="select" name="TipoPagoID" id="TipoPagoID" onChange={this.handleChange} value={this.state.form.TipoPagoID}>
                     {this.state.listaTipoPago.map((tipoPagoTmp) => (
