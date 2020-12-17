@@ -105,3 +105,10 @@ AFTER UPDATE
 AS
 INSERT INTO [Bitacora] ([UsuarioID],[ClaseID],[AccionID],[Detalle]) VALUES (N'Admin',5,2,CONCAT(N'Se actualizo una Reservacion en la base de datos con el consecutivo', (SELECT TOP 1 inserted.Consecutivo FROM inserted)))
 GO
+
+--Logica reservaciones
+CREATE TRIGGER [AfterInsertReservacionVuelo]
+ON [Reservacion]
+AFTER INSERT
+AS
+UPDATE [Vuelo] SET Capacidad = Capacidad - (SELECT TOP 1 inserted.CantidadCampos FROM inserted)

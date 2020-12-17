@@ -60,14 +60,15 @@ INSTEAD OF INSERT
 AS
 BEGIN
 EXEC CrearConsecutivo @ClaID = 4
-INSERT INTO Vuelo VALUES (
+INSERT INTO Vuelo (Consecutivo,	AerolineaID, 
+PaisDestinoID, PaisOrigenID, PuertaID, 
+EstadoVueloID, Precio, Capacidad) VALUES (
 (SELECT CONCAT(Prefijo, Actual) As ConsecutivoVuelo
 FROM Consecutivo
 Where Actual = (SELECT MAX(Actual) AS Actualmax FROM Consecutivo WHERE ClaseID = 4) AND ClaseID = 4),
 (SELECT TOP 1  inserted.AerolineaID FROM inserted),
 (SELECT TOP 1  inserted.PaisDestinoID FROM inserted),
 (SELECT TOP 1  inserted.PaisOrigenID FROM inserted),
-(SELECT TOP 1  inserted.FechaHoraSalida FROM inserted),
 (SELECT TOP 1  inserted.PuertaID FROM inserted),
 (SELECT TOP 1  inserted.EstadoVueloID FROM inserted),
 (SELECT TOP 1  inserted.Precio FROM inserted),
