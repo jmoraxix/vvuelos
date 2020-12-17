@@ -16,9 +16,6 @@ export default class Consecutivo extends Component {
     modalActualizar: false,
     isPrefijoChecked:false,
    
-   
-
-    
     form: {
       Codigo: "",
       Clase: "",
@@ -104,9 +101,9 @@ export default class Consecutivo extends Component {
     return {
       Codigo: 0,
       Clase: 0,
-      TienePrefijo: false,
+      TienePrefijo: true,
       Prefijo: "",
-      TieneRango: false,
+      TieneRango: true,
       RangoInicial: 0,
       RangoFinal: 0,
       Actual:""
@@ -153,6 +150,22 @@ export default class Consecutivo extends Component {
     }
   }
 
+  tienePrefijo(consecutivo){
+    let tienePref = false;
+      if(consecutivo.tienePrefijo){
+        tienePref = true;
+      };
+    return tienePref;
+  }
+
+  tieneRango(consecutivo){
+    let tienerang = false;
+      if(consecutivo.tieneRango){
+        tienerang = true;
+      };
+    return tienerang;
+  }
+
    
   validarSesion =() => {
     if (!cookies.get('UsuarioID')) {
@@ -195,14 +208,16 @@ export default class Consecutivo extends Component {
                 className="form-control"
                 readOnly
                 type="checkbox"
-                value={dato.TienePrefijo}
+                checked={true}
+                onChange={this.handleChange}
               /></td>
                   <td>{dato.Prefijo}</td>
                   <td><input
                 className="form-control"
                 readOnly
                 type="checkbox"
-                value={dato.TieneRango}
+                checked={true}
+                onChange={this.handleChange}
               /></td>
                   <td>{dato.RangoInicial}</td>
                   <td>{dato.RangoFinal}</td>
