@@ -21,8 +21,10 @@ class VueloDataService {
       return http.delete(`/vuelos/${id}`);
     }
   
+   
+
+}
     
-    }
   
   
   export default new VueloDataService();
