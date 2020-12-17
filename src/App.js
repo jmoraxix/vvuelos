@@ -23,6 +23,7 @@ import Bitacora from "./components/bitacora.component";
 import Reservacion from "./components/reservacion.component";
 import Error from "./components/error.component";
 import VueloDisponible from "./components/vuelosdisponibles.component";
+import ReservacionesUsuario from "./components/vuelosdisponibles.component";
 import RolUsuario from "./components/rolUsuario.component";
 
 
@@ -36,24 +37,25 @@ class App extends Component {
           <Switch>
             <Route exact path="/login" component={Login} />
             <Route exact path="/logout" component={logout} />
-            <Route exact path="/" component={Home} />
-            <Route exact path="/usuarios" component={Usuario} />
-            <Route exact path="/roles" component={Rol} />
-            <Route exact path="/vuelos" component={Vuelo} />
-            <Route exact path="/aerolineas" component={Aerolinea} />
-            <Route exact path="/paises" component={Pais} />
-            <Route exact path="/puertas" component={Puerta} />
-            <Route exact path="/estadosVuelos" component={EstadoVuelo} />
-            <Route exact path="/reservaciones" component={Reservacion} />
-            <Route exact path="/tiposPago" component={TipoPago} />
-            <Route exact path="/bitacoras" component={Bitacora} />
-            <Route exact path="/clase" component={Clase} />
-            <Route exact path="/accion" component={Accion} />
-            <Route exact path="/consecutivo" component={Consecutivo} />
             <Route exact path="/registro" component={Registro} />
-            <Route exact path="/erros" component={Error} />
+            <Route exact path="/" component={Home} />
             <Route exact path="/reservar" component={VueloDisponible} />
-            <Route exact path="/usuarios/roles" component={RolUsuario} />
+            <Route exact path="/misReservaciones" component={ReservacionesUsuario} />
+            <Route exact path="/admin/usuarios" component={Usuario} />
+            <Route exact path="/admin/roles" component={Rol} />
+            <Route exact path="/admin/vuelos" component={Vuelo} />
+            <Route exact path="/admin/aerolineas" component={Aerolinea} />
+            <Route exact path="/admin/paises" component={Pais} />
+            <Route exact path="/admin/puertas" component={Puerta} />
+            <Route exact path="/admin/estadosVuelos" component={EstadoVuelo} />
+            <Route exact path="/admin/reservaciones" component={Reservacion} />
+            <Route exact path="/admin/tiposPago" component={TipoPago} />
+            <Route exact path="/admin/bitacoras" component={Bitacora} />
+            <Route exact path="/admin/clase" component={Clase} />
+            <Route exact path="/admin/accion" component={Accion} />
+            <Route exact path="/admin/consecutivo" component={Consecutivo} />
+            <Route exact path="/admin/error" component={Error} />
+            <Route exact path="/admin/usuarios/roles" component={RolUsuario} />
           </Switch>
         </div>
       </div>

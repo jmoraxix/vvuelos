@@ -8,7 +8,7 @@ const NavBar = (props) => {
   const cookies = new Cookies();
   const usuarioID = cookies.get('UsuarioID');
   const nombre = cookies.get('Nombre');
-  const nombreMsj = "Bienvenido " + (nombre? nombre : usuarioID);
+  const mensajeBienvenida = "Bienvenido " + (nombre? nombre : usuarioID);
 
   const [isOpen, setIsOpen] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
@@ -25,7 +25,7 @@ const NavBar = (props) => {
                 <NavLink href="/reservar">Crear reserva</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="/">Mis reservas</NavLink>
+                <NavLink href="/misReservaciones">Mis reservas</NavLink>
               </NavItem>
               <NavItem>
                 <NavLink href="/">Mi cuenta</NavLink>
@@ -37,74 +37,79 @@ const NavBar = (props) => {
                 <DropdownMenu right>
                   <DropdownItem>
                     <NavItem>
-                      <NavLink href="/usuarios" className="text-muted">Usuario</NavLink>
+                      <NavLink href="/admin/usuarios" className="text-muted">Usuario</NavLink>
                     </NavItem>
                   </DropdownItem>
                   <DropdownItem>
                     <NavItem>
-                      <NavLink href="/roles" className="text-muted">Roles</NavLink>
+                      <NavLink href="/admin/roles" className="text-muted">Roles</NavLink>
                     </NavItem>
                   </DropdownItem>
                   <DropdownItem>
                     <NavItem>
-                      <NavLink href="/usuarios/roles" className="text-muted">Asignar roles</NavLink>
-                    </NavItem>
-                  </DropdownItem>
-                  <DropdownItem divider />
-                  <DropdownItem>
-                    <NavItem>
-                      <NavLink href="/aerolineas" className="text-muted">Aerol&iacute;neas</NavLink>
-                    </NavItem>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <NavItem>
-                      <NavLink href="/paises" className="text-muted">Paises</NavLink>
-                    </NavItem>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <NavItem>
-                      <NavLink href="/puertas" className="text-muted">Puertas</NavLink>
-                    </NavItem>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <NavItem>
-                      <NavLink href="/estadosVuelos" className="text-muted">Estados de vuelos</NavLink>
-                    </NavItem>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <NavItem>
-                      <NavLink href="/vuelos" className="text-muted">Vuelos</NavLink>
-                    </NavItem>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <NavItem>
-                      <NavLink href="/tiposPago" className="text-muted">Tipos de Pago</NavLink>
-                    </NavItem>
-                  </DropdownItem>
-                  <DropdownItem>
-                    <NavItem>
-                      <NavLink href="/reservaciones" className="text-muted">Reservaciones</NavLink>
+                      <NavLink href="/admin/usuarios/roles" className="text-muted">Asignar roles</NavLink>
                     </NavItem>
                   </DropdownItem>
                   <DropdownItem divider />
                   <DropdownItem>
                     <NavItem>
-                      <NavLink href="/consecutivo" className="text-muted">Consecutivo</NavLink>
+                      <NavLink href="/admin/aerolineas" className="text-muted">Aerol&iacute;neas</NavLink>
                     </NavItem>
                   </DropdownItem>
                   <DropdownItem>
                     <NavItem>
-                      <NavLink href="/clase" className="text-muted">Clase</NavLink>
+                      <NavLink href="/admin/paises" className="text-muted">Paises</NavLink>
                     </NavItem>
                   </DropdownItem>
                   <DropdownItem>
                     <NavItem>
-                      <NavLink href="/accion" className="text-muted">Acci&oacute;n</NavLink>
+                      <NavLink href="/admin/puertas" className="text-muted">Puertas</NavLink>
                     </NavItem>
                   </DropdownItem>
                   <DropdownItem>
                     <NavItem>
-                      <NavLink href="/bitacoras" className="text-muted">Bit&aacute;cora</NavLink>
+                      <NavLink href="/admin/estadosVuelos" className="text-muted">Estados de vuelos</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/admin/vuelos" className="text-muted">Vuelos</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/admin/tiposPago" className="text-muted">Tipos de Pago</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/admin/reservaciones" className="text-muted">Reservaciones</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/admin/consecutivo" className="text-muted">Consecutivo</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/admin/clase" className="text-muted">Clase</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/admin/accion" className="text-muted">Acci&oacute;n</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/admin/bitacoras" className="text-muted">Bit&aacute;cora</NavLink>
+                    </NavItem>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <NavItem>
+                      <NavLink href="/admin/error" className="text-muted">Errores</NavLink>
                     </NavItem>
                   </DropdownItem>
                 </DropdownMenu>
@@ -116,7 +121,7 @@ const NavBar = (props) => {
             }
             {
               usuarioID &&
-              <NavbarText>{nombreMsj}</NavbarText>
+              <NavbarText>{mensajeBienvenida}</NavbarText>
             }
           </Collapse>
         </Navbar>
