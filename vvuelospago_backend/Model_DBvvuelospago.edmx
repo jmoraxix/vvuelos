@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="vvuelospagoModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012.Azure" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="EasyPay">
+          <Key>
+            <PropertyRef Name="Num_Cuenta" />
+          </Key>
+          <Property Name="Num_Cuenta" Type="int" Nullable="false" />
+          <Property Name="Codigo_Seguridad" Type="int" Nullable="false" />
+          <Property Name="Contrasena" Type="varchar" MaxLength="25" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tarjeta">
+          <Key>
+            <PropertyRef Name="Num_Tarjeta" />
+          </Key>
+          <Property Name="Num_Tarjeta" Type="bigint" Nullable="false" />
+          <Property Name="Mes_Exp" Type="int" Nullable="false" />
+          <Property Name="Ano_Exp" Type="int" Nullable="false" />
+          <Property Name="CVV" Type="int" Nullable="false" />
+          <Property Name="Monto" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="vvuelospagoModelStoreContainer">
+          <EntitySet Name="EasyPay" EntityType="Self.EasyPay" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tarjeta" EntityType="Self.Tarjeta" Schema="dbo" store:Type="Tables" />
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="vvuelospagoModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="vvuelospagoEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="EasyPays" EntityType="vvuelospagoModel.EasyPay" />
+          <EntitySet Name="Tarjetas" EntityType="vvuelospagoModel.Tarjeta" />
+        </EntityContainer>
+        <EntityType Name="EasyPay">
+          <Key>
+            <PropertyRef Name="Num_Cuenta" />
+          </Key>
+          <Property Name="Num_Cuenta" Type="Int32" Nullable="false" />
+          <Property Name="Codigo_Seguridad" Type="Int32" Nullable="false" />
+          <Property Name="Contrasena" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tarjeta">
+          <Key>
+            <PropertyRef Name="Num_Tarjeta" />
+          </Key>
+          <Property Name="Num_Tarjeta" Type="Int64" Nullable="false" />
+          <Property Name="Mes_Exp" Type="Int32" Nullable="false" />
+          <Property Name="Ano_Exp" Type="Int32" Nullable="false" />
+          <Property Name="CVV" Type="Int32" Nullable="false" />
+          <Property Name="Monto" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="Tipo" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="vvuelospagoModelStoreContainer" CdmEntityContainer="vvuelospagoEntities">
+          <EntitySetMapping Name="EasyPays">
+            <EntityTypeMapping TypeName="vvuelospagoModel.EasyPay">
+              <MappingFragment StoreEntitySet="EasyPay">
+                <ScalarProperty Name="Contrasena" ColumnName="Contrasena" />
+                <ScalarProperty Name="Codigo_Seguridad" ColumnName="Codigo_Seguridad" />
+                <ScalarProperty Name="Num_Cuenta" ColumnName="Num_Cuenta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tarjetas">
+            <EntityTypeMapping TypeName="vvuelospagoModel.Tarjeta">
+              <MappingFragment StoreEntitySet="Tarjeta">
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+                <ScalarProperty Name="Monto" ColumnName="Monto" />
+                <ScalarProperty Name="CVV" ColumnName="CVV" />
+                <ScalarProperty Name="Ano_Exp" ColumnName="Ano_Exp" />
+                <ScalarProperty Name="Mes_Exp" ColumnName="Mes_Exp" />
+                <ScalarProperty Name="Num_Tarjeta" ColumnName="Num_Tarjeta" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
