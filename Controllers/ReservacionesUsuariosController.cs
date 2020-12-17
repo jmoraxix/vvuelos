@@ -12,13 +12,12 @@ using vvuelos_backend;
 
 namespace vvuelos_backend.Controllers
 {
+    [System.Web.Http.Cors.EnableCors(origins: "http://localhost:3001 , http://localhost:3000 ", headers: "*", methods: "*")]
     public class ReservacionesUsuariosController : ApiController
     {
         private vvuelosEntities db = new vvuelosEntities();
 
-        
-
-        // GET: api/ReservacionesUsuarios/5
+        // GET: api/ReservacionesUsuarios/Admin
         [ResponseType(typeof(Reservacion))]
         public IHttpActionResult GetReservacion(string id)
         {
