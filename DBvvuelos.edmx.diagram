@@ -13,7 +13,7 @@
         <EntityTypeShape EntityType="DBvvuelosModel.EstadoVuelo" Width="1.5" PointX="0.75" PointY="4.875" IsExpanded="true" />
         <EntityTypeShape EntityType="DBvvuelosModel.Pai" Width="1.5" PointX="0.75" PointY="7.25" IsExpanded="true" />
         <EntityTypeShape EntityType="DBvvuelosModel.Puerta" Width="1.5" PointX="0.75" PointY="9.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="DBvvuelosModel.Reservacion" Width="1.5" PointX="5.25" PointY="1.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="DBvvuelosModel.Reservacion" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="DBvvuelosModel.Rol" Width="1.5" PointX="0.75" PointY="12.75" IsExpanded="true" />
         <EntityTypeShape EntityType="DBvvuelosModel.TipoPago" Width="1.5" PointX="3" PointY="5.625" IsExpanded="true" />
         <EntityTypeShape EntityType="DBvvuelosModel.Usuario" Width="1.5" PointX="3" PointY="12.25" IsExpanded="true" />

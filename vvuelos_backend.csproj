@@ -402,6 +402,7 @@
     <Compile Include="Controllers\PaisController.cs" />
     <Compile Include="Controllers\PuertasController.cs" />
     <Compile Include="Controllers\ReservacionesController.cs" />
+    <Compile Include="Controllers\ReservacionesUsuariosController.cs" />
     <Compile Include="Controllers\RolsController.cs" />
     <Compile Include="Controllers\RolusuariosController.cs" />
     <Compile Include="Controllers\TipoPagosController.cs" />
