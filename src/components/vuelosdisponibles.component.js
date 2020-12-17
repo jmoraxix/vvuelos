@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import VuelosDisponibleDataService from "../services/vuelosdisponibles.service";
+import VueloDataService from "../services/vuelo.service";
+import AerolineaDataService from "../services/aerolinea.service";
+import EstadoVueloDataService from "../services/estadoVuelo.service";
 import "bootstrap/dist/css/bootstrap.min.css";
 import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 import Cookies from 'universal-cookie';
@@ -8,32 +10,30 @@ const cookies = new Cookies();
 
 export default class VueloDisponible extends Component {
   state = {
-    data: [],
+    listaVuelos: [],
+    listaEstadoVuelos: [],
+    listaAerolineas: [],
     modalInsertar: false,
         modalActualizar: false,
     form: {
       Consecutivo: "",
-      Aerolinea: "",
-      PaisOri: "",
-      PaisDest: "",
-      FechaHoraSal: "",
-      Puerta: "",
-      EstadoVuelo: "",
-      Precio: "",
-      Capacidad: ""
+      Campos: "",
+      
     }
 
   };
   componentDidMount() {
     this.validarSesion();
-    this.listarObjetos();
+    this.listarAerolineas();
+    this.listarVuelos();
+    this.listarEstadoVuelos();
   }
 
-  listarObjetos() {
-    VuelosDisponibleDataService.getAll()
+  listarAerolineas() {
+    AerolineaDataService.getAll()
       .then(response => {
         this.setState({
-          data: response.data
+          listaAerolineas: response.data
         });
         console.log(response.data);
       })
@@ -42,9 +42,37 @@ export default class VueloDisponible extends Component {
       });
   }
 
+  listarVuelos() {
+    console.log(1);
+    VueloDataService.getAll()
+        .then(response => {
+          console.log(2);
+          this.setState({
+            listaVuelos: response.data
+          });
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  listarEstadoVuelos() {
+    EstadoVueloDataService.getAll()
+        .then(response => {
+          this.setState({
+            listaEstadoVuelos: response.data
+          });
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
   crearObjeto(data) {
     console.log(data);
-    VuelosDisponibleDataService.create(data)
+    AerolineaDataService.create(data)
       .then(response => {
         console.log(response.data);
         this.listarObjetos();
@@ -56,7 +84,7 @@ export default class VueloDisponible extends Component {
   }
 
   actualizarObjeto(data) {
-    VuelosDisponibleDataService.update(data.Consecutivo, data)
+    AerolineaDataService.update(data.Consecutivo, data)
       .then(response => {
         console.log(response.data);
         this.listarObjetos();
@@ -68,8 +96,17 @@ export default class VueloDisponible extends Component {
   }
   nuevaCompra = () => {
     return {
-      Capacidad: "",
-      Precio: ""
+      Campos: "",
+      Consecutivo: ""
+      
+    };
+  }
+
+  agregarTarjeta = () => {
+    return {
+      Campos: "",
+      Consecutivo: ""
+      
     };
   }
 
@@ -123,15 +160,15 @@ export default class VueloDisponible extends Component {
             </thead>
 
             <tbody>
-              {this.state.data.map((dato) => (
+              {this.state.listaVuelos.map((dato) => (
                 <tr key={dato.Consecutivo}>
                   <td>{dato.Consecutivo}</td>
-                  <td>{dato.Aerolinea}</td>
-                  <td>{dato.PaisOri}</td>
-                  <td>{dato.PaisDest}</td>
-                  <td>{dato.FechaHoraSal}</td>
-                  <td>{dato.Puerta}</td>
-                  <td>{dato.EstadoVuelo}</td>
+                  <td>{dato.Aerolinea.Nombre}</td>
+                  <td>{dato.PaisO.Nombre}</td>
+                  <td>{dato.PaisD.Nombre}</td>
+                  <td>{dato.FechaHoraSalida}</td>
+                  <td>{dato.Puerta.Nombre}</td>
+                  <td>{dato.EstadoVuelo.Nombre}</td>
                   <td> <Button
               color="primary"
               onClick={() => this.mostrarModalInsertar()}
@@ -155,28 +192,14 @@ export default class VueloDisponible extends Component {
             <ModalBody>
             <FormGroup>
               <label>
-                Precio:
+                Cantidad de campos:
                   </label>
               <input
                 className="form-control"
-                name="Precio"
-                type="double"
-                onChange={this.handleChange}
-                value={this.state.form.Precio}
-              />
-
-            </FormGroup>
-
-            <FormGroup>
-              <label>
-                Capacidad:
-                  </label>
-              <input
-                className="form-control"
-                name="Capacidad"
+                name="Campos"
                 type="number"
                 onChange={this.handleChange}
-                value={this.state.form.Capacidad}
+                value={this.state.form.Campos}
               />
 
             </FormGroup>
@@ -188,13 +211,20 @@ export default class VueloDisponible extends Component {
               color="primary"
               onClick={() => this.crearObjeto(this.state.form)}
             >
-              Insertar
+              Pagar
                 </Button>
             <Button
               className="btn btn-danger"
               onClick={() => this.cerrarModalInsertar()}
             >
-              Cancelar
+              Agregar Tarjeta
+                </Button>
+
+                <Button
+              className="btn btn-danger"
+              onClick={() => this.cerrarModalInsertar()}
+            >
+              Easy Pay
                 </Button>
           </ModalFooter>
         </Modal>

@@ -1,60 +1,80 @@
 import React, { Component } from "react";
 import VueloDataService from "../services/vuelo.service";
+import AerolineaDataService from "../services/aerolinea.service";
+import EstadoVueloDataService from "../services/estadoVuelo.service";
 import "bootstrap/dist/css/bootstrap.min.css";
-import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter,Label,Input} from 'reactstrap';
+import {Row, Col, Table, Button, Container, Modal, ModalBody, ModalHeader, FormGroup, ModalFooter} from 'reactstrap';
 import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
-export default class Vuelo extends Component {
-
-    state = {
-        data: [],
-        modalInsertar: false,
+export default class VueloDisponible extends Component {
+  state = {
+    listaVuelos: [],
+    listaEstadoVuelos: [],
+    listaAerolineas: [],
+    modalInsertar: false,
         modalActualizar: false,
-        form: {
-          Consecutivo: "",
-          Aerolinea: "",
-          PaisOri:"",
-          PaisDest: "",
-          FechaHoraSal:"",
-          Puerta: "",
-          EstadoVuelo:"",
-          Precio:"",
-          Capacidad: ""
-        },
-      };
+    form: {
+      Consecutivo: "",
+      Nombre: "",
+      PaisOri: "",
+      PaisDest: "",
+      FechaHoraSal: "",
+      Puerta: "",
+      Nombre: "",
+      Precio: "",
+      Capacidad: ""
+    }
 
-      componentDidMount() {
-        this.validarSesion();
-        this.listarObjetos();
-      }
-    
-      listarObjetos() {
-        VueloDataService.getAll()
-          .then(response => {
-            console.log(1, response);
-            this.setState({
-              data: response.data
-            });
-            console.log(response.data);
-          })
-          .catch(e => {
-            console.log(e);
+  };
+  componentDidMount() {
+    this.validarSesion();
+    this.listarAerolineas();
+    this.listarVuelos();
+    this.listarEstadoVuelos();
+  }
+
+  listarAerolineas() {
+    AerolineaDataService.getAll()
+      .then(response => {
+        this.setState({
+          listaAerolineas: response.data
+        });
+        console.log(response.data);
+      })
+      .catch(e => {
+        console.log(e);
+      });
+  }
+
+  listarVuelos() {
+    console.log(1);
+    VueloDataService.getAll()
+        .then(response => {
+          console.log(2);
+          this.setState({
+            listaVuelos: response.data
           });
-      }
-    
-      crearObjeto(data){
-        VueloDataService.create(data)
-            .then(response => {
-              console.log(response.data);
-              this.listarObjetos();
-              this.cerrarModalInsertar();
-            })
-            .catch(e => {
-              console.log(e);
-            });
-      }
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
+
+  listarEstadoVuelos() {
+    EstadoVueloDataService.getAll()
+        .then(response => {
+          this.setState({
+            listaEstadoVuelos: response.data
+          });
+          console.log(response.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+  }
     
       actualizarObjeto(data){
         VueloDataService.update(data.Consecutivo, data)
@@ -81,13 +101,13 @@ export default class Vuelo extends Component {
     
       nuevoVuelo = () => {
         return {
-          Consecutivo: "",
-          Aerolinea: "",
+          Consecutivo: 0,
+          Nombre: 0,
           PaisOri:"",
           PaisDest: "",
           FechaHoraSal:"",
           Puerta: "",
-          EstadoVuelo:"",
+          Nombre:"",
           Precio:"",
           Capacidad: ""
         };
@@ -129,6 +149,8 @@ export default class Vuelo extends Component {
         }
       };
       render() {
+
+      
         return (
           <>
             <Container>
@@ -153,18 +175,18 @@ export default class Vuelo extends Component {
                 </thead>
     
                 <tbody>
-                  {this.state.data.map((dato) => (
-                    <tr key={dato.Consecutivo}>
-                      <td>{dato.Consecutivo}</td>
-                      <td>{dato.Aerolinea}</td>
-                      <td>{dato.PaisOri}</td>
-                      <td>{dato.PaisDest}</td>
-                      <td>{dato.FechaHoraSal}</td>
-                      <td>{dato.Puerta}</td>
-                      <td>{dato.EstadoVuelo}</td>
-                      <td>{dato.Precio}</td>
-                      <td>{dato.Capacidad}</td>
-                      <td>
+                {this.state.listaVuelos.map((dato) => (
+                <tr key={dato.Consecutivo}>
+                  <td>{dato.Consecutivo}</td>
+                  <td>{dato.Aerolinea.Nombre}</td>
+                  <td>{dato.PaisO.Nombre}</td>
+                  <td>{dato.PaisD.Nombre}</td>
+                  <td>{dato.FechaHoraSalida}</td>
+                  <td>{dato.Puerta.Nombre}</td>
+                  <td>{dato.EstadoVuelo.Nombre}</td>
+                  <td>{dato.Precio}</td>
+                  <td>{dato.Capacidad}</td>
+                  <td>
                         <Button
                           color="primary"
                           onClick={() => this.mostrarModalActualizar(dato)}
@@ -207,7 +229,7 @@ export default class Vuelo extends Component {
                     name="Nombre"
                     type="text"
                     onChange={this.handleChange}
-                    value={this.state.form.Aerolinea}
+                    value={this.state.form.Nombre}
                   />
                 </FormGroup>
 
@@ -356,7 +378,7 @@ export default class Vuelo extends Component {
                     name="Aerolinea"
                     type="text"
                     onChange={this.handleChange}
-                    value={this.state.form.Aerolinea}
+                    value={this.state.form.Nombre}
                   />
                 </FormGroup>
 

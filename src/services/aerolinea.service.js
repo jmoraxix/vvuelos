@@ -1,6 +1,6 @@
 import http from "../http-common";
 
-class AerolineaService {
+class AerolineaDataService {
   getAll() {
     return http.get("/aerolineas");
   }
@@ -22,4 +22,4 @@ class AerolineaService {
   }
 }
 
-export default new AerolineaService();
+export default new AerolineaDataService();
