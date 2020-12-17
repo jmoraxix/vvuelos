@@ -52,6 +52,7 @@ const PaymentForm = (monto) => {
         Mes_Exp: state.Mes_Exp,
         Ano_Exp: state.Ano_Exp,
         CVV: state.CVV,
+        Tipo: state.Tipo,
         Monto: state.Monto
       }
         console.log("Tarjeta a validar => ", tarjeta)
