@@ -58,10 +58,10 @@ export default class Bitacora extends Component {
               {this.state.data.map((dato) => (
                 <tr key={dato.Codigo}>
                   <td>{dato.Codigo}</td>
-                  <td>{dato.Usuario}</td>
-                  <td>{dato.Clase}</td>
-                  <td>{dato.Accion}</td>
+                  <td>{dato.Usuario.UsuarioID}</td>
+                  <td>{dato.Clase.Nombre}</td>
                   <td>{dato.Detalle}</td>
+                  <td>{dato.Accion.Nombre}</td>
                 </tr>
               ))}
             </tbody>
