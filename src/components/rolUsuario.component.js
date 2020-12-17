@@ -8,100 +8,11 @@ import Cookies from 'universal-cookie';
 
 const cookies = new Cookies();
 
-const rols_data = [
-  {
-    "Codigo": 1,
-    "Nombre": "Administrador"
-  },
-  {
-    "Codigo": 2,
-    "Nombre": "Seguridad"
-  },
-  {
-    "Codigo": 5,
-    "Nombre": "Consecutivo"
-  },
-  {
-    "Codigo": 6,
-    "Nombre": "Mantenimiento"
-  },
-  {
-    "Codigo": 7,
-    "Nombre": "Consulta"
-  }
-];
-
-const users_data = [
-  {
-    "Rols": [],
-    "UsuarioID": "AAAAAAAAAAAAAA",
-    "Contrasena": "AAAAAAAAAAAAAAA",
-    "Correo": "AAAAAAA@GMAIL.com",
-    "PreguntaSeg": "aaaaaaaaaaaaaaa",
-    "RespuestaSeg": "aaaaaaaaaaaa"
-  },
-  {
-    "Rols": [
-      {
-        "Codigo": 1,
-        "Nombre": "Administrador"
-      },
-      {
-        "Codigo": 2,
-        "Nombre": "Seguridad"
-      },
-      {
-        "Codigo": 6,
-        "Nombre": "Mantenimiento"
-      }
-    ],
-    "UsuarioID": "Admin",
-    "Contrasena": "admin",
-    "Correo": "admin@gmail.com",
-    "PreguntaSeg": "Universidad",
-    "RespuestaSeg": "Ulacit"
-  },
-  {
-    "Rols": [],
-    "UsuarioID": "asa",
-    "Contrasena": "a",
-    "Correo": "a",
-    "PreguntaSeg": "a",
-    "RespuestaSeg": "a"
-  },
-  {
-    "Rols": [],
-    "UsuarioID": "Prueba1",
-    "Contrasena": "1234",
-    "Correo": "prueba@gmail.com",
-    "PreguntaSeg": "Comida Favorita",
-    "RespuestaSeg": "Pizza"
-  },
-  {
-    "Rols": [],
-    "UsuarioID": "Sebas",
-    "Contrasena": "12345678",
-    "Correo": "skddrrjsnjs@gmail.com",
-    "PreguntaSeg": "Perro tap",
-    "RespuestaSeg": "soyadmin"
-  },
-  {
-    "Rols": [],
-    "UsuarioID": "William",
-    "Contrasena": "12345678",
-    "Correo": "skddsjddnjsnjs@gmail.com",
-    "PreguntaSeg": "Perro fav",
-    "RespuestaSeg": "123456789"
-  }
-]
-
 export default class RolUsuario extends Component {
 
   state = {
     roles: [],
     usuarios: []
-    // roles: rols_data,
-    // usuarios: users_data
   };
 
   componentDidMount() {
@@ -177,7 +88,6 @@ export default class RolUsuario extends Component {
     } else {
       this.eliminarRol(e.target.getAttribute("usuario"), e.target.getAttribute("rol"));
     }
-    // e.target.setAttribute('checked', e.target.checked);
     this.listarUsuarios();
   };
 
