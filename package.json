@@ -13,6 +13,7 @@
     "mdbreact": "^5.0.1",
     "react": "^17.0.1",
     "react-calendar": "^3.2.1",
+    "react-credit-cards": "^0.8.3",
     "react-dom": "^17.0.1",
     "react-facebook-login": "^4.1.1",
     "react-google-login": "^5.1.25",

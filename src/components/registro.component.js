@@ -126,6 +126,8 @@ export default class Registro extends Component {
   handleRegister() {
     if (this.state.isVerified) {
       this.crearObjeto(this.state.form)
+      alert ('Usuario creado con exito');
+    
     } else {
       alert('Por favor vertifica que eres humano!');
     }

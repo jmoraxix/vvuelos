@@ -25,6 +25,7 @@ import Error from "./components/error.component";
 import VueloDisponible from "./components/vuelosdisponibles.component";
 import ReservacionesUsuario from "./components/reservacionUsuario.component";
 import RolUsuario from "./components/rolUsuario.component";
+import Tarjeta from "./components/tarjeta.component";
 
 
 class App extends Component {
@@ -56,6 +57,7 @@ class App extends Component {
             <Route exact path="/admin/consecutivo" component={Consecutivo} />
             <Route exact path="/admin/error" component={Error} />
             <Route exact path="/admin/usuarios/roles" component={RolUsuario} />
+            <Route exact path="/tarjeta" component={Tarjeta} />
           </Switch>
         </div>
       </div>

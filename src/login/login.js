@@ -56,12 +56,13 @@ function Login(props) {
 
   const responseGoogle = (response) => {
     console.log(response);
+    console.log(response.profileObj);
     if (response) {
       cookies.set('UsuarioID', response.googleId, { path: '/' });
       cookies.set('Correo', response.email, { path: '/' });
-      cookies.set('Nombre', response.name, { path: '/' });
+      cookies.set('Nombre', response.nName, { path: '/' });
       cookies.set('Roles', [], { path: '/' });
-      alert("Bienvenido: " + response.name );
+      alert("Bienvenido: " + response.nName );
       props.history.push('/');
     } else {
       alert('No se pudo iniciar sesión');
