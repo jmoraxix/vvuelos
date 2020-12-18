@@ -236,7 +236,7 @@ export default class VueloDisponible extends Component {
               color="primary"
               onClick={this.crearReservacion(this.state.form)}
             >
-              Pagar
+              Crear reservaci&oacute;n
                 </Button>
             <Button
               className="btn btn-danger"

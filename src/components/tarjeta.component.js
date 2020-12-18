@@ -145,7 +145,7 @@ const PaymentForm = (monto) => {
                       type="button"
                       className="btn btn-success btn-block btn-lg"
                       onClick={submitPayment}
-                  >Validar tarjeta</button>
+                  >Pagar</button>
                   {/*TODO validar colores success/error */}
                   <Badge color="success" pill>{state.resultado}</Badge>
                 </form>
