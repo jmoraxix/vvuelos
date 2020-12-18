@@ -33,17 +33,17 @@ const PaymentForm = (monto) => {
             [name]: value 
         });
 
-        if(name == 'Mes_Exp'){
-          setState({
-            ...state,
-            expiry: value + '' + state.Ano_Exp
-          });
-        } else if(name == 'Ano_Exp'){
-          setState({
-            ...state,
-            expiry: state.Mes_Exp + '' + value
-          });
-        }
+        // if(name == 'Mes_Exp'){
+        //   setState({
+        //     ...state,
+        //     expiry: value + '' + state.Ano_Exp
+        //   });
+        // } else if(name == 'Ano_Exp'){
+        //   setState({
+        //     ...state,
+        //     expiry: state.Mes_Exp + '' + value
+        //   });
+        // }
     }
 
     const submitPayment = () => {
@@ -106,7 +106,7 @@ const PaymentForm = (monto) => {
                     </div>
                     <div className="form-row">
                         <div className="form-group col-md-3">
-                          <label htmlFor="expiry">Vencimiento</label>
+                          <label htmlFor="Mes_Exp">Vencimiento</label>
                           <input
                               type="text"
                               className="form-control"
@@ -118,6 +118,7 @@ const PaymentForm = (monto) => {
                           />
                         </div>
                         <div className="form-group col-md-3">
+                          <label htmlFor="Ano_Exp"></label>
                           <input
                               type="text"
                               className="form-control"
