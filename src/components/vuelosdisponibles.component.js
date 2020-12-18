@@ -16,7 +16,7 @@ export default class VueloDisponible extends Component {
     modalInsertar: false,
     form: {
       CantidadCampos: "",
-      Consecutivo: "",
+      Consecutivo: 0,
       VueloID: 0,
       UsuarioID: "",
       TipoPagoID: 0
@@ -73,7 +73,7 @@ export default class VueloDisponible extends Component {
   nuevaCompra = () => {
     return {
       CantidadCampos: "",
-      Consecutivo: "",
+      Consecutivo: 0,
       VueloID:"",
       UsuarioID:"",
       TipoPagoID:"",
@@ -100,7 +100,7 @@ export default class VueloDisponible extends Component {
     let newForm = this.nuevaCompra();
     newForm.UsuarioID = cookies.get('UsuarioID');
     newForm.VueloID = vuelo.Consecutivo;
-    console.log(newForm);
+    console.log("Creando reserva: ", vuelo, newForm);
 
     this.setState({
       form: newForm,
