@@ -20,7 +20,7 @@ export default class VueloDisponible extends Component {
       VueloID: 0,
       UsuarioID: "",
       TipoPagoID: 0,
-      Fecha: ""
+      Fecha: "2000-12-17"
     },
     costoVuelo: 0,
     capacidadVuelo: 0,
@@ -78,7 +78,7 @@ export default class VueloDisponible extends Component {
       VueloID:"",
       UsuarioID:"",
       TipoPagoID:"",
-      Fecha: ""
+      Fecha: "2000-12-17"
     };
   }
 
