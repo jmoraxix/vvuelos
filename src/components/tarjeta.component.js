@@ -122,7 +122,7 @@ const PaymentForm = (monto) => {
                               type="text"
                               className="form-control"
                               name="Ano_Exp"
-                              maxLength="2"
+                              maxLength="4"
                               placeholder="A&ntilde;o"
                               onChange={handleChange}
                               onFocus={handleFocus}
