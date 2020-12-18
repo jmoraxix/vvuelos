@@ -16,7 +16,7 @@ export default class VueloDisponible extends Component {
     modalInsertar: false,
     form: {
       CantidadCampos: "",
-      Consecutivo: 0,
+      Consecutivo: "0",
       VueloID: 0,
       UsuarioID: "",
       TipoPagoID: 0
@@ -73,7 +73,7 @@ export default class VueloDisponible extends Component {
   nuevaCompra = () => {
     return {
       CantidadCampos: "",
-      Consecutivo: 0,
+      Consecutivo: "0",
       VueloID:"",
       UsuarioID:"",
       TipoPagoID:"",
