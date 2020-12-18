@@ -110,12 +110,14 @@ function Login(props) {
           />
           <br />
           <button className="btn btn-primary" onClick={() => iniciarSesion()}>Iniciar Sesion</button>
+          <h1>  </h1>
           <br />
           <button className="btn btn-primary"  >
             <Link to={"/registro"} className="text-white">
               Registrarse
             </Link>
           </button>
+          <h1></h1>
 
           <div className={'signature'}>
             <GoogleLogin
@@ -123,7 +125,7 @@ function Login(props) {
               buttonText="Login with Google"
               onSuccess={responseGoogle}
               onFailure={responseGoogle} />
-              
+              <h1>  </h1>
             <div className="App">
               <FacebookLogin
                 appId="141117857540249"
