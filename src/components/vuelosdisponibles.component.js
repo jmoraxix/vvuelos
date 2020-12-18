@@ -234,7 +234,7 @@ export default class VueloDisponible extends Component {
           <ModalFooter>
             <Button
               color="primary"
-              onClick={this.crearReservacion(this.state.form)}
+              onClick={() => this.crearReservacion(this.state.form)}
             >
               Crear reservaci&oacute;n
                 </Button>
