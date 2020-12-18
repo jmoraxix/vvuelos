@@ -14,7 +14,7 @@ const PaymentForm = (monto) => {
         Ano_Exp: '',
         expiry: '',
         focus: '',
-        Monto: monto,
+        Monto: 510,
         Tipo: "V",
         resultado: ''
     })
